@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.ActivityProfile">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar_common"/>
+
+        <ScrollView
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:paddingRight="@dimen/margin_16dp"
+                android:paddingLeft="@dimen/margin_16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivUserProfile"
+                    android:src="@drawable/user_icon"
+                    android:layout_gravity="center"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"/>
+
+
+                <LinearLayout
+                    android:id="@+id/llShareBusinessCard"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:padding="@dimen/margin_8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+
+                        android:id="@+id/tv_Share_card"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:text="Share My business card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:tint="@color/colorPrimaryDark"
+                        android:layout_marginLeft="@dimen/margin_8dp"
+                        android:src="@drawable/ic_share_black_24dp"
+                        android:layout_width="@dimen/margin_24dp"
+                        android:layout_height="@dimen/margin_24dp"/>
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_16dp"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:orientation="vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_bussnuss_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Business Name"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4dp"
+                            android:background="@drawable/et_bg_profile_section"
+                            android:orientation="horizontal">
+
+                            <ImageView
+
+                                android:layout_width="@dimen/margin_32_dp"
+                                android:layout_height="@dimen/margin_32_dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/padding_6dp"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:src="@drawable/user_icon" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_marginBottom="@dimen/margin_4dp"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <EditText
+                                android:id="@+id/etNameProfile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:layout_marginRight="@dimen/margin_8dp"
+                                android:background="@null"
+                                android:hint="Enter business name"
+                                android:imeOptions="actionDone"
+                                android:inputType="textPersonName"
+                                android:maxLength="30"
+                                android:maxLines="1"
+                                android:padding="10dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/dark_grey"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:orientation="vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_gst_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="GSTIN number"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4dp"
+                            android:background="@drawable/et_bg_profile_section"
+                            android:orientation="horizontal">
+
+                            <ImageView
+
+                                android:layout_width="@dimen/margin_32_dp"
+                                android:layout_height="@dimen/margin_32_dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/padding_6dp"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:src="@drawable/user_icon" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_marginBottom="@dimen/margin_4dp"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <EditText
+                                android:id="@+id/etGSTINProfile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:layout_marginRight="@dimen/margin_8dp"
+                                android:background="@null"
+                                android:hint="Enter GSTIN Number"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:maxLength="15"
+                                android:maxLines="1"
+                                android:padding="10dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/dark_grey"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_mobile_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mobile Number"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4dp"
+                            android:background="@drawable/et_bg_profile_section"
+                            android:orientation="horizontal">
+
+                            <ImageView
+
+                                android:layout_width="@dimen/margin_32_dp"
+                                android:layout_height="@dimen/margin_32_dp"
+                                android:layout_gravity="center"
+                                android:tint="@color/colorPrimary"
+                                android:padding="@dimen/padding_6dp"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:src="@drawable/mobile_icon" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_marginBottom="@dimen/margin_4dp"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <EditText
+                                android:id="@+id/etMobileNumberProfile"
+                                android:focusable="false"
+                                android:cursorVisible="false"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:layout_marginRight="@dimen/margin_8dp"
+                                android:background="@null"
+                                android:hint="Enter mobile name"
+                                android:imeOptions="actionDone"
+                                android:inputType="textPersonName"
+                                android:maxLength="30"
+                                android:maxLines="1"
+                                android:padding="10dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/dark_grey"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_emailid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email Id"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4dp"
+                            android:background="@drawable/et_bg_profile_section"
+                            android:orientation="horizontal">
+
+                            <ImageView
+
+                                android:layout_width="@dimen/margin_32_dp"
+                                android:layout_height="@dimen/margin_32_dp"
+                                android:layout_gravity="center"
+                                android:tint="@color/colorPrimary"
+                                android:padding="@dimen/padding_6dp"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:src="@drawable/email" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_marginBottom="@dimen/margin_4dp"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <EditText
+                                android:id="@+id/etEmailProfile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:layout_marginRight="@dimen/margin_8dp"
+                                android:background="@null"
+                                android:hint="Enter email id"
+                                android:imeOptions="actionDone"
+                                android:inputType="textPersonName"
+                                android:maxLength="30"
+                                android:maxLines="1"
+                                android:padding="10dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/dark_grey"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_about_us"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="About us"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4dp"
+                            android:background="@drawable/et_bg_profile_section"
+                            android:orientation="horizontal">
+
+                            <ImageView
+
+                                android:layout_width="@dimen/margin_32_dp"
+                                android:layout_height="@dimen/margin_32_dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/padding_6dp"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:src="@drawable/user_icon" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_marginBottom="@dimen/margin_4dp"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <EditText
+                                android:id="@+id/etAboutUsProfile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:layout_marginRight="@dimen/margin_8dp"
+                                android:background="@null"
+                                android:hint="Enter about us"
+                                android:imeOptions="actionDone"
+                                android:inputType="textPersonName"
+                                android:maxLength="30"
+                                android:maxLines="1"
+                                android:padding="10dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/dark_grey"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Address"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4dp"
+                            android:background="@drawable/et_bg_profile_section"
+                            android:orientation="horizontal">
+
+                            <ImageView
+
+                                android:layout_width="@dimen/margin_32_dp"
+                                android:layout_height="@dimen/margin_32_dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/padding_6dp"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:src="@drawable/user_icon" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_marginBottom="@dimen/margin_4dp"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <EditText
+                                android:id="@+id/et_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:layout_marginRight="@dimen/margin_8dp"
+                                android:background="@null"
+                                android:hint="Enter Address"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPersonName"
+                                android:maxLength="120"
+                                android:maxLines="1"
+                                android:padding="10dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/dark_grey"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_person_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Contact person name"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4dp"
+                            android:background="@drawable/et_bg_profile_section"
+                            android:orientation="horizontal">
+
+                            <ImageView
+
+                                android:layout_width="@dimen/margin_32_dp"
+                                android:layout_height="@dimen/margin_32_dp"
+                                android:layout_gravity="center"
+                                android:padding="@dimen/padding_6dp"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:src="@drawable/user_icon" />
+
+                            <View
+                                android:layout_width="0.5dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_marginBottom="@dimen/margin_4dp"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <EditText
+                                android:id="@+id/etContactPersonNameProfile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:layout_marginRight="@dimen/margin_8dp"
+                                android:background="@null"
+                                android:hint="Contact person name"
+                                android:imeOptions="actionDone"
+                                android:inputType="textPersonName"
+                                android:maxLength="30"
+                                android:maxLines="1"
+                                android:padding="10dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/dark_grey"
+                                android:textSize="14sp" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvUpdateProfile"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_32_dp"
+                    android:paddingBottom="@dimen/margin_8dp"
+                    android:paddingTop="@dimen/margin_8dp"
+                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:textColor="@color/white"
+                    android:text="Submit"
+                    android:background="@drawable/btn_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pbProfile"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+
+</RelativeLayout>

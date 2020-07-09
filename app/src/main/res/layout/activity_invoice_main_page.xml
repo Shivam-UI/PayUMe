@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.InvoiceMainPage">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:background="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:background="@color/colorAccent"
+                        android:paddingRight="@dimen/margin_8dp"
+                        android:paddingLeft="@dimen/margin_8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize">
+
+                        <ImageView
+
+                            android:id="@+id/ivInvoiceMainPage"
+                            android:padding="@dimen/margin_4dp"
+                            android:layout_centerVertical="true"
+                            android:tint="@color/white"
+                            android:src="@drawable/arrow_back_black"
+                            android:layout_width="@dimen/margin_32_dp"
+                            android:layout_height="@dimen/margin_32_dp"/>
+
+
+                       <RelativeLayout
+                           android:layout_centerVertical="true"
+                           android:layout_marginRight="@dimen/margin_24dp"
+                           android:focusable="true"
+                           android:focusableInTouchMode="true"
+                           android:layout_marginLeft="@dimen/margin_4dp"
+                           android:layout_toRightOf="@+id/ivInvoiceMainPage"
+                           android:background="@drawable/toolbar_bg_search"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+
+                           <EditText
+                               android:id="@+id/etSearchOrFilter"
+                               android:layout_toLeftOf="@id/ivFilter"
+                               android:background="@null"
+                               android:focusableInTouchMode="true"
+                               android:hint="Search or filter"
+                               android:maxLines="1"
+                               android:imeOptions="actionGo"
+                               android:padding="6dp"
+                               android:textColorHint="@color/dark_grey"
+                               android:textSize="14sp"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"/>
+
+
+                           <ImageView
+                               android:id="@+id/ivFilter"
+                               android:layout_marginRight="@dimen/margin_4dp"
+                               android:layout_width="@dimen/margin_32_dp"
+                               android:layout_height="@dimen/margin_32_dp"
+                               android:layout_alignParentRight="true"
+                               android:padding="@dimen/margin_4dp"
+                               android:layout_centerInParent="true"
+                               android:src="@drawable/filter_24_dp"
+                               android:tint="@color/colorPrimary" />
+
+
+                       </RelativeLayout>
+
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+
+                    android:id="@+id/llTabLayoutParent"
+                    android:background="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:padding="@dimen/margin_8dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_layoutInvoiceMainPage"
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="@dimen/margin_8dp"
+                            android:layout_marginRight="@dimen/margin_8dp"
+                            android:background="@drawable/tab_layout_background"
+                            app:tabMode="fixed"
+                            app:tabBackground="@drawable/tab_layout_selector"
+                            app:tabSelectedTextColor="@color/colorPrimaryDark"
+                            app:tabPaddingStart="16dp"
+                            app:tabPaddingEnd="16dp"
+                            app:tabIndicatorHeight="0dp"
+                            app:tabRippleColor="@null"
+                            android:layout_height="36dp"
+                            app:tabTextAppearance="@style/TabTextAppearance"
+                            app:tabTextColor="@color/very_light_grey">
+
+
+                            <com.google.android.material.tabs.TabItem
+                                android:id="@+id/tab_MerchantsInvoiceAll"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="All" />
+
+                            <com.google.android.material.tabs.TabItem
+                                android:id="@+id/tab_InvoicesPaid"
+                                android:background="@color/red"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Paid" />
+
+                            <com.google.android.material.tabs.TabItem
+                                android:id="@+id/tab_InvoicesOutStanding"
+                                android:background="@color/red"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Due" />
+
+
+                        </com.google.android.material.tabs.TabLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPagerInvoiceMainPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                </androidx.viewpager.widget.ViewPager>
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlAddInvoiceMainPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="@dimen/margin_24dp"
+        android:layout_marginBottom="@dimen/margin_16dp"
+        android:background="@drawable/circle"
+        android:padding="@dimen/padding_4dp">
+
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="10sp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:text="+Create"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:textSize="10sp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:text="Invoice"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

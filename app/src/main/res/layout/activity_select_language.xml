@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ActivitySelectLanguage">
+
+    <LinearLayout
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:layout_above="@id/llNextSelectLanguage"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_16dp"
+            android:layout_marginLeft="@dimen/margin_16dp"
+           android:layout_marginTop="@dimen/margin_8dp"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:src="@drawable/logo"
+                android:layout_width="80dp"
+                android:layout_height="40dp"/>
+
+
+            <TextView
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:text="Select your language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/rvSelectLanguage"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llNextSelectLanguage"
+        android:layout_marginBottom="@dimen/margin_8dp"
+        android:background="@color/fragment_bg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+
+            android:id="@+id/llNext"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/margin_32_dp"
+            android:layout_marginRight="@dimen/margin_32_dp"
+            android:paddingBottom="@dimen/margin_8dp"
+            android:paddingTop="@dimen/margin_8dp"
+            android:background="@drawable/btn_bg"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="Next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:layout_marginLeft="@dimen/margin_8dp"
+                android:layout_gravity="center"
+                android:tint="@color/white"
+                android:src="@drawable/arrow_right"
+                android:layout_width="@dimen/margin_24dp"
+                android:layout_height="@dimen/margin_24dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvNext"
+            android:gravity="center"
+
+            android:paddingBottom="@dimen/margin_8dp"
+            android:paddingTop="@dimen/margin_8dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/white"
+            android:text="Next"
+            android:background="@drawable/btn_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+
+            android:padding="@dimen/padding_4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:lineSpacingExtra="@dimen/margin_2dp"
+            android:text="By continuing, you agree to our Terms of service and Privacy Policy"
+            android:textAlignment="center"
+            android:textColor="@color/dark_grey" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

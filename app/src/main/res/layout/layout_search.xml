@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/margin_16dp"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_marginBottom="@dimen/margin_8dp"
+                android:layout_marginRight="@dimen/margin_8dp"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+               android:layout_marginLeft="@dimen/margin_8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/toolbar_bg_search">
+
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_toLeftOf="@+id/ivFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="text"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:background="@null"
+                    android:hint="Search or filter"
+                    android:maxLines="1"
+                    android:imeOptions="actionSearch"
+                    android:padding="6dp"
+                    android:textColorHint="@color/dark_grey"
+                    android:textSize="14sp" />
+
+
+
+                <ImageView
+                    android:id="@+id/ivFilter"
+                    android:layout_marginRight="@dimen/margin_4dp"
+                    android:layout_width="@dimen/margin_32_dp"
+                    android:layout_height="@dimen/margin_32_dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/margin_4dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/filter_24_dp"
+                    android:tint="@color/colorPrimary" />
+
+
+            </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

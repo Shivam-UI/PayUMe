@@ -1,0 +1,238 @@
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardAddedCustomers"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/fragment_bg"
+                    android:paddingLeft="@dimen/margin_4dp"
+                    android:paddingTop="@dimen/margin_8dp"
+                    android:paddingRight="@dimen/margin_4dp"
+                    android:paddingBottom="@dimen/margin_8dp">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvMerchantName"
+                            android:text="MerchantName"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:background="@color/fragment_bg"
+                    android:paddingLeft="@dimen/margin_8dp"
+                    android:paddingRight="@dimen/margin_8dp"
+                    android:paddingTop="@dimen/padding_6dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/llPayCreditNameLayout"
+                        android:layout_marginRight="@dimen/margin_8dp"
+                        android:layout_toLeftOf="@+id/ivEdit"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:src="@drawable/user_icon"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"/>
+
+                        <TextView
+                            android:id="@+id/tvAddedCustomerName"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_14sp"
+                            android:layout_marginLeft="@dimen/margin_8dp"
+                            android:textStyle="bold"
+                            android:text="Paykredit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+
+                    <ImageView
+                        android:id="@+id/ivEdit"
+                        android:layout_toLeftOf="@+id/ivDeleteCustomer"
+                        android:layout_marginRight="@dimen/margin_4dp"
+                        android:layout_width="32dp"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:padding="@dimen/padding_6dp"
+                        android:src="@drawable/edit"
+                        android:tint="@color/colorPrimary" />
+
+
+
+                    <ImageView
+                        android:id="@+id/ivDeleteCustomer"
+                        android:layout_width="32dp"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/padding_6dp"
+                        android:src="@drawable/delete"
+                        android:tint="@color/colorPrimary" />
+
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:background="@color/very_light_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+
+            android:paddingRight="@dimen/margin_4dp"
+            android:paddingLeft="@dimen/margin_4dp"
+            android:paddingBottom="@dimen/margin_4dp"
+            android:layout_marginTop="@dimen/margin_4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_toLeftOf="@+id/llCustomerContact"
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/margin_8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAddressLine1"
+                    android:textSize="@dimen/text_12sp"
+                    android:text="G 25, Shaheen Bagh, Okhla"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvAddressLine2"
+                    android:textSize="@dimen/text_12sp"
+                    android:maxLines="2"
+                    android:text="New Delhi - 110025, India"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llCustomerContact"
+                android:orientation="vertical"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:tint="@color/colorAccent"
+                        android:src="@drawable/mobile_icon"
+                        android:layout_width="@dimen/margin_16dp"
+                        android:layout_height="@dimen/margin_16dp"/>
+
+                    <TextView
+                        android:id="@+id/tvCustomerMobileNumber"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="@dimen/margin_4dp"
+                        android:textSize="@dimen/text_12sp"
+                        android:text="0123456789"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:tint="@color/colorAccent"
+                        android:layout_gravity="center"
+                        android:src="@drawable/email"
+                        android:layout_width="@dimen/margin_16dp"
+                        android:layout_height="@dimen/margin_16dp"/>
+
+                    <TextView
+                        android:id="@+id/tvCustomerEmail"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="@dimen/margin_4dp"
+                        android:textSize="@dimen/text_12sp"
+                        android:text="abc@gmail.com"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+</androidx.cardview.widget.CardView>

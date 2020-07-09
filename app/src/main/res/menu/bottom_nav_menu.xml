@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_credit_book"
+        android:icon="@drawable/credit_book"
+        android:title="Credit Book" />
+
+    <item
+        android:id="@+id/navigation_invoices"
+        android:icon="@drawable/invoices"
+        android:title="Invoices" />
+
+</menu>

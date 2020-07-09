@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_color_accent"
+    tools:context=".bottomsheets.BottomSheetDeleteItems">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_32_dp"
+            android:paddingBottom="@dimen/margin_32_dp"
+            android:layout_marginRight="@dimen/margin_32_dp"
+            android:layout_marginLeft="@dimen/margin_32_dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <LinearLayout
+                android:id="@+id/llClose"
+                android:padding="@dimen/margin_16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="center"
+                    android:tint="@color/red"
+                    android:src="@drawable/alert"
+                    android:layout_width="@dimen/margin_32_dp"
+                    android:layout_height="@dimen/margin_32_dp"/>
+
+                <TextView
+                    android:textSize="@dimen/text_14sp"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:textColor="@color/red"
+                    android:layout_gravity="center"
+                    android:text="Delete Item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:background="@color/colorPrimaryDark"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+
+                <LinearLayout
+
+                    android:layout_marginTop="@dimen/margin_24dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:text="Are you sure want to delete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                        <TextView
+                            android:id="@+id/tvDeleteItemName"
+                            android:layout_marginTop="@dimen/margin_8dp"
+                            android:textColor="@color/black"
+                            android:text=""
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_10sp"
+                            android:text="Note : "
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                        <TextView
+
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/text_10sp"
+                            android:text="All of it's transactions will be deleted"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+
+
+                    </LinearLayout>
+
+
+                    <ProgressBar
+                        android:id="@+id/pbDeleteItems"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/margin_8dp"
+                        android:layout_gravity="center"
+                        android:layout_width="@dimen/margin_32_dp"
+                        android:layout_height="@dimen/margin_32_dp"/>
+
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/llCancelItems"
+                            android:layout_marginRight="@dimen/margin_8dp"
+                            android:padding="@dimen/margin_6dp"
+                            android:background="@drawable/btn_bg"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvCancel"
+                                android:textStyle="bold"
+                                android:maxLines="1"
+                                android:textColor="@color/white"
+                                android:text="Cancel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <ImageView
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:tint="@color/white"
+                                android:layout_gravity="center"
+                                android:src="@drawable/cancel"
+                                android:layout_width="@dimen/text_16sp"
+                                android:layout_height="@dimen/text_16sp"/>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/llDeleteItems"
+                            android:padding="@dimen/margin_6dp"
+                            android:background="@drawable/btn_bg_red"
+                            android:layout_marginLeft="@dimen/margin_8dp"
+                            android:gravity="center"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvBottomSheetCallNUmber"
+                                android:textStyle="bold"
+                                android:maxLines="1"
+                                android:textColor="@color/white"
+                                android:text="Delete"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <ImageView
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:tint="@color/white"
+                                android:layout_gravity="center"
+                                android:src="@drawable/delete"
+                                android:layout_width="@dimen/text_16sp"
+                                android:layout_height="@dimen/text_16sp"/>
+
+
+                        </LinearLayout>
+
+
+
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:padding="@dimen/margin_2dp"
+            android:tint="@color/colorPrimary"
+            android:layout_margin="@dimen/margin_32_dp"
+            android:src="@drawable/cancel"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/margin_32_dp"
+            android:layout_height="24dp"/>
+
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

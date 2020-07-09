@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#166CB5</color>
+    <color name="colorPrimaryDark">#1464A8</color>
+    <color name="colorAccent">#166CB5</color>
+    <color name="text_color">#1C478A</color>
+    <color name="black">#000000</color>
+
+    <color name="red">#F33939</color>
+    <color name="light_red">#EF6060</color>
+
+    <color name="blue">#1C478A</color>
+    <color name="dark_blue">#122E58</color>
+    <color name="light_green">#459C49</color>
+    <color name="pink">#DA491B</color>
+    <color name="violet">#303B8F</color>
+
+    <color name="test">#E8E7E7</color>
+    <color name="blue_for_box">#3B4E87</color>
+    <color name="dark_blue_visiting">#071F5F</color>
+
+
+
+
+    <color name="fragment_bg">#FAFAFA</color>
+    <color name="white">#ffffff</color>
+    <color name="tab_not_selected">#BEBEBE</color>
+    <color name="dark_grey">#5A5A5A</color>
+    <color name="view_bg_color">#797878</color>
+    <color name="green">#009688</color>
+    <color name="light_grey">#929292</color>
+    <color name="daker_grey">#C3C1C1</color>
+    <color name="very_light_grey">#CCCCCC</color>
+    <color name="et_hint_color">#5C5B5B</color>
+</resources>
