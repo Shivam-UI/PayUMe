@@ -1,6 +1,7 @@
 package com.lgt.paykredit.bottomsheets;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,15 +26,17 @@ import com.lgt.paykredit.extras.Language;
 import java.io.IOException;
 import java.util.Objects;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class BottomSheetShareStatement extends BottomSheetDialogFragment {
 
     private RelativeLayout rlFullStatement;
     private TextView tv_share_title,tv_account_statement;
     private String pathFile;
-
+    private SharedPreferences sharedPreferences;
     private ProgressBar pbShareStatement;
-
+    private String mPrimaryBusinessNumber;
 
     public BottomSheetShareStatement() {
     }
@@ -48,7 +51,11 @@ public class BottomSheetShareStatement extends BottomSheetDialogFragment {
         pbShareStatement = view.findViewById(R.id.pbShareStatement);
         tv_share_title = view.findViewById(R.id.tv_share_title);
         tv_account_statement = view.findViewById(R.id.tv_account_statement);
-
+        sharedPreferences = getActivity().getSharedPreferences("USER_DATA", MODE_PRIVATE);
+        if (sharedPreferences.contains("KEY_MOBILE")) {
+            mPrimaryBusinessNumber = sharedPreferences.getString("KEY_MOBILE", "");
+        }
+        Log.d("Mobile",""+mPrimaryBusinessNumber);
         Bundle bundle = getArguments();
         if (bundle != null) {
             if (bundle.containsKey("KEY_PATH")) {
@@ -134,14 +141,14 @@ public class BottomSheetShareStatement extends BottomSheetDialogFragment {
 
     private void sendImage() throws IOException, DocumentException {
 
-        String mMobile = "8826025250";
+        //String mMobile = "9999870918";
         boolean installed = appInstalledOrNot("com.whatsapp");
         if (installed) {
             if (getActivity() != null) {
                 PackageManager packageManager = getActivity().getPackageManager();
 
                 try {
-                    String url = "https://api.whatsapp.com/send?phone=" + "+91" + mMobile;
+                    String url = "https://api.whatsapp.com/send?phone=" + "+91" + mPrimaryBusinessNumber;
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("application/pdf");
                     share.putExtra(Intent.EXTRA_STREAM, Uri.parse(pathFile));
