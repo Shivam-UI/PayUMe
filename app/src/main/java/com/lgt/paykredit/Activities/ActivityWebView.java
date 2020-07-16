@@ -48,6 +48,7 @@ public class ActivityWebView extends AppCompatActivity {
         ivBackSingleUserTransaction = findViewById(R.id.ivBackSingleUserTransaction);
 
         pbWebView = findViewById(R.id.pbWebView);
+        Log.d("Account","");
 
 
         Intent getURL = getIntent();
@@ -75,7 +76,11 @@ public class ActivityWebView extends AppCompatActivity {
         WebSettings webSettings = webViewPayKredit.getSettings();
 
         webViewPayKredit.getSettings().setJavaScriptEnabled(true);
+     //   webViewPayKredit.getSettings().setLoadWithOverviewMode(true);
         webViewPayKredit.getSettings().setUseWideViewPort(true);
+     //   webViewPayKredit.getSettings().setLoadWithOverviewMode(true);
+        webViewPayKredit.setInitialScale(1);
+
 
         webSettings.setDomStorageEnabled(true);
 
