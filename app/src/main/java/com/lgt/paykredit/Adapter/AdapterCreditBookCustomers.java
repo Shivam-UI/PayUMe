@@ -47,11 +47,10 @@ public class AdapterCreditBookCustomers extends RecyclerView.Adapter<AdapterCred
     }
 
 
-
     @NonNull
     @Override
     public HolderCreditBookCustomers onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_credit_book_customers,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_credit_book_customers, parent, false);
         return new HolderCreditBookCustomers(view);
     }
 
@@ -62,7 +61,7 @@ public class AdapterCreditBookCustomers extends RecyclerView.Adapter<AdapterCred
         holder.tvDate.setText(listCredit.get(position).getDate());
 
 
-        if(listCredit.get(position).getAdvanceOrDue().equals("Due")){
+        if (listCredit.get(position).getAdvanceOrDue().equals("Due")) {
 
             holder.tvAmount.setTextColor(context.getResources().getColor(R.color.red));
             holder.tvAmountOrDue.setTextColor(context.getResources().getColor(R.color.red));
@@ -71,45 +70,35 @@ public class AdapterCreditBookCustomers extends RecyclerView.Adapter<AdapterCred
 
             holder.tvAmount.setText(listCredit.get(position).getAmount());
             holder.tvAmountOrDue.setText(listCredit.get(position).getAdvanceOrDue());
-            if (Common.checkInternetConnection(context)) {
-                if(Common.getLanguage(context) == "EN"){
 
-                }else if(Common.getLanguage(context) == "HI"){
-                    holder.tvAmountOrDue.setText("उधार");
-                }
+
+            if (Common.getLanguage(context).equalsIgnoreCase(Common.HINDI)) {
+
+                holder.tvAmountOrDue.setText("उधार");
+                holder.tvDeleteCustomer.setText("(हटाएं)");
                 //If there is internet connection, get translate service and start translation:
                 //holder.tvDeleteCustomer.setText(Language.convertLanguage(context, holder.tvDeleteCustomer.getText().toString(),Common.getLanguage(context)));
                 //holder.tvAmountOrDue.setText(Language.convertLanguage(context, "Borrow",Common.getLanguage(context)));
-
-
             } else {
 
-                //If not, display "no connection" warning:
                 holder.tvAmount.setText(listCredit.get(position).getAmount());
-                holder.tvAmountOrDue.setText( holder.tvAmountOrDue.getText().toString());
-
-
+                holder.tvAmountOrDue.setText(holder.tvAmountOrDue.getText().toString());
             }
-        }
 
-        else {
+        } else {
             holder.tvAmount.setTextColor(context.getResources().getColor(R.color.green));
             holder.tvAmountOrDue.setTextColor(context.getResources().getColor(R.color.green));
             holder.ivRupees.setColorFilter(ContextCompat.getColor(context, R.color.green));
             holder.tvAmount.setText(listCredit.get(position).getAmount());
             holder.tvAmountOrDue.setText(listCredit.get(position).getAdvanceOrDue());
 
-            if (Common.getLanguage(context) == "HI") {
-
-                    holder.tvAmountOrDue.setText("एडवांस");
-                    holder.tvDeleteCustomer.setText("(हटाएं)");
+            if (Common.getLanguage(context).equalsIgnoreCase(Common.HINDI)) {
+                holder.tvAmountOrDue.setText("एडवांस");
+                holder.tvDeleteCustomer.setText("(हटाएं)");
             } else {
-
                 //If not, display "no connection" warning:
                 holder.tvAmount.setText(listCredit.get(position).getAmount());
-                holder.tvAmountOrDue.setText( holder.tvAmountOrDue.getText().toString());
-
-
+                holder.tvAmountOrDue.setText(holder.tvAmountOrDue.getText().toString());
             }
         }
 
@@ -117,8 +106,8 @@ public class AdapterCreditBookCustomers extends RecyclerView.Adapter<AdapterCred
             @Override
             public void onClick(View view) {
                 Intent intentSingleTransaction = new Intent(context, SingleUserTransaction.class);
-                intentSingleTransaction.putExtra("KEY_NAME",listCredit.get(position).getName());
-                intentSingleTransaction.putExtra("KEY_TBL_CUSTOMER_ID",listCredit.get(position).getId());
+                intentSingleTransaction.putExtra("KEY_NAME", listCredit.get(position).getName());
+                intentSingleTransaction.putExtra("KEY_TBL_CUSTOMER_ID", listCredit.get(position).getId());
                 context.startActivity(intentSingleTransaction);
             }
         });
@@ -128,19 +117,18 @@ public class AdapterCreditBookCustomers extends RecyclerView.Adapter<AdapterCred
             public void onClick(View v) {
                 BottomSheetDeleteCustomer bottomSheetDeleteCustomer = new BottomSheetDeleteCustomer();
 
-                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
 
                 Bundle bundleDeleteCustomerData = new Bundle();
-                bundleDeleteCustomerData.putString("KEY_DELETE_CUSTOMER_NAME",listCredit.get(position).getName());
-                bundleDeleteCustomerData.putString("KEY_DELETE_ID",listCredit.get(position).getId());
+                bundleDeleteCustomerData.putString("KEY_DELETE_CUSTOMER_NAME", listCredit.get(position).getName());
+                bundleDeleteCustomerData.putString("KEY_DELETE_ID", listCredit.get(position).getId());
 
                 bottomSheetDeleteCustomer.setArguments(bundleDeleteCustomerData);
-                bottomSheetDeleteCustomer.show(fragmentManager,"BottomSheetDeleteCustomer");
+                bottomSheetDeleteCustomer.show(fragmentManager, "BottomSheetDeleteCustomer");
 
 
             }
         });
-
 
 
     }
@@ -187,13 +175,10 @@ public class AdapterCreditBookCustomers extends RecyclerView.Adapter<AdapterCred
     };
 
 
-
-
-
     public static class HolderCreditBookCustomers extends RecyclerView.ViewHolder {
 
         private CircleImageView civUser;
-        private TextView tvUserName,tvDate,tvAmount,tvAmountOrDue,tvDeleteCustomer;
+        private TextView tvUserName, tvDate, tvAmount, tvAmountOrDue, tvDeleteCustomer;
         private ImageView ivRupees;
 
         private LinearLayout llGetFullDetail;
