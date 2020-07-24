@@ -4,10 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 
-import com.google.auth.oauth2.GoogleCredentials;
+/*import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
+import com.google.cloud.translate.Translation;*/
 import com.lgt.paykredit.Activities.MainActivity;
 import com.lgt.paykredit.R;
 
@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 public  class  Language  {
 
- public   static Translate translate;
+ /*public   static Translate translate;
 
 
 
@@ -53,5 +53,5 @@ public  class  Language  {
         return translatedText;
     }
 
-
+*/
 }

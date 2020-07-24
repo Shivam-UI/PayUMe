@@ -41,10 +41,6 @@ import com.bumptech.glide.request.RequestOptions;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.translate.Translate;
-import com.google.cloud.translate.TranslateOptions;
-import com.google.cloud.translate.Translation;
 import com.lgt.paykredit.Fragments.FragmentCreditBook;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.extras.Common;
@@ -83,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     private Common common;
     private LinearLayout llHeader;
-    Translate translate;
     private Context context;
     private MainActivity activity;
     private List<Locale> support_locale = new ArrayList<>();

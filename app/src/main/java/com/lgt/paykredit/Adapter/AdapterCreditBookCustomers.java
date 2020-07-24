@@ -78,8 +78,8 @@ public class AdapterCreditBookCustomers extends RecyclerView.Adapter<AdapterCred
                     holder.tvAmountOrDue.setText("उधार");
                 }
                 //If there is internet connection, get translate service and start translation:
-                holder.tvDeleteCustomer.setText(Language.convertLanguage(context, holder.tvDeleteCustomer.getText().toString(),Common.getLanguage(context)));
-                holder.tvAmountOrDue.setText(Language.convertLanguage(context, "Borrow",Common.getLanguage(context)));
+                //holder.tvDeleteCustomer.setText(Language.convertLanguage(context, holder.tvDeleteCustomer.getText().toString(),Common.getLanguage(context)));
+                //holder.tvAmountOrDue.setText(Language.convertLanguage(context, "Borrow",Common.getLanguage(context)));
 
 
             } else {
@@ -210,8 +210,6 @@ public class AdapterCreditBookCustomers extends RecyclerView.Adapter<AdapterCred
             llGetFullDetail = itemView.findViewById(R.id.llGetFullDetail);
             ivRupees = itemView.findViewById(R.id.ivRupees);
             tvDeleteCustomer = itemView.findViewById(R.id.tvDeleteCustomer);
-
-
         }
     }
 }

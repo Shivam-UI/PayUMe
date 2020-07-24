@@ -151,7 +151,6 @@ public class ActivitySplash extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.cancel();
-
                 }
             });
         }

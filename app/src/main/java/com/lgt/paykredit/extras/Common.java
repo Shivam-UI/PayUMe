@@ -77,7 +77,6 @@ public class Common {
 
     }
 
-
     public void addMoneySnack(View view, String message, int snackTime) {
 
         Snackbar snack = Snackbar.make(view, "Your wallet balance is low please add", Snackbar.LENGTH_LONG);
@@ -112,9 +111,9 @@ public class Common {
         SharedPreferences pref=context.getSharedPreferences(LANGUAGE_SESSION,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=pref.edit();
         editor.putString(LANGUAGE,language);
-
         editor.apply();
-
+        editor.commit();
+        // session manager
     }
     public static String getLanguage(Context context){
         SharedPreferences pref=context.getSharedPreferences(LANGUAGE_SESSION,Context.MODE_PRIVATE);

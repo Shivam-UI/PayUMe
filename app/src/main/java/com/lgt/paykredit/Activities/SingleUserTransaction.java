@@ -155,6 +155,8 @@ public class SingleUserTransaction extends AppCompatActivity {
         progressDialog = new ProgressDialog(SingleUserTransaction.this);
         sendInvoiceSingleUser = findViewById(R.id.sendInvoiceSingleUser);
 
+        loadLanguage();
+
         setSupportActionBar(toolbarSingleTransaction);
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -273,18 +275,17 @@ public class SingleUserTransaction extends AppCompatActivity {
             }
         });
 
-        new Handler().postDelayed(new Runnable() {
+/*        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadLanguage();
+
             }
-        }, 500);
+        }, 500);*/
 
     }
 
     private void loadLanguage() {
         if (Common.getLanguage(getApplicationContext()).equalsIgnoreCase(Common.HINDI)) {
-
             tv_credit.setText("कुल उधार");
             tv_recieved.setText("कुल पेमेंट");
             tv_recived_payment.setText("रिसीव पेमेंट");
@@ -293,7 +294,6 @@ public class SingleUserTransaction extends AppCompatActivity {
             tvCreditOrAdvanced.setText("एडवांस");
 
         } else {
-
             //If not, display "no connection" warning:
             tv_credit.setText(tv_credit.getText().toString());
             tv_recieved.setText(tv_recieved.getText().toString());

@@ -76,12 +76,12 @@ public class ActivityAccount extends AppCompatActivity {
 
         if (Common.getLanguage(getApplicationContext()).equalsIgnoreCase(Common.HINDI)) {
             tv_current_language.setText("Hindi");
-            new Handler().postDelayed(new Runnable() {
+           /* new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     //convertLANG();
                 }
-            }, 1000);
+            }, 1000);*/
         } else {
             tv_current_language.setText("English");
         }
@@ -146,7 +146,7 @@ public class ActivityAccount extends AppCompatActivity {
         tv_reminder = findViewById(R.id.tv_reminder);
         tv_language = findViewById(R.id.tv_language);
 
-        if (Common.getLanguage(activity) == "HI") {
+        if (Common.getLanguage(activity).equalsIgnoreCase(Common.HINDI)) {
 
             tv_backup.setText("बैकअप");
             tv_account_statement.setText("अकाउंट रिपोर्ट्स");

@@ -167,29 +167,20 @@ public class FragmentCreditBook extends Fragment {
             }
         });
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (Common.getLanguage(getActivity()) == "HI") {
-                    // translate in hindi
-                    tv_credit.setText("शेष उधार");
-                    tv_recieved.setText("कुल पेमेंट");
-                    tvAddCustomer.setText("ग्राहक जोड़ें");
-                    etSearch.setHint("खोजे");
-                } else {
-
-                    //If not, display "no connection" warning:
-                    tv_credit.setText(tv_credit.getText().toString());
-                    tv_recieved.setText(tv_recieved.getText().toString());
-                    tvAddCustomer.setText(tvAddCustomer.getText().toString());
-                    etSearch.setHint(etSearch.getHint().toString());
-
-                }
-            }
-        }, 500);
-
+        if (Common.getLanguage(getActivity()).equalsIgnoreCase(Common.HINDI)) {
+            // translate in hindi
+            tv_credit.setText("शेष उधार");
+            tv_recieved.setText("कुल पेमेंट");
+            tvAddCustomer.setText("ग्राहक जोड़ें");
+            etSearch.setHint("खोजे");
+        } else {
+            //If not, display "no connection" warning:
+            tv_credit.setText(tv_credit.getText().toString());
+            tv_recieved.setText(tv_recieved.getText().toString());
+            tvAddCustomer.setText(tvAddCustomer.getText().toString());
+            etSearch.setHint(etSearch.getHint().toString());
+        }
     }
-
 
     public static FragmentCreditBook getInstance() {
         return fragmentCreditBook;

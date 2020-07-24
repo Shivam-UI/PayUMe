@@ -35,7 +35,6 @@ public class FragmentPaid extends Fragment {
     public FragmentPaid() {
     }
 
-
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -61,12 +60,10 @@ public class FragmentPaid extends Fragment {
         super.onDestroy();
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=  inflater.inflate(R.layout.fragment_paid, container, false);
+        View view = inflater.inflate(R.layout.fragment_paid, container, false);
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
                 new IntentFilter("FILTER_EVENT1"));
