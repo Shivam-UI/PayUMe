@@ -99,7 +99,7 @@ public class SingleUserTransaction extends AppCompatActivity {
     private ImageView ivBackSingleUserTransaction, ivShareSingleTransaction, sendInvoiceSingleUser;
     private boolean shouldCallOrRemind = false;
     private File pdfFile;
-    private List<ModelSingleUserTransaction> listPDF;
+    private List<ModelSingleUserTransaction> listPDF= new ArrayList<>();;
     public static SingleUserTransaction singleUserTransaction;
     private Float mDueAmount;
     private String mMessageToDisplay;
@@ -175,6 +175,7 @@ public class SingleUserTransaction extends AppCompatActivity {
             if (getTblId.hasExtra("KEY_TBL_CUSTOMER_ID")) {
                 mAddCustomerID = getTblId.getStringExtra("KEY_TBL_CUSTOMER_ID");
                 Log.e("tblusomtreid", mAddCustomerID + "");
+                loadRecyclerView();
             }
         }
 
@@ -308,6 +309,7 @@ public class SingleUserTransaction extends AppCompatActivity {
 
     //Create PDF
     private void createPDF() throws DocumentException, IOException {
+
         Date currentTime = Calendar.getInstance().getTime();
         Log.e(TAG, "createPDF: " + currentTime);
         Log.d(TAG, "createPDFcacascac:");
@@ -426,7 +428,7 @@ public class SingleUserTransaction extends AppCompatActivity {
     }
 
     public void generateOnlyPDF() throws DocumentException, IOException {
-
+        listPDF.clear();
         progressDialog.setTitle("Please wait");
         progressDialog.setMessage("Generating PDF");
         progressDialog.setCancelable(false);
@@ -554,7 +556,6 @@ public class SingleUserTransaction extends AppCompatActivity {
         progressDialog.dismiss();
     }
 
-
     private void test2() {
         {
             PackageManager packageManager = SingleUserTransaction.this.getPackageManager();
@@ -613,7 +614,7 @@ public class SingleUserTransaction extends AppCompatActivity {
 
         listSingleUserTransaction.clear();
 
-        listPDF = new ArrayList<>();
+
         listPDF.clear();
 
         pbSingleUserTransaction.setVisibility(View.VISIBLE);
@@ -624,6 +625,7 @@ public class SingleUserTransaction extends AppCompatActivity {
 
                 Log.e("responsesingluseron", response + "");
                 listSingleUserTransaction = new ArrayList<>();
+                listSingleUserTransaction.clear();
                 pbSingleUserTransaction.setVisibility(View.GONE);
 
                 try {
@@ -786,7 +788,6 @@ public class SingleUserTransaction extends AppCompatActivity {
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
 
-
                 int friendlyMessageCount = adapterSingleUserTransaction.getItemCount();
                 int lastVisiblePosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
                 // If the recycler view is initially being loaded or the
@@ -809,7 +810,7 @@ public class SingleUserTransaction extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        loadRecyclerView();
+
     }
 
     @Override

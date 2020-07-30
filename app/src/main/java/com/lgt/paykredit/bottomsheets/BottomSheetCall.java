@@ -45,7 +45,7 @@ public class BottomSheetCall extends BottomSheetDialogFragment {
             if (bundle.containsKey("KEY_CUSTOMER_NUMBER")) {
                 mMobile = bundle.getString("KEY_CUSTOMER_NUMBER");
                 tvBottomSheetCallNUmber.setText(mMobile);
-
+                Log.d("mobile",""+mMobile);
                 llMakeCall.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -54,8 +54,6 @@ public class BottomSheetCall extends BottomSheetDialogFragment {
                         }
                     }
                 });
-
-
             }
 
             if (bundle.containsKey("KEY_CUSTOMER_NAME")) {
