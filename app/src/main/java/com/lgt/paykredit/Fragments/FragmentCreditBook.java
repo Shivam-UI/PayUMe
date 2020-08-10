@@ -41,6 +41,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.lgt.paykredit.Adapter.AdapterCreditBookCustomers;
 import com.lgt.paykredit.Models.ModelCreditBookCustomers;
 import com.lgt.paykredit.R;
+import com.lgt.paykredit.bottomsheets.BottomSheetDeleteCustomer;
 import com.lgt.paykredit.extras.Common;
 import com.lgt.paykredit.extras.Language;
 import com.lgt.paykredit.extras.PayKreditAPI;
@@ -60,7 +61,7 @@ import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
-public class FragmentCreditBook extends Fragment {
+public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCustomer.LoadUserAgain {
 
     private RecyclerView rvCreditBookCustomers;
     private AdapterCreditBookCustomers adapterCreditBookCustomers;
@@ -169,12 +170,14 @@ public class FragmentCreditBook extends Fragment {
 
         if (Common.getLanguage(getActivity()).equalsIgnoreCase(Common.HINDI)) {
             // translate in hindi
-            tv_credit.setText("शेष उधार");
+            tv_credit.setText("कुल उधार");
             tv_recieved.setText("कुल पेमेंट");
             tvAddCustomer.setText("ग्राहक जोड़ें");
             etSearch.setHint("खोजे");
+            tvNoCustomerFound.setText("ग्राहक जोड़ें");
         } else {
             //If not, display "no connection" warning:
+            tvNoCustomerFound.setText("Add Customer");
             tv_credit.setText(tv_credit.getText().toString());
             tv_recieved.setText(tv_recieved.getText().toString());
             tvAddCustomer.setText(tvAddCustomer.getText().toString());
@@ -392,7 +395,6 @@ public class FragmentCreditBook extends Fragment {
 
     }
 
-
     public void loadCustomers() {
 
         pbCreditBook.setVisibility(View.VISIBLE);
@@ -451,9 +453,11 @@ public class FragmentCreditBook extends Fragment {
 
 
                     } else {
+                        tvReceivedCreditBook.setText("0");
+                        tvCreditFragment.setText("0");
                         tvNoCustomerFound.setVisibility(View.VISIBLE);
                         rvCreditBookCustomers.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -484,4 +488,11 @@ public class FragmentCreditBook extends Fragment {
 
     }
 
+    @Override
+    public void LoadUserNow(String type_key) {
+        if (type_key.equalsIgnoreCase("YES")){
+            Toast.makeText(getContext(), "Delete User and Reload Home", Toast.LENGTH_SHORT).show();
+            loadCustomers();
+        }
+    }
 }

@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentManager mFragmentManager;
     private boolean shouldAddToBackStack;
     private String mBackStackName, tagName, mUserID;
-        private SharedPreferences sharedPreferences;
-        private SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     NavigationView navigationView;
     private Common common;
     private LinearLayout llHeader;
@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static MainActivity mainActivity;
 
     CircleImageView ivHeader;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvToolbar.setText("Credit Book");
 
 
-        ivNotification.setVisibility(View.VISIBLE);
+        ivNotification.setVisibility(View.GONE);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -127,11 +126,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvHeaderName = headerView.findViewById(R.id.tvHeaderName);
         tvHeaderEmail = headerView.findViewById(R.id.tvHeaderEmail);
 
-
         iniNavViews();
 
         llHeader = headerView.findViewById(R.id.llHeader);
-
 
         llHeader.setOnClickListener(new View.OnClickListener() {
             @Override

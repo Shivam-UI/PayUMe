@@ -92,9 +92,6 @@ public class BottomSheetDeleteCustomer extends BottomSheetDialogFragment {
             if (getDeleteData.containsKey("KEY_DELETE_ID_ADDED_CUSTOMERS")) {
                 mId = getDeleteData.getString("KEY_DELETE_ID_ADDED_CUSTOMERS");
             }
-
-
-
         }
 
         llCancel.setOnClickListener(new View.OnClickListener() {
@@ -111,17 +108,17 @@ public class BottomSheetDeleteCustomer extends BottomSheetDialogFragment {
                 Log.e("jkljlkjkljlkjlkjl",deleteAddedCustomer+"");
                 if(deleteAddedCustomer){
                     //Call delete added customer api
-
+                    FragmentCreditBook.getInstance().LoadUserNow("YES");
                     callDeleteAddedCustomer();
-                }
-                else {
                     apiCallDeleteUser();
                 }
-
+                else {
+                    FragmentCreditBook.getInstance().LoadUserNow("YES");
+                    callDeleteAddedCustomer();
+                    apiCallDeleteUser();
+                }
             }
         });
-
-
     }
 
     private void callDeleteAddedCustomer() {
@@ -240,5 +237,9 @@ public class BottomSheetDeleteCustomer extends BottomSheetDialogFragment {
             }
         }
 
+    }
+
+    public interface LoadUserAgain{
+        void LoadUserNow(String type_key);
     }
 }

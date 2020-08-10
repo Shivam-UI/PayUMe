@@ -355,19 +355,19 @@ public class ActivityProfile extends AppCompatActivity {
                 new com.android.volley.Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                        Log.e("UPLOADDDD", response.toString() + "");
+                        Log.e("UPLOADDDD", response+ "");
 
                         try {
                             JSONObject jsonObject = new JSONObject(new String(response.data));
                             String status = jsonObject.getString("status");
                             String message = jsonObject.getString("message");
                             pbProfile.setVisibility(View.GONE);
-
+                            Log.e("UPLOADDDD", status+ " | " +message);
                             if (status.equals("1")) {
                                 Toast.makeText(ActivityProfile.this, "" + message, Toast.LENGTH_SHORT).show();
                                 MainActivity mainActivity = MainActivity.getInstance();
                                 mainActivity.getProfile();
-
+                                getProfileData();
                             } else {
                                 Toast.makeText(ActivityProfile.this, "" + message, Toast.LENGTH_SHORT).show();
                             }

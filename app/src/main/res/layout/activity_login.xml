@@ -43,7 +43,7 @@
                 android:layout_marginLeft="@dimen/margin_16dp"
                 android:textSize="@dimen/text_20sp"
                 android:textColor="@color/black"
-                android:text="An OTP will be send on the number to verifiy the user"
+                android:text="An OTP will be sent on the number to verify the user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

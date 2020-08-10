@@ -428,7 +428,7 @@ public class SingleUserTransaction extends AppCompatActivity {
     }
 
     public void generateOnlyPDF() throws DocumentException, IOException {
-        listPDF.clear();
+
         progressDialog.setTitle("Please wait");
         progressDialog.setMessage("Generating PDF");
         progressDialog.setCancelable(false);
@@ -478,7 +478,13 @@ public class SingleUserTransaction extends AppCompatActivity {
                 table.addCell(listPDF.get(i).getDate());
                 table.addCell("Description");
                 table.addCell(listPDF.get(i).getAmount());
-                table.addCell(listPDF.get(i).getPaidOrReceived());
+                // check type
+                if(listPDF.get(i).getPaidOrReceived().equalsIgnoreCase("recive")){
+                    table.addCell("Received");
+                }else if(listPDF.get(i).getPaidOrReceived().equalsIgnoreCase("send")){
+                    table.addCell("Send");
+                }
+                Log.d("check_type",""+listPDF.get(i).getPaidOrReceived());
             }
 
             PdfWriter.getInstance(document, outputStream);

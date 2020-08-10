@@ -82,7 +82,6 @@ public class ActivitySplash extends AppCompatActivity {
                                             if(!mUserID.equalsIgnoreCase("")){
                                                 startActivity(new Intent(ActivitySplash.this, MainActivity.class));
                                                 finishAffinity();
-                                                
                                             }
                                         }
                                     } else {
