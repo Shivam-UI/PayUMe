@@ -41,7 +41,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.lgt.paykredit.Adapter.AdapterCreditBookCustomers;
 import com.lgt.paykredit.Models.ModelCreditBookCustomers;
 import com.lgt.paykredit.R;
+import com.lgt.paykredit.bottomsheets.BottomAddUser;
 import com.lgt.paykredit.bottomsheets.BottomSheetDeleteCustomer;
+import com.lgt.paykredit.extras.ClickToAddContact;
 import com.lgt.paykredit.extras.Common;
 import com.lgt.paykredit.extras.Language;
 import com.lgt.paykredit.extras.PayKreditAPI;
@@ -61,7 +63,7 @@ import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
-public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCustomer.LoadUserAgain {
+public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCustomer.LoadUserAgain, ClickToAddContact {
 
     private RecyclerView rvCreditBookCustomers;
     private AdapterCreditBookCustomers adapterCreditBookCustomers;
@@ -86,7 +88,6 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
     public FragmentCreditBook() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +96,6 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
 
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -128,7 +128,9 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
             @Override
             public void onClick(View view) {
                 //openContacts
-                openPhoneContacts();
+                // openPhoneContacts();
+                BottomAddUser bottomAddUser = new BottomAddUser(FragmentCreditBook.this);
+                bottomAddUser.show(getChildFragmentManager(),"");
             }
         });
 
@@ -282,7 +284,6 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
         startActivityForResult(intent, 1);
 
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -494,5 +495,15 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
             Toast.makeText(getContext(), "Delete User and Reload Home", Toast.LENGTH_SHORT).show();
             loadCustomers();
         }
+    }
+
+    @Override
+    public void addContactUser(String mob,String name) {
+        formatMobileNumber(mob,name);
+    }
+
+    @Override
+    public void openContactList() {
+        openPhoneContacts();
     }
 }

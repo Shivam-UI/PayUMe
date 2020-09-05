@@ -461,8 +461,6 @@
             </RelativeLayout>
 
 
-
-
         </LinearLayout>
 
     </LinearLayout>
@@ -481,7 +479,7 @@
         android:visibility="gone"
         android:textSize="@dimen/text_18sp"
         android:layout_centerInParent="true"
-        android:text="No transactions found"
+        android:text="Record Transactions"
         android:textColor="@color/dark_grey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -141,7 +141,6 @@ public class BottomSheetShareStatement extends BottomSheetDialogFragment {
 
     private void sendImage() throws IOException, DocumentException {
 
-        //String mMobile = "9999870918";
         boolean installed = appInstalledOrNot("com.whatsapp");
         if (installed) {
             if (getActivity() != null) {

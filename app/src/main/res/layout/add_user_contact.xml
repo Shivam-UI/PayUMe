@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root"
+    tools:context=".bottomsheets.BottomSheetAddCustomerDetails">
+
+
+    <LinearLayout
+
+        android:layout_margin="@dimen/margin_24dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvTitleAddItems"
+                android:layout_marginLeft="@dimen/margin_8dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Add New User"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/iv_open_contact"
+                android:src="@drawable/ic_contacts"
+                android:tint="@color/colorPrimaryDark"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:padding="@dimen/margin_8dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="@dimen/text_12sp"
+                    android:text="Mobile Number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:maxLength="10"
+                    android:id="@+id/et_user_mobile"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_14sp"
+                    android:hint="Add Mobile Number"
+                    android:imeOptions="actionNext"
+                    android:padding="@dimen/padding_6dp"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:background="@drawable/et_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="@dimen/margin_8dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="@dimen/text_12sp"
+                    android:text="Add Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+
+                    android:id="@+id/et_user_name"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:textSize="@dimen/text_14sp"
+                    android:hint="Enter Name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:padding="@dimen/padding_6dp"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:background="@drawable/et_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ProgressBar
+
+            android:id="@+id/pbAddItems"
+            android:visibility="gone"
+            android:layout_margin="@dimen/margin_8dp"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/margin_32_dp"
+            android:layout_height="@dimen/margin_32_dp"/>
+
+        <TextView
+            android:id="@+id/tv_save_user_details"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_8dp"
+            android:layout_marginRight="@dimen/margin_8dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:padding="@dimen/padding_8dp"
+            android:text="Save"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

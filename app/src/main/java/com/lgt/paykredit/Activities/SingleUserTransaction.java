@@ -293,7 +293,7 @@ public class SingleUserTransaction extends AppCompatActivity {
             tv_credit_payment.setText("उधार दें");
             tvAdvanceOrDue.setText("शेष राशि");
             tvCreditOrAdvanced.setText("एडवांस");
-
+            tvNoTransactionFound.setText("लेन-देन को ऐड करे");
         } else {
             //If not, display "no connection" warning:
             tv_credit.setText(tv_credit.getText().toString());
@@ -302,7 +302,7 @@ public class SingleUserTransaction extends AppCompatActivity {
             tv_credit_payment.setText(tv_credit_payment.getText().toString());
             tvAdvanceOrDue.setText(tvAdvanceOrDue.getText().toString());
             tvCreditOrAdvanced.setText(tvCreditOrAdvanced.getText().toString());
-
+            tvNoTransactionFound.setText("Record Transactions");
         }
     }
 
@@ -338,19 +338,20 @@ public class SingleUserTransaction extends AppCompatActivity {
             table.addCell("S.No");
             table.addCell("Date");
             table.addCell("Description");
-            table.addCell("Credit(+)");
-            table.addCell("Debit(-)");
+            table.addCell("Amount");
+            table.addCell("Status");
             table.setHeaderRows(1);
 
             PdfPCell[] cells = table.getRow(0).getCells();
             for (int j = 0; j < cells.length; j++) {
                 cells[j].setBackgroundColor(BaseColor.GRAY);
             }
+
             Log.e(TAG, "createPDFlistsize: " + listPDF.size() + "");
             for (int i = 0; i < listPDF.size(); i++) {
                 table.addCell(String.valueOf(i + 1));
                 table.addCell(listPDF.get(i).getDate());
-                table.addCell("Description");
+                table.addCell(listPDF.get(i).getMsg());
                 table.addCell(listPDF.get(i).getAmount());
                 table.addCell(listPDF.get(i).getPaidOrReceived());
             }
@@ -464,8 +465,8 @@ public class SingleUserTransaction extends AppCompatActivity {
             table.addCell("S.No");
             table.addCell("Date");
             table.addCell("Description");
-            table.addCell("Credit(+)");
-            table.addCell("Debit(-)");
+            table.addCell("Amount");
+            table.addCell("Status");
             table.setHeaderRows(1);
 
             PdfPCell[] cells = table.getRow(0).getCells();
@@ -476,13 +477,15 @@ public class SingleUserTransaction extends AppCompatActivity {
             for (int i = 0; i < listPDF.size(); i++) {
                 table.addCell(String.valueOf(i + 1));
                 table.addCell(listPDF.get(i).getDate());
-                table.addCell("Description");
+                table.addCell(listPDF.get(i).getMsg());
                 table.addCell(listPDF.get(i).getAmount());
+                // check type
+
                 // check type
                 if(listPDF.get(i).getPaidOrReceived().equalsIgnoreCase("recive")){
                     table.addCell("Received");
                 }else if(listPDF.get(i).getPaidOrReceived().equalsIgnoreCase("send")){
-                    table.addCell("Send");
+                    table.addCell("Credit");
                 }
                 Log.d("check_type",""+listPDF.get(i).getPaidOrReceived());
             }
@@ -729,20 +732,16 @@ public class SingleUserTransaction extends AppCompatActivity {
                                         } else {
                                             type = 1;
                                         }
-
-
                                         // listSingle.add(new ModelSingleUserTransaction(type, tbl_record_id, payment, date, time, "", 2,msg));
                                         listSingleUserTransaction.add(new ModelSingleUserTransaction(type, tbl_record_id, payment, date, time, "", 2, msg));
                                         listPDF.add(new ModelSingleUserTransaction(type, tbl_record_id, payment, date, time, payment_type, 2, msg));
                                         Log.e("hjkhkjhkj", listSingle.size() + "");
                                     }
-
-
                                 }
                             } else {
                                 Toast.makeText(SingleUserTransaction.this, "Some error occurred.", Toast.LENGTH_SHORT).show();
                             }
-                            //    listVertical.add(new ModelVertical(title, listSingle));
+                            // listVertical.add(new ModelVertical(title, listSingle));
                             // adapterVertical = new AdapterVertical(SingleUserTransaction.this, listVertical);
 
                             Log.e("dddddddddddddddddd", listVertical.size() + "----" + listSingle.size() + "");
