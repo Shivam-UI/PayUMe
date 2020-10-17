@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,7 +23,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.tabs.TabLayout;
 import com.lgt.paykredit.Adapter.AdapterAddedProducts;
+import com.lgt.paykredit.Adapter.AddCustomerAdapter;
+import com.lgt.paykredit.Fragments.AddNewProduct;
+import com.lgt.paykredit.Fragments.CreateCusFragment;
+import com.lgt.paykredit.Fragments.ExistingCusFragment;
+import com.lgt.paykredit.Fragments.ExistingProduct;
 import com.lgt.paykredit.Models.ModelAddedProducts;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.bottomsheets.BottomSheetAddItems;
@@ -37,153 +46,67 @@ import java.util.List;
 import java.util.Map;
 
 public class ActivityAddedProducts extends AppCompatActivity {
-
-    private TextView tvToolbarTitle, tvNoProductsFound;
-    private RecyclerView rvAddedProducts;
-    private List<ModelAddedProducts> list;
-    private AdapterAddedProducts adapterAddedProducts;
-
-    private LinearLayout llAddProducts;
-    private ImageView ivBackSingleUserTransaction;
-
-    private ProgressBar pbAddedProducts;
-
-    private SearchView searchView;
-
-    private String mUserID;
-    private SharedPreferences sharedPreferences;
-
-    public static ActivityAddedProducts activityAddedProducts;
+    private TabLayout tab_layoutInvoiceMainPage;
+    ImageView iv_back_press;
+    public static ViewPager vp_add_Product_tab;
+    AddCustomerAdapter addCustomerAdapter;
+    TabLayout tab_layoutAddCustomer;
+    public static String Tbl_Customer_id = "";
+    public static int Position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_products);
+        initView();
+    }
 
-        sharedPreferences = ActivityAddedProducts.this.getSharedPreferences("USER_DATA",MODE_PRIVATE);
+    private void initView() {
+        iv_back_press = findViewById(R.id.iv_back_press);
+        vp_add_Product_tab = findViewById(R.id.vp_add_customer_tab);
+        tab_layoutAddCustomer = findViewById(R.id.tab_layoutAddCustomer);
+        tab_layoutInvoiceMainPage = findViewById(R.id.tab_layoutInvoiceMainPage);
+        addCustomerAdapter = new AddCustomerAdapter(getSupportFragmentManager());
+        addCustomerAdapter.addFragment(new AddNewProduct(), "Create New");
+        addCustomerAdapter.addFragment(new ExistingProduct(), "Existing Product");
+        vp_add_Product_tab.setAdapter(addCustomerAdapter);
+        tab_layoutAddCustomer.setupWithViewPager(vp_add_Product_tab);
+        clickView();
+    }
 
-        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
-        rvAddedProducts = findViewById(R.id.rvAddedProducts);
-        llAddProducts = findViewById(R.id.llAddProducts);
-        tvNoProductsFound = findViewById(R.id.tvNoProductsFound);
-        pbAddedProducts = findViewById(R.id.pbAddedProducts);
-
-
-        ivBackSingleUserTransaction = findViewById(R.id.ivBackSingleUserTransaction);
-
-        tvToolbarTitle.setText("Added Products");
-
-        ivBackSingleUserTransaction.setOnClickListener(new View.OnClickListener() {
+    private void clickView() {
+        iv_back_press.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 onBackPressed();
             }
         });
 
-        llAddProducts.setOnClickListener(new View.OnClickListener() {
+        /*tab_layoutAddCustomer.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                BottomSheetAddItems bottomSheetAddItems = new BottomSheetAddItems();
-                bottomSheetAddItems.show(getSupportFragmentManager(), "BottomSheetAddItems");
-            }
-        });
-
-        if(sharedPreferences.contains("KEY_USER_ID")){
-            mUserID = sharedPreferences.getString("KEY_USER_ID","");
-        }
-
-
-        activityAddedProducts = this;
-        loadAddedProducts();
-
-
-    }
-
-    public static ActivityAddedProducts getInstance()
-    {
-        return activityAddedProducts;
-    }
-
-    public void loadAddedProducts() {
-
-        pbAddedProducts.setVisibility(View.VISIBLE);
-
-        list = new ArrayList<>();
-        list.clear();
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, PayKreditAPI.INVOICE_PRODUCT_LIST, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                pbAddedProducts.setVisibility(View.GONE);
-
-                try {
-
-                    JSONObject jsonObject = new JSONObject(response);
-
-                    String status = jsonObject.getString("status");
-                    String message = jsonObject.getString("message");
-
-                    if (status.equalsIgnoreCase("1")) {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-
-                        if (jsonArray.length() > 0) {
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject object = jsonArray.getJSONObject(i);
-
-                                String tbl_invoice_products_id = object.getString("tbl_invoice_products_id");
-                                String products_name = object.getString("products_name");
-                                String HSN_code = object.getString("HSN_code");
-                                String quantity = object.getString("quantity");
-                                String price = object.getString("price");
-                                String discount = object.getString("discount");
-                                String tax = object.getString("tax");
-                                String email_id = object.getString("email_id");
-
-                                list.add(new ModelAddedProducts(tbl_invoice_products_id, products_name, HSN_code, price, discount, tax, quantity));
-                            }
-
-                            adapterAddedProducts = new AdapterAddedProducts(list, ActivityAddedProducts.this);
-                            rvAddedProducts.hasFixedSize();
-                            rvAddedProducts.setNestedScrollingEnabled(false);
-                            rvAddedProducts.setLayoutManager(new LinearLayoutManager(ActivityAddedProducts.this, RecyclerView.VERTICAL, false));
-                            rvAddedProducts.setAdapter(adapterAddedProducts);
-                            adapterAddedProducts.notifyDataSetChanged();
-                        }
-                    }
-
-                    else {
-                        tvNoProductsFound.setVisibility(View.VISIBLE);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    Log.d("onSelection", "0");
                 }
-
+                if (tab.getPosition() == 1) {
+                    Log.d("onSelection", "1");
+                }
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-                pbAddedProducts.setVisibility(View.GONE);
-                Toast.makeText(ActivityAddedProducts.this, "Network or server error", Toast.LENGTH_SHORT).show();
-
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
-        }) {
+
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("user_id",mUserID);
-                return params;
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
-        };
+        });*/
+    }
 
-        RequestQueue requestQueue = SingletonRequestQueue.getInstance(ActivityAddedProducts.this).getRequestQueue();
-        requestQueue.add(stringRequest);
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

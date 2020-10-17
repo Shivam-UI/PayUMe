@@ -71,8 +71,6 @@ public class BottomSheetAddCustomerDetails extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
 
 
@@ -134,23 +132,17 @@ public class BottomSheetAddCustomerDetails extends BottomSheetDialogFragment {
                 if (getEditData.containsKey("KEY_EDIT_ADDRESS")) {
                     etCustomerBillingAddress.setText(getEditData.getString("KEY_EDIT_ADDRESS"));
                 }
-
-
             }
         }
-
         tvSaveCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fieldValidation();
             }
         });
-
-
         dialog.setContentView(view);
         mBehavior = BottomSheetBehavior.from((View) view.getParent());
         return dialog;
-
     }
 
 
@@ -228,7 +220,6 @@ public class BottomSheetAddCustomerDetails extends BottomSheetDialogFragment {
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-
                     String message = jsonObject.getString("message");
                     String status = jsonObject.getString("status");
 

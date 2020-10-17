@@ -45,7 +45,5 @@ public class ActivityInvoiceDescription extends AppCompatActivity {
                 bottomSheetCall.show(getSupportFragmentManager(), "BottomSheetCall");
             }
         });
-
-
     }
 }

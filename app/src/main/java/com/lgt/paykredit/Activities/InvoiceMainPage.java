@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -35,7 +36,7 @@ public class InvoiceMainPage extends AppCompatActivity {
     private EditText etSearchOrFilter;
     private LinearLayout llTabLayoutParent;
 
-    private RelativeLayout rlAddInvoiceMainPage;
+    private TextView rlAddInvoiceMainPage;
     ViewPager viewPagerInvoiceMainPage;
 
     private int currentFragmentPosition = 0;
@@ -85,7 +86,7 @@ public class InvoiceMainPage extends AppCompatActivity {
         rlAddInvoiceMainPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(InvoiceMainPage.this, ActivityCreateInvoice.class));
+                startActivity(new Intent(InvoiceMainPage.this, CreateInvoice.class));
             }
         });
 
@@ -130,7 +131,7 @@ public class InvoiceMainPage extends AppCompatActivity {
                 llTabLayoutParent.setVisibility(View.VISIBLE);
                 rlAddInvoiceMainPage.setVisibility(View.VISIBLE);
 
-                hideKeyBoard();
+                // hideKeyBoard();
 
 
             }

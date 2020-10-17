@@ -38,6 +38,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.lgt.paykredit.Activities.MainActivity;
 import com.lgt.paykredit.Adapter.AdapterCreditBookCustomers;
 import com.lgt.paykredit.Models.ModelCreditBookCustomers;
 import com.lgt.paykredit.R;
@@ -62,6 +63,9 @@ import java.util.Map;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static com.lgt.paykredit.Activities.MainActivity.ivHamburgerS;
+import static com.lgt.paykredit.Activities.MainActivity.tv_common_toolbar;
+import static com.lgt.paykredit.Activities.MainActivity.tv_creditBook_actionBar;
 
 public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCustomer.LoadUserAgain, ClickToAddContact {
 
@@ -92,16 +96,12 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_credit_book, container, false);
-
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         rvCreditBookCustomers = view.findViewById(R.id.rvCreditBookCustomers);
         tvAddCustomer = view.findViewById(R.id.tvAddCustomer);
         frameCreditBook = view.findViewById(R.id.frameCreditBook);
@@ -111,12 +111,19 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
         tvNoCustomerFound = view.findViewById(R.id.tvNoCustomerFound);
         tv_credit = view.findViewById(R.id.tv_credit);
         tv_recieved = view.findViewById(R.id.tv_recieved);
-
         etSearch = view.findViewById(R.id.etSearch);
-
         ivFilter = view.findViewById(R.id.ivFilter);
-
         common = new Common(getActivity());
+        ivHamburgerS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Toast.makeText(getContext(), "Back Press", Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeScreen,
+                        new InvoiceDashboardFragment()).commit();
+                tv_common_toolbar.setVisibility(View.VISIBLE);
+                tv_creditBook_actionBar.setVisibility(View.GONE);
+            }
+        });
 
         sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences("USER_DATA", Context.MODE_PRIVATE);
 
@@ -485,8 +492,6 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
 
         RequestQueue requestQueue = SingletonRequestQueue.getInstance(getActivity()).getRequestQueue();
         requestQueue.add(stringRequest);
-
-
     }
 
     @Override

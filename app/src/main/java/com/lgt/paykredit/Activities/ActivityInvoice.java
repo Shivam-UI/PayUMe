@@ -127,6 +127,5 @@ public class ActivityInvoice extends AppCompatActivity {
             tvDueDate.setText(sdf.format(myCalendar.getTime()));
             tvDueDate.setTextColor(getResources().getColor(R.color.red));
         }
-
     }
 }

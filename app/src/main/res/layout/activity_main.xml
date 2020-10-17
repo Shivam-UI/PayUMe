@@ -16,8 +16,8 @@
         android:layout_height="match_parent"
         tools:context=".Activities.MainActivity">
 
-
-        <include layout="@layout/toolbar"
+        <include
+            layout="@layout/toolbar"
             android:id="@+id/viewToolbar"/>
 
         <FrameLayout
@@ -28,7 +28,6 @@
             android:layout_height="match_parent">
 
         </FrameLayout>
-
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -47,7 +46,6 @@
             app:itemTextColor="@drawable/btm_navigation_color_selector"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu" />
-
 
     </RelativeLayout>
 

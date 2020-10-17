@@ -52,7 +52,6 @@
 
             </RelativeLayout>
 
-
         <LinearLayout
             android:background="@color/colorPrimary"
             android:orientation="vertical"

@@ -177,7 +177,6 @@ public class ActivityRegister extends AppCompatActivity {
                     if(status.equalsIgnoreCase("1")){
                        //data saved successfully
                         //send user to dashboard
-
                         startActivity(new Intent(ActivityRegister.this,MainActivity.class));
                         finishAffinity();
                     }
@@ -185,17 +184,12 @@ public class ActivityRegister extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-
             }
         })
-
         {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -207,18 +201,12 @@ public class ActivityRegister extends AppCompatActivity {
                 params.put("about_us",mGSTNumber);
                 params.put("user_id",mUserID);
                 params.put("email",mEmailID);
-
                 Log.e("paramsregister",params+"");
-
                 return params;
             }
         };
-
-
         RequestQueue requestQueue = SingletonRequestQueue.getInstance(ActivityRegister.this).getRequestQueue();
         requestQueue.add(stringRequest);
-
-
     }
 
     private void loadBusinessData(){

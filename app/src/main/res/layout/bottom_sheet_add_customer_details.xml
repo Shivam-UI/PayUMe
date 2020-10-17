@@ -21,7 +21,7 @@
             <TextView
                 android:id="@+id/tvTitleCustomer"
                 android:layout_marginLeft="@dimen/margin_8dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:text="Add Customer Details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -311,7 +311,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_8dp"
                 android:layout_marginRight="@dimen/margin_8dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:padding="@dimen/padding_8dp"
                 android:text="Save"

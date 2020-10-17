@@ -18,13 +18,13 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/app_icon"
-
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Activities.AddNewCustomer"></activity>
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityWebView"
-            android:screenOrientation="portrait"></activity>
+            android:name=".Activities.ActivityWebView"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -37,71 +37,74 @@
         </provider>
 
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityPurchaseOrder"
+            android:name=".Activities.CreateInvoice"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityAddedCustomers"
+            android:name=".Activities.ActivityPurchaseOrder"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityAddedProducts"
+            android:name=".Activities.ActivityAddedCustomers"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.InvoiceNewLandingPage"
+            android:name=".Activities.ActivityAddedProducts"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityAddItems"
+            android:name=".Activities.InvoiceNewLandingPage"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityAddParty"
+            android:name=".Activities.ActivityAddItems"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityPaidUnpaid"
+            android:name=".Activities.ActivityAddParty"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityCreateInvoice"
+            android:name=".Activities.ActivityPaidUnpaid"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityRegister"
+            android:name=".Activities.ActivityCreateInvoice"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityInvoiceDescription"
+            android:name=".Activities.ActivityRegister"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.InvoiceMainPage"
+            android:name=".Activities.ActivityInvoiceDescription"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityInvoice"
+            android:name=".Activities.InvoiceMainPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ActivityInvoice"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityProfile"
+            android:name=".Activities.ActivityProfile"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityAccount"
+            android:name=".Activities.ActivityAccount"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityPayment"
+            android:name=".Activities.ActivityPayment"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name="com.lgt.paykredit.Activities.SingleUserTransaction"
+            android:name=".Activities.SingleUserTransaction"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.MainActivity"
+            android:name=".Activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityOTPVerification"
+            android:name=".Activities.ActivityOTPVerification"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivityLogin"
+            android:name=".Activities.ActivityLogin"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivitySelectLanguage"
+            android:name=".Activities.ActivitySelectLanguage"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.lgt.paykredit.Activities.ActivitySplash"
+            android:name=".Activities.ActivitySplash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

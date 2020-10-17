@@ -25,8 +25,6 @@ public class PayKreditAPI {
     public static String CUSTOMER_LIST = BASE_URL+"customer_list_api.php";
     public static String ADD_CUSTOMER_DETAILS = BASE_URL+"add_invoice_customer_api.php";
 
-    public static String INVOICE_CUSTOMER_LIST = BASE_URL+"invoice_customer_list_api.php";
-
     public static String CUSTOMER_RECORD_LIST = BASE_URL+"customer_record_list_api.php";
     public static String ADD_RECORD = BASE_URL+"add_record_api.php";
 
@@ -38,5 +36,12 @@ public class PayKreditAPI {
     public static String EDIT_PROFILE = BASE_URL+"edit_profile.php";
     public static String PROFILE_IMAGE = BASE_URL+"profile_image.php";
 
+    // new invoice API
+    public static String ADD_INVOICE_CUSTOMER = BASE_URL+"add_invoice_customer_api.php";
+    public static String INVOICE_CUSTOMER_LIST = BASE_URL+"invoice_customer_list_api.php";
+    public static String DELETE_INVOICE_CUSTOMER = BASE_URL+"delet_invoice_customer_api.php";
+    public static String EDIT_INVOICE_CUSTOMER_API = BASE_URL+"edit_invoice_customer_api.php";
+    public static String ADD_INVOICE_PRODUCT_API = BASE_URL+"addinvoice_products_api.php";
+    public static String INVOICE_PRODUCT_LIST_API = BASE_URL+"invoice_products_list_api.php";
 
 }

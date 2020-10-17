@@ -6,9 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    app:ignore="NamespaceTypo">
 
     <LinearLayout
+        android:visibility="gone"
         android:paddingBottom="@dimen/margin_8dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -272,7 +275,130 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_below="@+id/ll_top_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llGetFullDetail"
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/rlAllInvoices"
+            android:layout_width="match_parent"
+            android:padding="@dimen/margin_8dp"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civUser"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="0.5dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/user_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+
+            <LinearLayout
+
+                android:layout_marginLeft="@dimen/margin_16dp"
+                android:layout_marginRight="@dimen/margin_16dp"
+                android:layout_toLeftOf="@id/llAdvanceOrDue"
+                android:layout_toRightOf="@id/civUser"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tvPaidInvoiceUserName"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_14sp"
+                    android:textColor="@color/black"
+                    android:text="Ranjan Kumar Singh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:textSize="@dimen/text_12sp"
+                        android:text="16-03-2020"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llAdvanceOrDue"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_gravity="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+
+                        android:id="@+id/ivRupees"
+                        android:layout_gravity="center"
+                        android:tint="@color/green"
+                        android:src="@drawable/rupees"
+                        android:layout_width="@dimen/margin_12dp"
+                        android:layout_height="@dimen/margin_12dp"/>
+
+                    <TextView
+                        android:id="@+id/tvAmountPaid"
+                        android:textSize="@dimen/text_14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/green"
+                        android:text="10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvAmountOrDue"
+                    android:textSize="@dimen/text_12sp"
+                    android:layout_gravity="right"
+                    android:text="Advance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:id="@+id/tvDeleteCustomer"
+                    android:layout_marginTop="@dimen/margin_2dp"
+                    android:textColor="@color/light_red"
+                    android:padding="@dimen/padding_4dp"
+                    android:textSize="@dimen/text_10sp"
+                    android:layout_gravity="right"
+                    android:text="( Delete )"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/margin_4dp"
+            android:background="@color/dark_blue"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+
+    </LinearLayout>
 
 
 

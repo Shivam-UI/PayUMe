@@ -118,8 +118,8 @@ public class BottomSheetDeleteItems extends BottomSheetDialogFragment {
                     if(status.equalsIgnoreCase("1")){
                         Toast.makeText(getActivity(), ""+message, Toast.LENGTH_SHORT).show();
 
-                        ActivityAddedProducts activityAddedProducts = ActivityAddedProducts.getInstance();
-                        activityAddedProducts.loadAddedProducts();
+                        /*ActivityAddedProducts activityAddedProducts = ActivityAddedProducts.getInstance();
+                        activityAddedProducts.loadAddedProducts();*/
 
                     }
                     else {

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single"
-        android:id="@+id/group1">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
 
-
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/icon_home"
+            android:title="Dashboard" />
 
         <item
             android:id="@+id/nav_profile"
@@ -15,14 +20,19 @@
 
         <item
             android:id="@+id/nav_invoice"
-            android:visible="false"
             android:icon="@drawable/invoices"
-            android:title="Invoice" />
+            android:title="Invoice"
+            android:visible="false" />
 
         <item
             android:id="@+id/nav_account"
             android:icon="@drawable/account"
             android:title="Account" />
+
+        <item
+            android:id="@+id/nav_account_report"
+            android:icon="@drawable/ac_report"
+            android:title="Account Report" />
 
         <item
             android:id="@+id/nav_help"
@@ -46,15 +56,16 @@
             android:title="Privacy Policy" />
 
 
-
     </group>
 
-    <group android:id="@+id/group_settings"
+    <group
+        android:id="@+id/group_settings"
 
         android:checkableBehavior="single">
-        <item android:id="@+id/nav_signout"
+        <item
+            android:id="@+id/nav_signout"
             android:icon="@drawable/signout_24_dp"
-            android:title="Sign out"/>
+            android:title="Sign out" />
 
     </group>
 

@@ -2,6 +2,7 @@ package com.lgt.paykredit.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -12,12 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.StrictMode;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -28,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,24 +33,20 @@ import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.lgt.paykredit.Fragments.FragmentCreditBook;
+import com.lgt.paykredit.Fragments.InvoiceDashboardFragment;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.extras.Common;
-import com.lgt.paykredit.extras.Language;
 import com.lgt.paykredit.extras.PayKreditAPI;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -64,10 +55,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
     private DrawerLayout drawer;
     private ImageView ivHamburger, ivNotification;
-    private TextView tvToolbar, tvHeaderEmail, tvHeaderName;
+    private TextView tvToolbar, tvHeaderEmail, tvHeaderName, tv_user_profile_name;
     private String urlToOpen, urlType;
     public static BottomNavigationView btmNavigation;
     private Fragment mSelectedFragment = null;
@@ -82,10 +72,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Context context;
     private MainActivity activity;
     private List<Locale> support_locale = new ArrayList<>();
-
+    public static Toolbar tv_common_toolbar, tv_creditBook_actionBar;
+    public static ImageView ivHamburgerS;
     public static MainActivity mainActivity;
 
-    CircleImageView ivHeader;
+    CircleImageView ivHeader, civ_user_profile_logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFragmentManager = getSupportFragmentManager();
         navigationView = findViewById(R.id.nav_view);
         ivNotification = findViewById(R.id.ivNotification);
+        ivHamburgerS = findViewById(R.id.ivHamburgerS);
+        tv_common_toolbar = findViewById(R.id.tv_common_toolbar);
+        tv_creditBook_actionBar = findViewById(R.id.tv_creditBook_actionBar);
         ivHamburger = findViewById(R.id.ivHamburger);
         tvToolbar = findViewById(R.id.tvToolbar);
         drawer = findViewById(R.id.drawer_layout);
@@ -149,7 +143,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeScreen,
-                    new FragmentCreditBook()).commit();
+                    new InvoiceDashboardFragment()).commit();
+            tv_common_toolbar.setVisibility(View.VISIBLE);
+            tv_creditBook_actionBar.setVisibility(View.GONE);
         }
 
         getProfile();
@@ -164,13 +160,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // find MenuItem you want to change
         MenuItem nav_profile = menu.findItem(R.id.nav_profile);
 
+        civ_user_profile_logo = findViewById(R.id.civ_user_profile_logo);
+        tv_user_profile_name = findViewById(R.id.tv_user_profile_name);
         MenuItem nav_account = menu.findItem(R.id.nav_account);
         MenuItem Help = menu.findItem(R.id.nav_help);
         MenuItem nav_share = menu.findItem(R.id.nav_share);
         MenuItem nav_about_us = menu.findItem(R.id.nav_about_us);
         MenuItem nav_privacy_policy = menu.findItem(R.id.nav_privacy_policy);
         MenuItem nav_signout = menu.findItem(R.id.nav_signout);
-
 
         if (Common.getLanguage(getApplicationContext()).equalsIgnoreCase(Common.HINDI)) {
 
@@ -242,6 +239,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Glide.with(MainActivity.this).load(user_image).apply(new RequestOptions().placeholder(R.drawable.user_icon).error(
                                 R.drawable.user_icon)).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivHeader);
 
+                        Glide.with(MainActivity.this).load(user_image).apply(new RequestOptions().placeholder(R.drawable.user_icon).error(
+                                R.drawable.user_icon)).diskCacheStrategy(DiskCacheStrategy.ALL).into(civ_user_profile_logo);
+
+
+                        tv_user_profile_name.setText("Hi " + business_name);
+
                     } else {
                         Toast.makeText(MainActivity.this, "" + message, Toast.LENGTH_SHORT).show();
                     }
@@ -279,6 +282,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             switch (menuItem.getItemId()) {
 
                 case R.id.navigation_credit_book:
+                    // mSelectedFragment = new FragmentCreditBook();
                     mSelectedFragment = new FragmentCreditBook();
                     mBackStackName = "FragmentCreditBook";
                     tagName = "FragmentHomeScreen";
@@ -287,7 +291,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 case R.id.navigation_invoices:
                     //startActivity(new Intent(MainActivity.this, ActivityInvoice.class));
-
                     //startActivity(new Intent(MainActivity.this, InvoiceMainPage.class));
                     //Changine invoice landling page as per ppt, 23-03-20
                     btmNavigation.getMenu().getItem(0).setChecked(true);
@@ -296,10 +299,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                    /* mSelectedFragment = new FragmentInvoices();
                     mBackStackName = "FragmentInvoices";
                     tagName = "FragmentInvoices";
-                    replaceFragment(mSelectedFragment, shouldAddToBackStack, mBackStackName, tagName);*/
+                    replaceFragment(mSelectedFragment, shouldAddToBackStack, mBackStackName, tagName); */
                     return true;
             }
-
             return false;
         }
     };
@@ -350,6 +352,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
+        if (id == R.id.nav_dashboard) {
+            mSelectedFragment = new InvoiceDashboardFragment();
+            mBackStackName = "InvoiceDashboardFragment";
+            tagName = "FragmentHomeScreen";
+            replaceFragment(mSelectedFragment, shouldAddToBackStack, mBackStackName, tagName);
+        }
+
         if (id == R.id.nav_profile) {
             startActivity(new Intent(MainActivity.this, ActivityProfile.class));
         }
@@ -358,6 +367,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //HIding this 6 June 2020
             // startActivity(new Intent(MainActivity.this, ActivityInvoice.class));
             //startActivity(new Intent(MainActivity.this, ActivityCreateInvoice.class));
+        }
+
+        if (id == R.id.nav_account_report) {
+            Toast.makeText(context, "Account Report", Toast.LENGTH_SHORT).show();
         }
 
         if (id == R.id.nav_account) {
