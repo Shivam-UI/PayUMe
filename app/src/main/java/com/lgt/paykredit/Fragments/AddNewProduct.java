@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,21 +22,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.extras.PayKreditAPI;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import static android.content.Context.MODE_PRIVATE;
-import static com.lgt.paykredit.Fragments.ExistingCusFragment.Invoice_Customer_ID;
-import static com.lgt.paykredit.extras.PayKreditAPI.ADD_INVOICE_PRODUCT_API;
 
 public class AddNewProduct extends Fragment {
     TextView tvSaveItem;
-    EditText etItemName,etHSNCode,etRatePerUnit,etDiscountPercentage,etTaxPercentage,etRemarksProduct;
-    private String stItemName,stHSNCode,stRatePerUnit,stDiscountPercent,stTaxPercentage,stRemarkProduct,mUserID;
+    EditText etItemName,etHSNCode,etRatePerUnit,etDiscountPercentage,etTaxPercentage,etRemarksProduct,etQuantityItems,etAdvancePrice;
+    private String stItemName,stHSNCode,stRatePerUnit,stDiscountPercent,stTaxPercentage,stRemarkProduct,mUserID,etQuantityItm,etAdvanceAdd;
     private SharedPreferences sharedPreferences;
     @Nullable
     @Override
@@ -56,6 +49,8 @@ public class AddNewProduct extends Fragment {
         }
         tvSaveItem=mView.findViewById(R.id.tvSaveItem);
         etItemName=mView.findViewById(R.id.etItemName);
+        etAdvancePrice=mView.findViewById(R.id.etAdvancePrice);
+        etQuantityItems=mView.findViewById(R.id.etQuantityItems);
         etHSNCode=mView.findViewById(R.id.etHSNCode);
         etRatePerUnit=mView.findViewById(R.id.etRatePerUnit);
         etDiscountPercentage=mView.findViewById(R.id.etDiscountPercentage);
@@ -73,6 +68,8 @@ public class AddNewProduct extends Fragment {
     private void validateAddProduct() {
         stItemName=etItemName.getText().toString().trim();
         stHSNCode=etHSNCode.getText().toString().trim();
+        etQuantityItm=etQuantityItems.getText().toString().trim();
+        etAdvanceAdd=etAdvancePrice.getText().toString().trim();
         stRatePerUnit=etRatePerUnit.getText().toString().trim();
         stDiscountPercent=etDiscountPercentage.getText().toString().trim();
         stTaxPercentage=etTaxPercentage.getText().toString().trim();
@@ -87,6 +84,18 @@ public class AddNewProduct extends Fragment {
         if (TextUtils.isEmpty(stHSNCode)){
             etHSNCode.setError("Enter HSN Code");
             etHSNCode.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(etQuantityItm)){
+            etQuantityItems.setError("Enter Product Quantity");
+            etQuantityItems.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(etAdvanceAdd)){
+            etAdvancePrice.setError("Enter Advance Amount");
+            etAdvancePrice.requestFocus();
             return;
         }
 
@@ -122,7 +131,9 @@ public class AddNewProduct extends Fragment {
                     if (status.equalsIgnoreCase("1")) {
                         etItemName.setText("");
                         etHSNCode.setText("");
+                        etQuantityItems.setText("");
                         etRatePerUnit.setText("");
+                        etAdvancePrice.setText("");
                         etDiscountPercentage.setText("");
                         etTaxPercentage.setText("");
                         etRemarksProduct.setText("");
@@ -146,8 +157,9 @@ public class AddNewProduct extends Fragment {
                 params.put("user_id", mUserID);
                 params.put("products_name", stItemName);
                 params.put("HSN_code", stHSNCode);
-                params.put("quantity", stItemName);
+                params.put("quantity", etQuantityItm);
                 params.put("price", stRatePerUnit);
+                params.put("advance", etAdvanceAdd);
                 params.put("discount", stDiscountPercent);
                 params.put("tax", stTaxPercentage);
                 params.put("remark", stRemarkProduct);

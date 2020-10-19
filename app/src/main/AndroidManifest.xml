@@ -21,7 +21,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.AddNewCustomer"></activity>
+
+        <activity
+            android:name=".Activities.AddNewCustomer"
+            android:noHistory="true"></activity>
         <activity
             android:name=".Activities.ActivityWebView"
             android:screenOrientation="portrait" />
@@ -44,9 +47,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActivityAddedCustomers"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActivityAddedProducts"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.InvoiceNewLandingPage"

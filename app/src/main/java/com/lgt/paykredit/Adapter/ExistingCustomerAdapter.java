@@ -1,5 +1,6 @@
 package com.lgt.paykredit.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +30,8 @@ public class ExistingCustomerAdapter extends RecyclerView.Adapter<ExistingCustom
     Context mContext;
     ArrayList<ExistingCustomerModel> mList;
     public CustomerClick mCustomerClick;
-
+    public static boolean isCustomerAdded=false;
+    public static String customer_id,customer_name;
     public ExistingCustomerAdapter(Context mContext, ArrayList<ExistingCustomerModel> mList, CustomerClick mClick) {
         this.mContext = mContext;
         this.mList = mList;
@@ -51,10 +53,14 @@ public class ExistingCustomerAdapter extends RecyclerView.Adapter<ExistingCustom
             @Override
             public void onClick(View view) {
                 Intent mIntent = new Intent(mContext.getApplicationContext(), CreateInvoice.class);
-                mIntent.putExtra("comeFrom","CustomerDetails");
+                /*mIntent.putExtra("comeFrom","CustomerDetails");
                 mIntent.putExtra("customer_id",mList.get(position).getTbl_invoice_customer_id());
                 mIntent.putExtra("customer_name",mList.get(position).getCustomer_name());
-                mContext.startActivity(mIntent);
+                mContext.startActivity(mIntent);*/
+                isCustomerAdded=true;
+                customer_id=mList.get(position).getTbl_invoice_customer_id();
+                customer_name=mList.get(position).getCustomer_name();
+                ((Activity)mContext).onBackPressed();
             }
         });
 

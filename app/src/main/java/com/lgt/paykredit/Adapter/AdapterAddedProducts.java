@@ -1,8 +1,10 @@
 package com.lgt.paykredit.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.lgt.paykredit.Models.ModelAddedProducts;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.bottomsheets.BottomSheetAddItems;
 import com.lgt.paykredit.bottomsheets.BottomSheetDeleteItems;
+import com.lgt.paykredit.extras.LoadInvoiceData;
 
 import java.util.List;
 
@@ -26,10 +29,18 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
 
     private List<ModelAddedProducts> list;
     private Context context;
-
+    public LoadInvoiceData mLoadInvoiceData;
+    public static boolean IsClickToAdd = false;
+    public static String ProductId,ProductName,ProductAmt,ProductDis,ProductQua,ProductTax;
     public AdapterAddedProducts(List<ModelAddedProducts> list, Context context) {
         this.list = list;
         this.context = context;
+        // not in use
+        /*try {
+           //  mLoadInvoiceData = ((LoadInvoiceData) context);
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }*/
     }
 
     @NonNull
@@ -81,17 +92,26 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mIntent = new Intent(context.getApplicationContext(), CreateInvoice.class);
-                mIntent.putExtra("comeFrom","ProductDetails");
-                mIntent.putExtra("ProductId",list.get(position).getTbl_invoice_products_id());
-                mIntent.putExtra("ProductName",list.get(position).getName());
-                mIntent.putExtra("ProductAmt",list.get(position).getAmount());
-                mIntent.putExtra("ProductDis",list.get(position).getDiscount());
-                mIntent.putExtra("ProductQua",list.get(position).getQuantity());
-                mIntent.putExtra("ProductTax",list.get(position).getTax());
-                context.startActivity(mIntent);
+                Log.d("listData",""+list.get(position).getQuantity());
+                IsClickToAdd=true;
+                setDataToProduct(list.get(position).getTbl_invoice_products_id(),
+                        list.get(position).getName(),
+                        list.get(position).getAmount(),
+                        list.get(position).getDiscount(),
+                        list.get(position).getQuantity(),
+                        list.get(position).getTax());
+                ((Activity)context).onBackPressed();
             }
         });
+    }
+
+    private void setDataToProduct(String tbl_invoice_products_id, String name, String amount, String discount, String quantity, String tax) {
+        ProductId=tbl_invoice_products_id;
+        ProductName=name;
+        ProductAmt=amount;
+        ProductDis=discount;
+        ProductQua=quantity;
+        ProductTax=tax;
     }
 
     @Override

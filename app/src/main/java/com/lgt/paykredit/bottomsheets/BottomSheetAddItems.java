@@ -35,15 +35,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
+ /**
  * A simple {@link Fragment} subclass.
  */
+
 public class BottomSheetAddItems extends BottomSheetDialogFragment {
 
-    private EditText etItemName, etHSNCode, etRatePerUnit, etDiscountPercentage, etTaxPercentage, etRemarksProduct;
+    private EditText etItemName, etHSNCode, etRatePerUnit, etDiscountPercentage, etTaxPercentage, etRemarksProduct,etBtmQuantityItems,etBtmAdavancePrice;
     private TextView tvSaveItem,tvTitleAddItems;
 
-    private String mItemName, mItemHSNCode, mRatePerUnit, mDiscountPercentage, mTaxPercentage, mItemRemarks, mUserID, mProductID;
+    private String mItemName, mItemHSNCode, mRatePerUnit, mDiscountPercentage, mTaxPercentage, mItemRemarks, mUserID, mProductID,etQuantity,etAdvanceAmt;
 
     private ProgressBar pbAddItems;
     private SharedPreferences sharedPreferences;
@@ -69,19 +70,17 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
-
         View view = View.inflate(getContext(), R.layout.bottom_sheet_add_items, null);
-
         etItemName = view.findViewById(R.id.etItemName);
         etHSNCode = view.findViewById(R.id.etHSNCode);
+        etBtmAdavancePrice = view.findViewById(R.id.etBtmAdavancePrice);
         etRatePerUnit = view.findViewById(R.id.etRatePerUnit);
+        etBtmQuantityItems = view.findViewById(R.id.etBtmQuantityItems);
         etDiscountPercentage = view.findViewById(R.id.etDiscountPercentage);
         etTaxPercentage = view.findViewById(R.id.etTaxPercentage);
         etRemarksProduct = view.findViewById(R.id.etRemarksProduct);
         pbAddItems = view.findViewById(R.id.pbAddItems);
-
         tvSaveItem = view.findViewById(R.id.tvSaveItem);
         tvTitleAddItems = view.findViewById(R.id.tvTitleAddItems);
 
@@ -123,14 +122,11 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
                     if (getEditData.containsKey("KEY_DISCOUNT_PERCENTAGE")) {
                         mDiscountPercentage = getEditData.getString("KEY_DISCOUNT_PERCENTAGE");
                         etDiscountPercentage.setText(mRatePerUnit);
-
                     }
 
                     if (getEditData.containsKey("KEY_PRODUCT_ID")) {
                         mProductID = getEditData.getString("KEY_PRODUCT_ID");
                     }
-
-
                 }
             }
         }
@@ -161,8 +157,10 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
     private void fieldValidation() {
 
         mItemName = etItemName.getText().toString().trim();
+        etQuantity = etBtmQuantityItems.getText().toString().trim();
         mItemHSNCode = etHSNCode.getText().toString().trim();
         mRatePerUnit = etRatePerUnit.getText().toString().trim();
+        etAdvanceAmt = etBtmAdavancePrice.getText().toString().trim();
         mDiscountPercentage = etDiscountPercentage.getText().toString().trim();
         mTaxPercentage = etTaxPercentage.getText().toString().trim();
         mItemRemarks = etRemarksProduct.getText().toString().trim();
@@ -174,6 +172,16 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
 
         if (mItemName.length() < 5) {
             Toast.makeText(getActivity(), "Item name must be at least 5 words", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (etQuantity.equalsIgnoreCase("") || etQuantity.equalsIgnoreCase("0")) {
+            Toast.makeText(getActivity(), "Item name must be at least 1", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(etAdvanceAmt)) {
+            Toast.makeText(getActivity(), "Enter Advance Amount", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -251,13 +259,13 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
 
                 params.put("products_name", mItemName);
                 params.put("HSN_code", mItemHSNCode);
-                params.put("quantity", "1");
+                params.put("quantity", etQuantity);
                 params.put("tbl_invoice_products_id", mProductID);
                 params.put("price", mRatePerUnit);
+                params.put("advance", etAdvanceAmt);
                 params.put("discount", mDiscountPercentage);
                 params.put("tax", mTaxPercentage);
                 params.put("email_id", mItemRemarks);
-
                 Log.e("paprpaprparp",params+"");
                 return params;
             }
@@ -316,6 +324,7 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
                 params.put("quantity", "1");
                 params.put("user_id", mUserID);
                 params.put("price", mRatePerUnit);
+                params.put("advance", etAdvanceAmt);
                 params.put("discount", mDiscountPercentage);
                 params.put("tax", mTaxPercentage);
                 params.put("email_id", mItemRemarks);

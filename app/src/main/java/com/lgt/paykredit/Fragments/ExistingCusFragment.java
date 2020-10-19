@@ -158,7 +158,7 @@ public class ExistingCusFragment extends Fragment implements CustomerClick {
     }
 
     private void setAdapterNotify() {
-        existingCustomerAdapter = new ExistingCustomerAdapter(getContext(), mList, ExistingCusFragment.this);
+        existingCustomerAdapter = new ExistingCustomerAdapter(getContext(), mList,ExistingCusFragment.this);
         rv_existing_customer.setAdapter(existingCustomerAdapter);
         existingCustomerAdapter.notifyDataSetChanged();
     }

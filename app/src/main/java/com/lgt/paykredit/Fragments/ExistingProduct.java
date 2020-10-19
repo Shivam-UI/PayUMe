@@ -2,6 +2,7 @@ package com.lgt.paykredit.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.lgt.paykredit.Adapter.AdapterAddedProducts;
 import com.lgt.paykredit.Models.ModelAddedProducts;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.bottomsheets.BottomSheetAddItems;
+import com.lgt.paykredit.extras.LoadInvoiceData;
 import com.lgt.paykredit.extras.PayKreditAPI;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
 
@@ -111,6 +113,7 @@ public class ExistingProduct extends Fragment {
                         if (jsonArray.length() > 0) {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
+                                Log.d("listData",""+jsonArray.get(i));
                                 String tbl_invoice_products_id = object.getString("tbl_invoice_products_id");
                                 String products_name = object.getString("products_name");
                                 String HSN_code = object.getString("HSN_code");

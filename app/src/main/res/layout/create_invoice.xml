@@ -263,6 +263,7 @@
                                 android:text="Discount ₹" />
 
                             <TextView
+                                android:id="@+id/tv_DiscountInPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10dp"
@@ -291,6 +292,7 @@
                                 android:text="Subtotal ₹" />
 
                             <TextView
+                                android:id="@+id/tv_subTotalPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10dp"
@@ -319,6 +321,7 @@
                                 android:text="Advance ₹" />
 
                             <TextView
+                                android:id="@+id/tv_AdvancePrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10dp"
@@ -348,6 +351,7 @@
                                 android:text="Balance Due ₹" />
 
                             <TextView
+                                android:id="@+id/tv_BalanceDue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10dp"

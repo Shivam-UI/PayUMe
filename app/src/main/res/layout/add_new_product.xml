@@ -6,7 +6,6 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_24dp"
@@ -14,6 +13,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -71,29 +71,97 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:padding="@dimen/margin_8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="HSN Code"
-                    android:textSize="@dimen/text_12sp" />
+                    android:layout_marginRight="@dimen/margin_24dp"
+                    android:layout_weight="1">
 
-                <EditText
-                    android:id="@+id/etHSNCode"
-                    android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="HSN Code" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_2dp"
+                            android:background="@drawable/bg_stroke_light_grey"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/margin_2dp">
+
+                            <EditText
+                                android:id="@+id/etHSNCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:maxLines="1"
+                                android:padding="@dimen/padding_4dp"
+                                android:hint="HSN Code"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/black"
+                                android:textSize="@dimen/text_14sp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_4dp"
-                    android:background="@drawable/et_background"
-                    android:hint="HSN Code"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:padding="@dimen/padding_6dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
-                    android:textSize="@dimen/text_14sp" />
+                    android:layout_marginLeft="@dimen/margin_24dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rate (per Unit)" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_2dp"
+                            android:background="@drawable/bg_stroke_light_grey"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/margin_2dp">
+
+                            <EditText
+
+                                android:id="@+id/etRatePerUnit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:hint="0"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:padding="@dimen/padding_4dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/black"
+                                android:textSize="@dimen/text_14sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -129,8 +197,8 @@
                             android:orientation="horizontal"
                             android:padding="@dimen/margin_2dp">
 
-                            <TextView
-
+                            <EditText
+                                android:id="@+id/etQuantityItems"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@null"
@@ -149,6 +217,7 @@
 
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -163,7 +232,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rate (per Unit)" />
+                            android:text="Advance" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -174,8 +243,7 @@
                             android:padding="@dimen/margin_2dp">
 
                             <EditText
-
-                                android:id="@+id/etRatePerUnit"
+                                android:id="@+id/etAdvancePrice"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@null"

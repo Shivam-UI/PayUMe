@@ -48,7 +48,6 @@ public class AddNewCustomer extends AppCompatActivity implements ExistingCusFrag
         clickView();
     }
 
-
     private void clickView() {
         iv_back_press.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +78,6 @@ public class AddNewCustomer extends AppCompatActivity implements ExistingCusFrag
             }
         });*/
     }
-
 
     @Override
     public void editClickFoundRequest(String tbl_id, int pos) {

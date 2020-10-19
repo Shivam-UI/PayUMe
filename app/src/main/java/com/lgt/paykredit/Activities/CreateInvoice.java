@@ -17,16 +17,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.math.MathUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.lgt.paykredit.Adapter.AdapterAddedProducts;
 import com.lgt.paykredit.Adapter.ProductAddAdapter;
 import com.lgt.paykredit.Models.ProductModel;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.bottomsheets.BottomSheetAddItems;
+import com.lgt.paykredit.extras.LoadInvoiceData;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -35,11 +38,23 @@ import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CreateInvoice extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductAmt;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductDis;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductId;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductName;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductQua;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductTax;
+import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.customer_id;
+import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.customer_name;
+import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.isCustomerAdded;
+import static com.lgt.paykredit.Adapter.ProductAddAdapter.TotalAmt;
+
+public class CreateInvoice extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, LoadInvoiceData {
     LinearLayout ll_invoice_date_picker, ll_due_date_picker;
     CircleImageView civ_add_new_customer, civ_add_product_service;
     ImageView iv_back_press, iv_add_bank_details, iv_deleteCustomer;
     TextView tv_due_date, tv_invoice_date, tv_invoice_id;
+    public static TextView tv_DiscountInPrice, tv_subTotalPrice, tv_AdvancePrice, tv_BalanceDue;
     EditText etSelectCustomer;
     Spinner sp_due_terms;
     RecyclerView rvProductItemList;
@@ -50,6 +65,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     ArrayList<String> mDueTermList = new ArrayList<>();
     ArrayList<ProductModel> mList = new ArrayList<>();
     ProductAddAdapter productAddAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +74,10 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     }
 
     private void initView() {
+        tv_DiscountInPrice = findViewById(R.id.tv_DiscountInPrice);
+        tv_subTotalPrice = findViewById(R.id.tv_subTotalPrice);
+        tv_AdvancePrice = findViewById(R.id.tv_AdvancePrice);
+        tv_BalanceDue = findViewById(R.id.tv_BalanceDue);
         iv_back_press = findViewById(R.id.iv_back_press);
         sp_due_terms = findViewById(R.id.sp_due_terms);
         rvProductItemList = findViewById(R.id.rvProductItemList);
@@ -75,16 +95,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         myView.setVisibility(View.GONE);
         isUp = false;
         clickView();
-        mDueTermList.add("Select Due Terms");
-        mDueTermList.add("15 Days ");
-        mDueTermList.add("30 Days ");
-        mDueTermList.add("60 Days ");
-        mDueTermList.add("Due on receipt ");
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mDueTermList);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_due_terms.setAdapter(dataAdapter);
-
+        loadDueTerms();
         sp_due_terms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
@@ -145,7 +156,8 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
             }
         });
         intent = getIntent();
-        if (intent.hasExtra("comeFrom")) {
+        // not in use
+        /*if (intent.hasExtra("comeFrom")) {
             String comfrom = intent.getStringExtra("comeFrom");
             if (comfrom.equalsIgnoreCase("CustomerDetails")) {
                 Toast.makeText(this, "have customer details", Toast.LENGTH_SHORT).show();
@@ -168,11 +180,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                     productAddAdapter.notifyDataSetChanged();
                 }
             }
-
-
-        } else {
-
-        }
+        } else {}*/
         tv_invoice_id.setText("INSTA" + getRandomNumberString());
 
         iv_deleteCustomer.setOnClickListener(new View.OnClickListener() {
@@ -185,8 +193,61 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         });
     }
 
+    private void loadDueTerms() {
+        mDueTermList.clear();
+        mDueTermList.add("Select Due Terms");
+        mDueTermList.add("15 Days ");
+        mDueTermList.add("30 Days ");
+        mDueTermList.add("60 Days ");
+        mDueTermList.add("Due on receipt ");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mDueTermList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_due_terms.setAdapter(dataAdapter);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (AdapterAddedProducts.IsClickToAdd) {
+            AdapterAddedProducts.IsClickToAdd = false;
+            if (mList.size() >= 0) {
+                Log.d("listData", ProductId + " | " + ProductName + " | " + ProductAmt + " | " + ProductDis + " | " + ProductQua + " | " + ProductTax);
+                mList.add(new ProductModel(ProductId, ProductName, ProductAmt, ProductDis, ProductQua, ProductTax));
+                setUpAddProductView();
+            } else {
+                Log.d("listData", ProductId + " | " + ProductName + " | " + ProductAmt + " | " + ProductDis + " | " + ProductQua + " | " + ProductTax);
+                mList.add(new ProductModel(ProductId, ProductName, ProductAmt, ProductDis, ProductQua, ProductTax));
+                productAddAdapter.notifyDataSetChanged();
+            }
+        } else if (isCustomerAdded) {
+            isCustomerAdded = false;
+            String cusName = customer_name;
+            String custId = customer_id;
+            iv_deleteCustomer.setVisibility(View.VISIBLE);
+            etSelectCustomer.setText(cusName);
+        }
+        startCalculation();
+    }
+
+    private void startCalculation() {
+        if (mList.size() > 0) {
+            int res=0;
+            Log.d("listData", "Amt : " + mList.size());
+            for (int i = 0; i < mList.size(); i++) {
+                int amt = Integer.parseInt(mList.get(i).getProductAmt());
+                if (amt>0){
+                    res += amt;
+                }
+            }
+            Log.d("listData", "Amt : " + res);
+            tv_subTotalPrice.setText(String.valueOf(res)+".00");
+        } else {
+            Log.d("listData", "Size : " + mList.size());
+        }
+    }
+
     private void setUpAddProductView() {
-        productAddAdapter = new ProductAddAdapter(mList,getApplicationContext());
+        productAddAdapter = new ProductAddAdapter(mList, getApplicationContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvProductItemList.setLayoutManager(linearLayoutManager);
         rvProductItemList.setHasFixedSize(true);
@@ -266,5 +327,10 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         Toast.makeText(this, dayOfMonth + "-" + monthOfYear + "-" + year, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void addProduct() {
+        Log.d("invoice", "Product Added");
     }
 }
