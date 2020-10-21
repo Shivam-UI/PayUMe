@@ -12,8 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lgt.paykredit.Activities.CreateInvoice;
 import com.lgt.paykredit.Models.ProductModel;
 import com.lgt.paykredit.R;
+import com.lgt.paykredit.extras.GenerateCalculation;
 
 import java.util.ArrayList;
 
@@ -23,10 +25,12 @@ public class ProductAddAdapter extends RecyclerView.Adapter<ProductAddAdapter.Pr
     ArrayList<ProductModel> mList;
     Context mContext;
     public static int TotalAmt=0,TotalDis=0,TotalTax=0,TotalQty=0;
+    GenerateCalculation mGenerateCalculation;
 
-    public ProductAddAdapter(ArrayList<ProductModel> mList, Context mContext) {
+    public ProductAddAdapter(ArrayList<ProductModel> mList, Context mContext,GenerateCalculation generateCalculation) {
         this.mList = mList;
         this.mContext = mContext;
+        this.mGenerateCalculation = generateCalculation;
     }
 
     @NonNull
@@ -46,12 +50,12 @@ public class ProductAddAdapter extends RecyclerView.Adapter<ProductAddAdapter.Pr
         holder.tv_DiscountAmt.setText(mList.get(position).getProductDis());
         holder.tv_DiscountPrice.setText(Integer.parseInt(mList.get(position).getProductAmt())*Integer.parseInt(mList.get(position).getProductQua())+"");
 
-
        holder.ivDeleteAddedProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "Removed Item", Toast.LENGTH_SHORT).show();
                 mList.remove(position);
+                mGenerateCalculation.calculateProductPrice();
                 notifyDataSetChanged();
             }
         });
@@ -62,6 +66,7 @@ public class ProductAddAdapter extends RecyclerView.Adapter<ProductAddAdapter.Pr
                 Toast.makeText(mContext, "Edit Item", Toast.LENGTH_SHORT).show();
             }
         });
+        mGenerateCalculation.calculateProductPrice();
     }
 
     public void setDataToCalc(int Amt,int Dsc,int Tax,int Qty){
@@ -74,6 +79,7 @@ public class ProductAddAdapter extends RecyclerView.Adapter<ProductAddAdapter.Pr
     public int getItemCount() {
         return mList.size();
     }
+
 
     public class ProductListHolder extends RecyclerView.ViewHolder{
         TextView tv_AddedProductPrice,tv_AddedProductName,tv_DiscountAmt,tv_DiscountPrice,tv_ItemSubTotal;

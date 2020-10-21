@@ -31,7 +31,7 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
     private Context context;
     public LoadInvoiceData mLoadInvoiceData;
     public static boolean IsClickToAdd = false;
-    public static String ProductId,ProductName,ProductAmt,ProductDis,ProductQua,ProductTax;
+    public static String ProductId,ProductName,ProductAmt,ProductDis,ProductQua,ProductTax,AdvanceAmt,itemPrice,ItemDue,ItemDiscount;
     public AdapterAddedProducts(List<ModelAddedProducts> list, Context context) {
         this.list = list;
         this.context = context;
@@ -94,9 +94,18 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
             public void onClick(View view) {
                 Log.d("listData",""+list.get(position).getQuantity());
                 IsClickToAdd=true;
-                setDataToProduct(list.get(position).getTbl_invoice_products_id(),
+                int subTotalPrice = 0, DiscountInPrice = 0, BalanceDue = 0,pprice=0,pqty=0,pdiscunt=0,padvnc=0;
+                pprice=Integer.parseInt(list.get(position).getAmount());
+                pqty=Integer.parseInt(list.get(position).getQuantity());
+                pdiscunt=Integer.parseInt(list.get(position).getDiscount());
+                padvnc=Integer.parseInt(list.get(position).getAdvance());
+                subTotalPrice = pprice * pqty;
+                DiscountInPrice = pdiscunt * pqty;
+                BalanceDue = (((pprice - pdiscunt) * pqty) - padvnc);
+                setDataToProduct(subTotalPrice,DiscountInPrice,BalanceDue,list.get(position).getTbl_invoice_products_id(),
                         list.get(position).getName(),
                         list.get(position).getAmount(),
+                        list.get(position).getAdvance(),
                         list.get(position).getDiscount(),
                         list.get(position).getQuantity(),
                         list.get(position).getTax());
@@ -105,13 +114,17 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
         });
     }
 
-    private void setDataToProduct(String tbl_invoice_products_id, String name, String amount, String discount, String quantity, String tax) {
+    private void setDataToProduct(int stp,int dip,int bd,String tbl_invoice_products_id, String name, String amount,String AdvAmt ,String discount, String quantity, String tax) {
+        itemPrice=String.valueOf(stp);
+        ItemDue=String.valueOf(dip);
+        ItemDiscount=String.valueOf(bd);
         ProductId=tbl_invoice_products_id;
         ProductName=name;
         ProductAmt=amount;
         ProductDis=discount;
         ProductQua=quantity;
         ProductTax=tax;
+        AdvanceAmt=AdvAmt;
     }
 
     @Override

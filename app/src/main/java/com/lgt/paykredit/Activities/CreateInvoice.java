@@ -29,6 +29,7 @@ import com.lgt.paykredit.Adapter.ProductAddAdapter;
 import com.lgt.paykredit.Models.ProductModel;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.bottomsheets.BottomSheetAddItems;
+import com.lgt.paykredit.extras.GenerateCalculation;
 import com.lgt.paykredit.extras.LoadInvoiceData;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -39,17 +40,20 @@ import java.util.Random;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductAmt;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.AdvanceAmt;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductDis;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductId;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductName;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductQua;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductTax;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.itemPrice;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ItemDue;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ItemDiscount;
 import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.customer_id;
 import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.customer_name;
 import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.isCustomerAdded;
-import static com.lgt.paykredit.Adapter.ProductAddAdapter.TotalAmt;
 
-public class CreateInvoice extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, LoadInvoiceData {
+public class CreateInvoice extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, LoadInvoiceData, GenerateCalculation {
     LinearLayout ll_invoice_date_picker, ll_due_date_picker;
     CircleImageView civ_add_new_customer, civ_add_product_service;
     ImageView iv_back_press, iv_add_bank_details, iv_deleteCustomer;
@@ -65,6 +69,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     ArrayList<String> mDueTermList = new ArrayList<>();
     ArrayList<ProductModel> mList = new ArrayList<>();
     ProductAddAdapter productAddAdapter;
+    public String termSelect = "", InvoiceUser = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +104,11 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         sp_due_terms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Log.d("select_term", adapterView.getItemAtPosition(position).toString());
+                if (position == 0) {
+                    Toast.makeText(CreateInvoice.this, "Select Due Term!", Toast.LENGTH_SHORT).show();
+                } else {
+                    termSelect = adapterView.getItemAtPosition(position).toString();
+                }
             }
 
             @Override
@@ -211,43 +220,78 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         if (AdapterAddedProducts.IsClickToAdd) {
             AdapterAddedProducts.IsClickToAdd = false;
             if (mList.size() >= 0) {
-                Log.d("listData", ProductId + " | " + ProductName + " | " + ProductAmt + " | " + ProductDis + " | " + ProductQua + " | " + ProductTax);
-                mList.add(new ProductModel(ProductId, ProductName, ProductAmt, ProductDis, ProductQua, ProductTax));
+                ProductModel productModel = new ProductModel(ProductId, ProductName, ProductAmt, AdvanceAmt, ProductDis, ProductQua, ProductTax);
+                productModel.setTotalAmt(Integer.parseInt(itemPrice));
+                productModel.setBalanceDue(Integer.parseInt(ItemDue));
+                productModel.setTotalDiscount(Integer.parseInt(ItemDiscount));
+                mList.add(productModel);
                 setUpAddProductView();
             } else {
-                Log.d("listData", ProductId + " | " + ProductName + " | " + ProductAmt + " | " + ProductDis + " | " + ProductQua + " | " + ProductTax);
-                mList.add(new ProductModel(ProductId, ProductName, ProductAmt, ProductDis, ProductQua, ProductTax));
+                ProductModel productModel = new ProductModel(ProductId, ProductName, ProductAmt, AdvanceAmt, ProductDis, ProductQua, ProductTax);
+                productModel.setTotalAmt(Integer.parseInt(itemPrice));
+                productModel.setBalanceDue(Integer.parseInt(ItemDue));
+                productModel.setTotalDiscount(Integer.parseInt(ItemDiscount));
+                mList.add(productModel);
                 productAddAdapter.notifyDataSetChanged();
             }
         } else if (isCustomerAdded) {
             isCustomerAdded = false;
             String cusName = customer_name;
+            InvoiceUser = customer_name;
             String custId = customer_id;
             iv_deleteCustomer.setVisibility(View.VISIBLE);
             etSelectCustomer.setText(cusName);
         }
-        startCalculation();
     }
 
     private void startCalculation() {
+        int productPrice = 0, productblncDue = 0, ProductDiscount = 0, ProductAdv = 0;
         if (mList.size() > 0) {
-            int res=0;
-            Log.d("listData", "Amt : " + mList.size());
             for (int i = 0; i < mList.size(); i++) {
-                int amt = Integer.parseInt(mList.get(i).getProductAmt());
-                if (amt>0){
-                    res += amt;
+                int price = Integer.parseInt(mList.get(i).getProductAmt());
+                if (!mList.get(i).getProductAdvance().equalsIgnoreCase("")) {
+                    int adv = Integer.parseInt(mList.get(i).getProductAdvance());
+                    if (adv > 0) {
+                        ProductAdv += adv;
+                        Log.d("listData:", "by normal =" + ProductAdv);
+                    }
+                }
+
+                int amtdue = mList.get(i).getTotalAmt();
+                int dsc = mList.get(i).getTotalDiscount();
+                int blncDue = mList.get(i).getBalanceDue();
+                if (amtdue > 0) {
+                    productPrice += amtdue;
+                    Log.d("listData:", "by normal =" + productPrice);
+                }
+                if (dsc > 0) {
+                    ProductDiscount += dsc;
+                    Log.d("listData:", "by normal =" + ProductDiscount);
+                }
+                if (blncDue > 0) {
+                    productblncDue += blncDue;
+                    Log.d("listData:", "by normal =" + productblncDue);
                 }
             }
-            Log.d("listData", "Amt : " + res);
-            tv_subTotalPrice.setText(String.valueOf(res)+".00");
         } else {
-            Log.d("listData", "Size : " + mList.size());
+            tv_subTotalPrice.setText("0");
+            tv_DiscountInPrice.setText("0");
+            tv_BalanceDue.setText("0");
+            tv_AdvancePrice.setText("0");
         }
+        setCalcDataToView(productPrice, ProductDiscount, productblncDue, ProductAdv);
+    }
+
+    private void setCalcDataToView(int pprice, int pdiscunt, int pqty, int padvnc) {
+        Log.d("listData:", "Final Price = | " + pprice + " | " + pdiscunt + " | " + pqty + " | " + padvnc);
+        tv_subTotalPrice.setText(pprice + ".00");
+        tv_DiscountInPrice.setText(pqty + ".00");
+        tv_BalanceDue.setText(pdiscunt + ".00");
+        tv_AdvancePrice.setText(padvnc + ".00");
     }
 
     private void setUpAddProductView() {
-        productAddAdapter = new ProductAddAdapter(mList, getApplicationContext());
+        productAddAdapter = new ProductAddAdapter(mList, getApplicationContext(), CreateInvoice.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvProductItemList.setLayoutManager(linearLayoutManager);
         rvProductItemList.setHasFixedSize(true);
@@ -306,7 +350,20 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         civ_add_product_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CreateInvoice.this, ActivityAddedProducts.class));
+                if (InvoiceUser.equalsIgnoreCase("")) {
+                    Toast.makeText(CreateInvoice.this, "Please Select User", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("listData", termSelect.equalsIgnoreCase("") + " | " + termSelect.equalsIgnoreCase("Select Due Terms"));
+                    if (termSelect.equalsIgnoreCase("")) {
+                        Toast.makeText(CreateInvoice.this, "Please Select Due Term", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (termSelect.equalsIgnoreCase("Select Due Terms")) {
+                            Toast.makeText(CreateInvoice.this, "Please Select Valid Due Term", Toast.LENGTH_SHORT).show();
+                        } else {
+                            startActivity(new Intent(CreateInvoice.this, ActivityAddedProducts.class));
+                        }
+                    }
+                }
             }
         });
 
@@ -332,5 +389,10 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     @Override
     public void addProduct() {
         Log.d("invoice", "Product Added");
+    }
+
+    @Override
+    public void calculateProductPrice() {
+        startCalculation();
     }
 }

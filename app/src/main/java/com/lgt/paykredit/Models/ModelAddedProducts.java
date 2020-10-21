@@ -1,7 +1,23 @@
 package com.lgt.paykredit.Models;
 
 public class ModelAddedProducts {
-    private String tbl_invoice_products_id, name,hsnCode,amount, discount,tax,quantity;
+    private String tbl_invoice_products_id;
+    private String name;
+    private String hsnCode;
+    private String amount;
+    private String discount;
+    private String tax;
+    private String quantity;
+
+    public String getAdvance() {
+        return advance;
+    }
+
+    public void setAdvance(String advance) {
+        this.advance = advance;
+    }
+
+    private String advance;
 
     public ModelAddedProducts(String tbl_invoice_products_id, String name, String hsnCode, String amount, String discount, String tax, String quantity) {
         this.tbl_invoice_products_id = tbl_invoice_products_id;

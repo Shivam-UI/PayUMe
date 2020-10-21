@@ -98,16 +98,12 @@ public class ExistingProduct extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, PayKreditAPI.INVOICE_PRODUCT_LIST, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Log.d("response",""+response);
                 pbAddedProducts.setVisibility(View.GONE);
-
                 try {
-
                     JSONObject jsonObject = new JSONObject(response);
-
                     String status = jsonObject.getString("status");
                     String message = jsonObject.getString("message");
-
                     if (status.equalsIgnoreCase("1")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         if (jsonArray.length() > 0) {
@@ -119,10 +115,13 @@ public class ExistingProduct extends Fragment {
                                 String HSN_code = object.getString("HSN_code");
                                 String quantity = object.getString("quantity");
                                 String price = object.getString("price");
+                                String advance = object.getString("advance");
                                 String discount = object.getString("discount");
                                 String tax = object.getString("tax");
                                 String email_id = "";
-                                list.add(new ModelAddedProducts(tbl_invoice_products_id, products_name, HSN_code, price, discount, tax, quantity));
+                                ModelAddedProducts modelAddedProducts = new ModelAddedProducts(tbl_invoice_products_id, products_name, HSN_code, price, discount, tax, quantity);
+                                modelAddedProducts.setAdvance(advance);
+                                list.add(modelAddedProducts);
                             }
 
                             adapterAddedProducts = new AdapterAddedProducts(list, getContext());
