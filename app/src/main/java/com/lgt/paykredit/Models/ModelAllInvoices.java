@@ -5,7 +5,7 @@ package com.lgt.paykredit.Models;
  */
 public class ModelAllInvoices {
 
-    private String paidInvoiceNumber,paymentStatus,image,name,amount,paymentDate;
+    private String paidInvoiceNumber,paymentStatus,image,name,amount,paymentDate,PayAdvance;
 
     public ModelAllInvoices(String paidInvoiceNumber, String paymentStatus, String image, String name, String amount, String paymentDate) {
         this.paidInvoiceNumber = paidInvoiceNumber;
@@ -14,6 +14,14 @@ public class ModelAllInvoices {
         this.name = name;
         this.amount = amount;
         this.paymentDate = paymentDate;
+    }
+
+    public String getPayAdvance() {
+        return PayAdvance;
+    }
+
+    public void setPayAdvance(String payAdvance) {
+        PayAdvance = payAdvance;
     }
 
     public String getPaidInvoiceNumber() {

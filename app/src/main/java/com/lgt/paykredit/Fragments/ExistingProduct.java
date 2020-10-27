@@ -83,7 +83,6 @@ public class ExistingProduct extends Fragment {
         if(sharedPreferences.contains("KEY_USER_ID")){
             mUserID = sharedPreferences.getString("KEY_USER_ID","");
         }
-        loadAddedProducts();
     }
 
 
@@ -159,5 +158,11 @@ public class ExistingProduct extends Fragment {
         };
         RequestQueue requestQueue = SingletonRequestQueue.getInstance(getContext()).getRequestQueue();
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadAddedProducts();
     }
 }

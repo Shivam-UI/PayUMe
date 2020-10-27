@@ -1,7 +1,9 @@
 package com.lgt.paykredit.Adapter;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,30 +22,41 @@ import com.lgt.paykredit.Activities.ActivityInvoiceDescription;
 import com.lgt.paykredit.Models.ModelAllInvoices;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.bottomsheets.BottomSheetCall;
+import com.lgt.paykredit.bottomsheets.BottomSheetDeleteInvoice;
+import com.lgt.paykredit.bottomsheets.BottomSheetDeleteItems;
 import com.lgt.paykredit.bottomsheets.BottomSheetSendReminder;
+import com.lgt.paykredit.extras.Common;
+import com.lgt.paykredit.extras.OpenDetailsInvoice;
+import com.lgt.paykredit.extras.SharedData;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.lgt.paykredit.extras.Common.INVOICE_ID;
+
 /**
  * Created by Ranjan on 3/19/2020.
+ *  implements Filterable
  */
-public class AdapterAllInvoices extends RecyclerView.Adapter<AdapterAllInvoices.HolderPaid> implements Filterable {
 
+public class AdapterAllInvoices extends RecyclerView.Adapter<AdapterAllInvoices.HolderPaid> {
+    OpenDetailsInvoice openDetailsInvoice;
     private List<ModelAllInvoices> listPaid;
     private List<ModelAllInvoices> listPaidFull;
-    private Context context;
+    private Context mContext;
+    public static String InvoiceIDShared = "";
 
-    public AdapterAllInvoices(List<ModelAllInvoices> listPaid, Context context) {
+    public AdapterAllInvoices(List<ModelAllInvoices> listPaid, Context context, OpenDetailsInvoice detailsInvoice) {
         this.listPaid = listPaid;
-        this.context = context;
+        this.mContext = context;
         listPaidFull = new ArrayList<>(listPaid);
+        openDetailsInvoice = detailsInvoice;
     }
 
     @NonNull
     @Override
     public HolderPaid onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_all_invoices,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_all_invoices, parent, false);
         return new HolderPaid(view);
     }
 
@@ -55,46 +68,38 @@ public class AdapterAllInvoices extends RecyclerView.Adapter<AdapterAllInvoices.
         holder.tvPaidInvoiceUserName.setText(listPaid.get(position).getName());
         holder.tvAmountPaid.setText(listPaid.get(position).getAmount());
 
-        if(listPaid.get(position).getPaymentStatus().equalsIgnoreCase("Done")){
-            holder.rlAllInvoicesTop.setBackgroundColor(context.getResources().getColor(R.color.green));
+        if (listPaid.get(position).getPaymentStatus().equalsIgnoreCase("Done")) {
+            holder.rlAllInvoicesTop.setBackgroundColor(mContext.getResources().getColor(R.color.green));
+        } else {
+            holder.rlAllInvoicesTop.setBackgroundColor(mContext.getResources().getColor(R.color.light_red));
         }
-        else {
-            holder.rlAllInvoicesTop.setBackgroundColor(context.getResources().getColor(R.color.light_red));
+
+        if (listPaid.get(position).getPaymentStatus().equalsIgnoreCase("0")) {
+            holder.tvAmountOrDue.setText("Due Amount");
+        } else {
+            holder.tvAmountOrDue.setText("Paid Amount");
         }
+
+        holder.tvDeleteInvoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetDeleteInvoice bottomSheetDeleteInvoice = new BottomSheetDeleteInvoice();
+                Bundle deleteItems = new Bundle();
+                deleteItems.putString("KEY_DELETE_ID", listPaid.get(position).getPaidInvoiceNumber());
+                deleteItems.putString("KEY_DELETE_ITEM", listPaid.get(position).getName());
+                FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
+                bottomSheetDeleteInvoice.setArguments(deleteItems);
+                bottomSheetDeleteInvoice.show(fragmentManager, "BottomSheetDeleteItems");
+            }
+        });
+
 
         holder.rlAllInvoices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context, ActivityInvoiceDescription.class));
+                openDetailsInvoice.ShowInvoiceDetails(listPaid.get(position).getPaidInvoiceNumber());
             }
         });
-
-        holder.llCallAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetCall bottomSheetCall = new BottomSheetCall();
-                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                bottomSheetCall.show(manager, "BottomSheetCall");
-            }
-        });
-
-        holder.llRemainderAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BottomSheetSendReminder bottomSheetSendReminder = new BottomSheetSendReminder();
-                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                bottomSheetSendReminder.show(manager, "BottomSheetCall");
-            }
-        });
-
-        holder.llRecordPaymentAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context, ActivityInvoiceDescription.class));
-            }
-        });
-
-
     }
 
     @Override
@@ -102,10 +107,10 @@ public class AdapterAllInvoices extends RecyclerView.Adapter<AdapterAllInvoices.
         return listPaid.size();
     }
 
-    @Override
+   /* @Override
     public Filter getFilter() {
         return exampleFilter;
-    }
+    }*/
 
     private Filter exampleFilter = new Filter() {
         @Override
@@ -139,19 +144,19 @@ public class AdapterAllInvoices extends RecyclerView.Adapter<AdapterAllInvoices.
     };
 
 
-
-
     public static class HolderPaid extends RecyclerView.ViewHolder {
 
-        private TextView tvPaidInvoiceNumber,tvPaymentStatus,tvPaidInvoiceDate,tvPaidInvoiceUserName,tvAmountPaid;
+        private TextView tvPaidInvoiceNumber, tvAmountOrDue, tvPaidInvoiceDate, tvPaidInvoiceUserName, tvAmountPaid, tvDeleteInvoice;
 
-        private LinearLayout llRemainderAll,llCallAll,llRecordPaymentAll;
-        private RelativeLayout rlAllInvoicesTop,rlAllInvoices;
+        private LinearLayout llRemainderAll, llCallAll, llRecordPaymentAll;
+        private RelativeLayout rlAllInvoicesTop, rlAllInvoices;
 
         public HolderPaid(@NonNull View itemView) {
             super(itemView);
 
             tvPaidInvoiceNumber = itemView.findViewById(R.id.tvPaidInvoiceNumber);
+            tvAmountOrDue = itemView.findViewById(R.id.tvAmountOrDue);
+            tvDeleteInvoice = itemView.findViewById(R.id.tvDeleteInvoice);
             tvPaidInvoiceDate = itemView.findViewById(R.id.tvPaidInvoiceDate);
             tvPaidInvoiceUserName = itemView.findViewById(R.id.tvPaidInvoiceUserName);
             tvAmountPaid = itemView.findViewById(R.id.tvAmountPaid);

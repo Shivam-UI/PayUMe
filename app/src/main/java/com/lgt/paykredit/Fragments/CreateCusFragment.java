@@ -168,6 +168,7 @@ public class CreateCusFragment extends Fragment {
                         et_gstin_address.setText("");
                         et_cin_number.setText("");
                         Toast.makeText(getContext(), "New Customer Added!", Toast.LENGTH_SHORT).show();
+                        getActivity().onBackPressed();
                     } else {
                         Toast.makeText(getContext(), "Something Went Wrong!", Toast.LENGTH_SHORT).show();
                     }

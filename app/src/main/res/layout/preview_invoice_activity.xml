@@ -37,10 +37,11 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="10dp"
-                    android:text="Create Invoice"
+                    android:text="Preview Invoice"
                     android:textColor="@color/white" />
 
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -76,7 +77,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -84,11 +85,10 @@
                             style="@style/TextAppearance.AppCompat.Body1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/view_bg_color"
                             android:text="Invoice No" />
 
                         <TextView
-                            android:id="@+id/tv_invoice_id"
+                            android:id="@+id/tv_previewInvoiceId"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="INSTA0312"
@@ -101,26 +101,22 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
-                            android:gravity="center"
                             style="@style/TextAppearance.AppCompat.Body1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Invoice Date" />
 
                         <TextView
-                            style="@style/TextAppearance.AppCompat.Body1"
-                            android:id="@+id/tv_invoice_date"
+                            android:id="@+id/tv_previewInvoiceDate"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="Select Date" />
+                            android:text="12/12/2012" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:gravity="center"
                         android:id="@+id/ll_due_date_picker"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -129,18 +125,16 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:gravity="center"
                             style="@style/TextAppearance.AppCompat.Body1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Due Date" />
 
                         <TextView
-                            style="@style/TextAppearance.AppCompat.Body1"
-                            android:id="@+id/tv_due_date"
+                            android:id="@+id/tv_PreviewDueDate"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="Select Date" />
+                            android:text="11/11/2011" />
 
                     </LinearLayout>
 
@@ -195,7 +189,7 @@
                     android:padding="15dp">
 
                     <Spinner
-                        android:id="@+id/sp_due_terms"
+                        android:id="@+id/sp_DueTerm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -234,7 +228,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvProductItemList"
+                    android:id="@+id/rvPreViewSelectProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -270,7 +264,7 @@
                                 android:text="Discount ₹" />
 
                             <TextView
-                                android:id="@+id/tv_DiscountInPrice"
+                                android:id="@+id/tv_PreviewDiscountPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10dp"
@@ -299,7 +293,7 @@
                                 android:text="Subtotal ₹" />
 
                             <TextView
-                                android:id="@+id/tv_subTotalPrice"
+                                android:id="@+id/tv_PreviewSubTotalPrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10dp"
@@ -328,7 +322,7 @@
                                 android:text="Advance ₹" />
 
                             <TextView
-                                android:id="@+id/tv_AdvancePrice"
+                                android:id="@+id/tv_PreviewAdvancePrice"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10dp"
@@ -358,7 +352,7 @@
                                 android:text="Balance Due ₹" />
 
                             <TextView
-                                android:id="@+id/tv_BalanceDue"
+                                android:id="@+id/tv_PreviewBalanceDue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10dp"
@@ -406,7 +400,7 @@
                     android:padding="10dp">
 
                     <EditText
-                        android:id="@+id/et_acHolderName"
+                        android:id="@+id/et_PreviewAccountHolderName"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:inputType="text"
@@ -416,7 +410,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/et_acHolderNumber"
+                        android:id="@+id/et_PreviewAccountHolderNumber"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:maxLength="16"
@@ -427,7 +421,7 @@
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/et_acHolderIFCSCode"
+                        android:id="@+id/et_PreviewAccountHolderIFCSCode"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:inputType="textCapSentences"
@@ -456,7 +450,7 @@
                         android:text="Note" />
 
                     <EditText
-                        android:id="@+id/et_extra_note"
+                        android:id="@+id/et_PreviewNote"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
@@ -473,6 +467,7 @@
                     android:layout_margin="5dp"
                     android:background="@color/colorPrimary"
                     android:padding="10dp"
+                    android:visibility="gone"
                     android:text="Save"
                     android:textAlignment="center"
                     android:textColor="@color/white" />

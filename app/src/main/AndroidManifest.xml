@@ -21,7 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".Activities.ActivityPreviewInvoice"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ActivityDefaultInvoice"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AddNewCustomer"
             android:noHistory="true"></activity>

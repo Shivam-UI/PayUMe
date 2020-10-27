@@ -100,7 +100,7 @@
                                         android:tint="@color/red" />
 
                                     <TextView
-                                        android:id="@+id/tvCreditFragment"
+                                        android:id="@+id/tvTotalSale"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0.00"
@@ -152,7 +152,7 @@
 
                                     <TextView
 
-                                        android:id="@+id/tvReceivedCreditBook"
+                                        android:id="@+id/tvTotalDueAmt"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0.00"

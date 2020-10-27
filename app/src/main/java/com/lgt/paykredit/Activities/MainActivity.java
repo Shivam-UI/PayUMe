@@ -54,7 +54,6 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     private DrawerLayout drawer;
     private ImageView ivHamburger, ivNotification;
     private TextView tvToolbar, tvHeaderEmail, tvHeaderName, tv_user_profile_name;

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import static android.content.Context.MODE_PRIVATE;
+import static com.lgt.paykredit.Activities.ActivityAddedProducts.vp_add_Product_tab;
 
 public class AddNewProduct extends Fragment {
     TextView tvSaveItem;
@@ -138,7 +139,8 @@ public class AddNewProduct extends Fragment {
                         etTaxPercentage.setText("");
                         etRemarksProduct.setText("");
                         Toast.makeText(getContext(), ""+message, Toast.LENGTH_SHORT).show();
-                        getActivity().getSupportFragmentManager().popBackStack();
+                        getActivity().onBackPressed();
+                        // vp_add_Product_tab.setCurrentItem(1);
                     } else {
                         Toast.makeText(getContext(), ""+message, Toast.LENGTH_SHORT).show();
                     }

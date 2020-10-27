@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_16dp">
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_InvoiceIdDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Invoice # Pay_123"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Due "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/margin_2dp"
+                        android:src="@drawable/rupees" />
+
+                    <TextView
+                        android:id="@+id/tv_invoiceDueAmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textColor="@color/black" />
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date :"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/iv_InvoiceDueDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="15-March-2020"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:background="@color/very_light_grey" />
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="@color/fragment_bg"
+                    android:orientation="horizontal"
+                    android:paddingRight="@dimen/margin_8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/padding_12dp"
+                        android:paddingTop="@dimen/margin_4dp"
+                        android:paddingRight="@dimen/padding_12dp"
+                        android:paddingBottom="@dimen/margin_4dp"
+                        android:text="Balance"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageView
+                        android:layout_width="@dimen/margin_16dp"
+                        android:layout_height="@dimen/margin_16dp"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/margin_2dp"
+                        android:src="@drawable/rupees"
+                        android:tint="@color/colorPrimaryDark" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin_4dp"
+                        android:paddingBottom="@dimen/margin_4dp"
+                        android:text="0"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:id="@+id/llCallInvoiceDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/et_background"
+                    android:orientation="horizontal"
+                    android:paddingRight="@dimen/margin_8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/padding_12dp"
+                        android:paddingTop="@dimen/margin_4dp"
+                        android:paddingRight="@dimen/padding_12dp"
+                        android:paddingBottom="@dimen/margin_4dp"
+                        android:text="Call"
+                        android:textColor="@color/colorPrimary" />
+
+                    <ImageView
+                        android:layout_width="@dimen/margin_16dp"
+                        android:layout_height="@dimen/margin_16dp"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/margin_2dp"
+                        android:src="@drawable/mobile_icon"
+                        android:tint="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:background="@color/very_light_grey" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_32_dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll_preview_invoice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/margin_32_dp"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/margin_4dp"
+                        android:src="@drawable/preview"
+                        android:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_2dp"
+                        android:text="Preview"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_ChangeDueDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_16dp"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/margin_32_dp"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/margin_4dp"
+                        android:src="@drawable/calendar"
+                        android:tint="@color/colorPrimary" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Change Date"
+                        android:maxLines="1"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_PaymentStatusUpdate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/margin_32_dp"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/margin_4dp"
+                        android:src="@drawable/rupees_circler"
+                        android:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Payment"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_SetToDefault"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_defaultIcon"
+                        android:layout_width="@dimen/margin_32_dp"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/margin_4dp"
+                        android:src="@drawable/default_icon"
+                        android:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Defaulters"
+                        android:maxLines="1"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

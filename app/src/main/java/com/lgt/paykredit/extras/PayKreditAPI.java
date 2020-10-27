@@ -43,5 +43,12 @@ public class PayKreditAPI {
     public static String EDIT_INVOICE_CUSTOMER_API = BASE_URL+"edit_invoice_customer_api.php";
     public static String ADD_INVOICE_PRODUCT_API = BASE_URL+"addinvoice_products_api.php";
     public static String INVOICE_PRODUCT_LIST_API = BASE_URL+"invoice_products_list_api.php";
+    public static String CREATE_INVOICE_API = BASE_URL+"create_invoice_api.php";
+    public static String INVOICE_LIST_API = BASE_URL+"invoice_list_api.php";
+    public static String EDIT_INVOICE_BY_TYPE_API = BASE_URL+"edit_invoice_api.php";
+    public static String PREVIEW_INVOICE_API = BASE_URL+"preview_invoice_api.php";
+    public static String USER_WISE_INVOICE_API = BASE_URL+"user_wise_invoice_list_api.php";
+    public static String DEFAULT_ADD_REMOVED_CUSTOMER = BASE_URL+"add_remove_customer_from_defaulter_api.php";
+    public static String DEFAULT_INVOICE_API = BASE_URL+"defaulter_customer_list_api.php";
 
 }

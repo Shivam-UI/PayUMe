@@ -37,6 +37,7 @@ public class InvoiceMainPage extends AppCompatActivity {
     private LinearLayout llTabLayoutParent;
 
     private TextView rlAddInvoiceMainPage;
+    public static TextView tvTotalSale,tvTotalDueAmt;
     ViewPager viewPagerInvoiceMainPage;
 
     private int currentFragmentPosition = 0;
@@ -53,6 +54,9 @@ public class InvoiceMainPage extends AppCompatActivity {
 
         rlAddInvoiceMainPage = findViewById(R.id.rlAddInvoiceMainPage);
         ivInvoiceMainPage = findViewById(R.id.ivInvoiceMainPage);
+
+        tvTotalSale = findViewById(R.id.tvTotalSale);
+        tvTotalDueAmt = findViewById(R.id.tvTotalDueAmt);
 
         tab_MerchantsInvoiceAll = findViewById(R.id.tab_MerchantsInvoiceAll);
         tab_InvoicesPaid = findViewById(R.id.tab_InvoicesPaid);

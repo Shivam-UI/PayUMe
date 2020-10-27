@@ -35,12 +35,6 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
     public AdapterAddedProducts(List<ModelAddedProducts> list, Context context) {
         this.list = list;
         this.context = context;
-        // not in use
-        /*try {
-           //  mLoadInvoiceData = ((LoadInvoiceData) context);
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }*/
     }
 
     @NonNull
@@ -52,9 +46,9 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
 
     @Override
     public void onBindViewHolder(@NonNull HolderAddedProducts holder, final int position) {
-        holder.tvTaxPercentage.setText(list.get(position).getTax()+" %");
+        holder.tvTaxPercentage.setText(list.get(position).getTax()+" ₹");
         holder.tvAmountProduct.setText(list.get(position).getAmount());
-        holder.tvDiscountPercentage.setText(list.get(position).getDiscount()+" %");
+        holder.tvDiscountPercentage.setText(list.get(position).getDiscount()+" ₹");
         holder.tvProductCode.setText(list.get(position).getHsnCode());
         holder.tvProductName.setText(list.get(position).getName());
         holder.ivEditProducts.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +62,8 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
                 bundleAddedProducts.putString("KEY_PRODUCT_NAME",list.get(position).getName());
                 bundleAddedProducts.putString("KEY_HSN_CODE",list.get(position).getHsnCode());
                 bundleAddedProducts.putString("KEY_RATE_PER_UNIT",list.get(position).getAmount());
+                bundleAddedProducts.putString("KEY_QUANTITY_PER_UNIT",list.get(position).getQuantity());
+                bundleAddedProducts.putString("KEY_ADVANCE_PER_UNIT",list.get(position).getAdvance());
                 bundleAddedProducts.putString("KEY_DISCOUNT_PERCENTAGE",list.get(position).getDiscount());
                 bundleAddedProducts.putString("KEY_TAX_PERCENTAGE",list.get(position).getTax());
                 bottomSheetAddItems.setArguments(bundleAddedProducts);
@@ -102,9 +98,12 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
                 subTotalPrice = pprice * pqty;
                 DiscountInPrice = pdiscunt * pqty;
                 BalanceDue = (((pprice - pdiscunt) * pqty) - padvnc);
-                setDataToProduct(subTotalPrice,DiscountInPrice,BalanceDue,list.get(position).getTbl_invoice_products_id(),
+                setDataToProduct(subTotalPrice,
+                        DiscountInPrice,
+                        BalanceDue,
+                        list.get(position).getTbl_invoice_products_id(),
                         list.get(position).getName(),
-                        list.get(position).getAmount(),
+                        String.valueOf(pprice),
                         list.get(position).getAdvance(),
                         list.get(position).getDiscount(),
                         list.get(position).getQuantity(),

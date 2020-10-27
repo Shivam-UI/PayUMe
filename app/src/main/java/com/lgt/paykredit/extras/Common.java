@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.lgt.paykredit.R;
@@ -28,6 +29,10 @@ public class Common {
     public static String ENGLISH="EN";
     public static String FROM_MAIN="MAIN_ACTIIVTY";
     public static String FROM_STARTING="FROM_STARTING";
+    public static String USER_NAME="USER_NAME";
+    public static String INVOICE_ID="INVOICE_ID";
+    // invoice common
+
 
 
 

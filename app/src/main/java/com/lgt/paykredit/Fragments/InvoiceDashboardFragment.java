@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.lgt.paykredit.Activities.ActivityDefaultInvoice;
 import com.lgt.paykredit.Activities.CreateInvoice;
 import com.lgt.paykredit.Activities.InvoiceMainPage;
 import com.lgt.paykredit.R;
@@ -61,7 +62,7 @@ public class InvoiceDashboardFragment extends Fragment {
         ll_my_defaulter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "my defaulter", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), ActivityDefaultInvoice.class));
             }
         });
         ll_udhar_khata.setOnClickListener(new View.OnClickListener() {
