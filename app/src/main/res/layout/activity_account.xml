@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ActivityAccount">
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="?android:actionBarSize">
+
+                <ImageView
+
+                    android:id="@+id/ivBackAccount"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/margin_6dp"
+                    android:src="@drawable/arrow_back_black"
+                    android:layout_width="@dimen/margin_32_dp"
+                    android:layout_height="@dimen/margin_32_dp"/>
+
+                <TextView
+                    android:layout_marginLeft="@dimen/margin_4dp"
+                    android:textSize="@dimen/text_16sp"
+                    android:textColor="@color/black"
+                    android:layout_centerInParent="true"
+                    android:layout_toRightOf="@+id/ivBackAccount"
+                    android:text="Pay Kredit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </RelativeLayout>
+
+            <View
+                android:background="@color/dark_grey"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:paddingRight="@dimen/margin_8dp"
+                android:paddingLeft="@dimen/margin_8dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+
+                    android:id="@+id/rl_account_statement"
+                    android:padding="@dimen/margin_4dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivAccountStatement"
+                        android:tint="@color/colorAccent"
+                        android:padding="@dimen/margin_4dp"
+                        android:layout_width="@dimen/margin_32_dp"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:src="@drawable/statement_icon" />
+
+                    <TextView
+                        android:id="@+id/tv_account_statement"
+                        android:textSize="@dimen/text_16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_16dp"
+                        android:layout_toRightOf="@+id/ivAccountStatement"
+                        android:text="Account Statement" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:id="@+id/rlbackup"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:padding="@dimen/margin_4dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/ivBackup"
+                        android:tint="@color/colorAccent"
+                        android:padding="@dimen/margin_4dp"
+                        android:layout_width="@dimen/margin_32_dp"
+                        android:layout_height="@dimen/margin_32_dp"
+                        android:src="@drawable/download_backup" />
+
+                    <TextView
+                        android:id="@+id/tv_backup"
+                        android:textSize="@dimen/text_16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_16dp"
+                        android:layout_toRightOf="@+id/ivBackup"
+                        android:text="Backup" />
+
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_marginRight="@dimen/margin_16dp"
+                android:layout_marginLeft="@dimen/margin_16dp"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16sp"
+                    android:text="Settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+                <LinearLayout
+                    android:id="@+id/ll_reminder"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:padding="@dimen/margin_6dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/reminder"
+                            android:tint="@color/colorAccent"
+                            android:padding="@dimen/margin_4dp"
+                            android:layout_width="@dimen/margin_32_dp"
+                            android:layout_height="@dimen/margin_32_dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_reminder"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/margin_24dp"
+                            android:text="Reminder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_language"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:padding="@dimen/margin_6dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_lang"
+                            android:src="@drawable/language"
+                            android:tint="@color/colorAccent"
+                            android:padding="@dimen/margin_4dp"
+                            android:layout_width="@dimen/margin_32_dp"
+                            android:layout_height="@dimen/margin_32_dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_language"
+                            android:layout_gravity="center_vertical"
+
+                            android:text="Language"
+
+                            android:layout_marginStart="24dp"
+                         android:layout_toEndOf="@+id/iv_lang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+
+
+                            android:id="@+id/tv_current_language"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:padding="@dimen/margin_6dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/security"
+                            android:tint="@color/colorAccent"
+                            android:padding="@dimen/margin_4dp"
+                            android:layout_width="@dimen/margin_32_dp"
+                            android:layout_height="@dimen/margin_32_dp"/>
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/margin_24dp"
+                            android:text="Security"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

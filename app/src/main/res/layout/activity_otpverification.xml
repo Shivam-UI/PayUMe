@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_bg"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activities.ActivityOTPVerification">
+
+
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_margin="@dimen/margin_16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:layout_margin="@dimen/margin_16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo"
+                android:layout_width="140dp"
+                android:layout_height="80dp"/>
+
+            <TextView
+
+                android:id="@+id/tv_otp_heading"
+                android:textSize="@dimen/text_18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_gravity="center"
+                android:text="OTP Verification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_otp_desc"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_32_dp"
+                android:textColor="@color/black"
+                android:text="An OTP has been sent to "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvOtpSentTo"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_18sp"
+                android:textColor="@color/colorPrimary"
+                android:text="0123456789"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+
+
+                    card_view:cardCornerRadius="4dp"
+                    card_view:cardElevation="8dp"
+                    card_view:cardUseCompatPadding="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginRight="18dp"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="4">
+
+                            <EditText
+                                android:id="@+id/etLogin1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg_otp_verification"
+                                android:gravity="center_horizontal"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:padding="@dimen/padding_10dp"
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/black"
+                                />
+
+                            <EditText
+                                android:id="@+id/etLogin2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg_otp_verification"
+                                android:gravity="center_horizontal"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:padding="@dimen/padding_10dp"
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/black" />
+
+                            <EditText
+                                android:id="@+id/etLogin3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg_otp_verification"
+                                android:gravity="center_horizontal"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:padding="@dimen/padding_10dp"
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/black"/>
+
+                            <EditText
+                                android:id="@+id/etLogin4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/et_bg_otp_verification"
+                                android:gravity="center_horizontal"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:padding="@dimen/padding_10dp"
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/black"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorPrimary"
+                            android:visibility="gone"></View>
+
+                        <ProgressBar
+                            android:id="@+id/pb_otpVerification"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/margin_16dp"
+                            android:visibility="gone" />
+
+
+
+                        <TextView
+                            android:id="@+id/tvVerifyOTP"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/margin_32_dp"
+                            android:paddingBottom="@dimen/margin_8dp"
+                            android:paddingTop="@dimen/margin_8dp"
+                            android:layout_marginRight="40dp"
+                            android:layout_marginLeft="40dp"
+                            android:textColor="@color/white"
+                            android:text="Verify"
+                            android:background="@drawable/btn_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

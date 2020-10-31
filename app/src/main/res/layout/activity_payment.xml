@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    tools:context=".Activities.ActivityPayment">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/toolbar_single_user_transaction"/>
+
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:padding="@dimen/padding_12dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tvPaymentReceiveOrGive"
+
+                android:layout_gravity="center"
+                android:text="Receive Payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+           <RelativeLayout
+               android:layout_marginTop="@dimen/margin_16dp"
+               android:layout_gravity="center"
+               android:orientation="horizontal"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+
+               <LinearLayout
+                 android:layout_gravity="center"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content">
+
+                   <ImageView
+
+                       android:layout_gravity="center"
+                       android:src="@drawable/rupees"
+                       android:layout_width="@dimen/margin_16dp"
+                       android:layout_height="@dimen/margin_16dp"/>
+
+                   <EditText
+                       android:id="@+id/etEnterAmount"
+                       android:textSize="@dimen/text_16sp"
+                       android:layout_gravity="center"
+                       android:imeOptions="actionNext"
+                       android:textStyle="bold"
+                       android:inputType="numberDecimal"
+                       android:textColor="@color/green"
+                       android:textColorHint="@color/green"
+                       android:descendantFocusability="beforeDescendants"
+                       android:padding="@dimen/padding_8dp"
+
+                       android:background="@null"
+                       android:hint="Add Payment"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+
+               </LinearLayout>
+
+
+
+
+
+           </RelativeLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/llDatePayment"
+                    android:background="@drawable/bg_stroke_light_grey"
+                    android:paddingLeft="@dimen/padding_12dp"
+                    android:paddingTop="@dimen/padding_8dp"
+                    android:paddingRight="@dimen/padding_12dp"
+                    android:paddingBottom="@dimen/padding_8dp"
+                    android:layout_marginTop="@dimen/margin_24dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvDatePayment"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12sp"
+                        android:text="Select Date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+
+                        android:layout_marginLeft="@dimen/padding_4dp"
+                        android:layout_gravity="bottom"
+                        android:src="@drawable/expand_down"
+                        android:layout_width="@dimen/margin_16dp"
+                        android:layout_height="16dp"/>
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:layout_gravity="center"
+                    android:textSize="8sp"
+                    android:text="(Date of transaction)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ProgressBar
+                    android:layout_marginTop="@dimen/margin_24dp"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:id="@+id/pbPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <LinearLayout
+
+                   android:layout_marginTop="@dimen/margin_32_dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <RelativeLayout
+
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:layout_marginLeft="@dimen/margin_16dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="@dimen/margin_8dp"
+                            android:layout_toLeftOf="@+id/ivDone"
+                            android:padding="@dimen/margin_12dp"
+                            android:background="@drawable/bg_stroke_light_grey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+
+                                android:layout_gravity="center"
+                                android:src="@drawable/message"
+                                android:layout_width="@dimen/margin_24dp"
+                                android:layout_height="@dimen/margin_24dp"/>
+
+
+                            <EditText
+                                android:id="@+id/etMessagePayment"
+                                android:layout_marginLeft="@dimen/margin_4dp"
+                                android:padding="@dimen/margin_4dp"
+                                android:maxLines="1"
+                                android:inputType="text"
+                                android:imeOptions="actionDone"
+                                android:textSize="@dimen/text_12sp"
+                                android:textColorHint="@color/black"
+                                android:textColor="@color/black"
+                                android:hint="Add Messages"
+                                android:background="@null"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/ivDone"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/margin_16dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/margin_8dp"
+                            android:src="@drawable/mobile_number_not_correct"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"/>
+
+
+                    </RelativeLayout>
+
+
+
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:background="@drawable/bg_stroke_light_grey"
+                    android:layout_marginTop="@dimen/margin_32_dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:padding="@dimen/padding_12dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+
+                            android:layout_gravity="center"
+                            android:src="@drawable/camera"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"/>
+
+                        <TextView
+                            android:layout_marginTop="@dimen/margin_8dp"
+                            android:layout_marginBottom="@dimen/margin_4dp"
+                            android:textSize="@dimen/text_12sp"
+                            android:layout_gravity="center"
+                            android:text="Add Bills"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

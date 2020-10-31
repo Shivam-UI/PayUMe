@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/rlReceivedDescription"
+    android:padding="@dimen/margin_8dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvDatePaid"
+        android:background="@drawable/bg_date_for_whatsapp_like"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:paddingTop="@dimen/margin_4dp"
+        android:layout_margin="15dp"
+        android:paddingRight="@dimen/margin_16dp"
+        android:paddingLeft="@dimen/margin_16dp"
+        android:paddingBottom="@dimen/margin_4dp"
+        android:textSize="12sp"
+        android:text="20-05-20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+
+        android:id="@+id/llTop"
+        android:layout_below="@+id/tvDatePaid"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_amount_paid_or_received"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:paddingRight="@dimen/margin_4dp"
+            android:paddingLeft="@dimen/margin_8dp"
+            android:paddingBottom="@dimen/margin_8dp"
+            android:paddingTop="@dimen/margin_8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:padding="@dimen/padding_2dp"
+                android:tint="@color/red"
+                android:src="@drawable/rupees"
+                android:layout_width="@dimen/margin_16dp"
+                android:layout_height="@dimen/margin_16dp"/>
+
+            <TextView
+                android:id="@+id/tvAmountSent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_2dp"
+                android:textSize="@dimen/text_16sp"
+                android:textColor="@color/red"
+                android:text="2000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:id="@+id/tvAmountSentTime"
+                android:layout_marginRight="@dimen/margin_8dp"
+                android:layout_marginLeft="@dimen/margin_24dp"
+                android:layout_gravity="bottom"
+                android:textSize="@dimen/text_10sp"
+                android:text="11:10 AM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_4dp"
+        android:layout_below="@+id/llTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/tvRemarksPaid"
+            android:maxLines="1"
+            android:maxLength="30"
+            android:layout_marginLeft="@dimen/margin_2dp"
+            android:textSize="@dimen/text_10sp"
+            android:text="Remarks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

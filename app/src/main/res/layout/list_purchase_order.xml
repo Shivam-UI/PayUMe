@@ -1,0 +1,195 @@
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardUnpaid"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/fragment_bg"
+                    android:paddingLeft="@dimen/margin_4dp"
+                    android:paddingTop="@dimen/margin_8dp"
+                    android:paddingRight="@dimen/margin_4dp"
+                    android:paddingBottom="@dimen/margin_8dp">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tvMerchantName"
+                            android:text="MerchantName"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:text="Purchase ID"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:layout_marginLeft="@dimen/margin_8dp"
+                                android:text="123456"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Date"
+                            android:textSize="@dimen/text_12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginLeft="@dimen/margin_8dp"
+                            android:text="22-03-20"
+                            android:textSize="@dimen/text_12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:background="@color/very_light_grey"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+
+            android:paddingRight="@dimen/margin_4dp"
+            android:paddingLeft="@dimen/margin_4dp"
+            android:paddingBottom="@dimen/margin_4dp"
+            android:layout_marginTop="@dimen/margin_4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAddressLine1"
+                    android:textSize="@dimen/text_12sp"
+                    android:text="Total Items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/margin_8dp"
+                    android:id="@+id/tvAddressLine2"
+                    android:textSize="@dimen/text_12sp"
+                    android:text="10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:tint="@color/colorAccent"
+                        android:src="@drawable/rupees"
+                        android:layout_width="@dimen/margin_16dp"
+                        android:layout_height="@dimen/margin_16dp"/>
+
+                    <TextView
+                        android:id="@+id/tvCustomerMobileNumber"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="@dimen/margin_4dp"
+                        android:textSize="@dimen/text_14sp"
+                        android:text="100"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+</androidx.cardview.widget.CardView>

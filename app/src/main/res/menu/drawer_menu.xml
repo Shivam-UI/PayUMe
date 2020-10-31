@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/icon_home"
+            android:title="Dashboard" />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/profile_icon"
+            android:title="Profile" />
+
+        <item
+            android:id="@+id/nav_invoice"
+            android:icon="@drawable/invoices"
+            android:title="Invoice"
+            android:visible="false" />
+
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@drawable/account"
+            android:title="Account" />
+
+        <item
+            android:id="@+id/nav_account_report"
+            android:icon="@drawable/ac_report"
+            android:title="Account Report" />
+
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/help"
+            android:title="Help" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_share_black_24dp"
+            android:title="Share" />
+
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/about_us"
+            android:title="About us" />
+
+
+        <item
+            android:id="@+id/nav_privacy_policy"
+            android:icon="@drawable/privacy_policy"
+            android:title="Privacy Policy" />
+
+
+    </group>
+
+    <group
+        android:id="@+id/group_settings"
+
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/signout_24_dp"
+            android:title="Sign out" />
+
+    </group>
+
+</menu>

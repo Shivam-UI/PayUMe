@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ActivityCreateInvoice">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="@dimen/margin_8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_alignParentLeft="true"
+                    android:textSize="@dimen/text_24sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="Pay Kredit Pvt. Ltd."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textColor="#909191"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:text="INVOICE"
+                    android:textSize="@dimen/text_18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_10sp"
+                    android:text="Hayya 'alal Falah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:fillViewport="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:id="@+id/ViewTop"
+                            android:layout_marginTop="@dimen/padding_2dp"
+                            android:background="@color/very_light_grey"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+
+                        <LinearLayout
+                            android:layout_below="@+id/ViewTop"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="2dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12sp"
+                                android:text="545, Street 6A, Zakir Nagar Okhla"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12sp"
+                                android:text="New Delhi-110025"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12sp"
+                                android:text="Phone : 0123456789"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+
+                            <TextView
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/text_12sp"
+                                android:text="Email : info@paykredit.com"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_marginTop="@dimen/margin_4dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <LinearLayout
+                                android:id="@+id/llDateInvoice"
+                                android:padding="@dimen/padding_4dp"
+                                android:background="#ECEDED "
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:text="Date : "
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tvInvoiceDateCreateInvoice"
+                                    android:text="20-03-2020"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:gravity="center"
+                                android:background="@drawable/bg_stroke_black"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textColor="@color/black"
+                                    android:text="Invoice No :"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:padding="@dimen/margin_2dp"
+                                    android:textColor="@color/black"
+                                    android:text="8"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_marginTop="@dimen/margin_4dp"
+                        android:background="@color/very_light_grey"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/llBillTo"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:paddingBottom="@dimen/padding_2dp"
+                                android:paddingTop="@dimen/padding_2dp"
+                                android:paddingRight="@dimen/margin_24dp"
+                                android:paddingLeft="@dimen/margin_24dp"
+                                android:textColor="@color/white"
+                                android:background="@color/blue_for_box"
+                                android:textSize="@dimen/text_12sp"
+                                android:text="Bill To"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+
+                            <LinearLayout
+                                android:id="@+id/llDueDateCreateInvoice"
+                                android:layout_alignParentRight="true"
+                                android:padding="@dimen/padding_4dp"
+                                android:background="#ECEDED "
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textSize="@dimen/text_12sp"
+                                    android:text="Due Date : "
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tvDueDateCreateInvoice"
+                                    android:textSize="@dimen/text_12sp"
+                                    android:text="20-03-2020"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+
+                                android:textColor="@color/black"
+                                android:text="Mr. PayKredit"
+                                android:layout_marginTop="@dimen/margin_4dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/dark_grey"
+                                android:text="PayKredit Pvt. ltd."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/dark_grey"
+                                android:text="Okhla, New Delhi - 110025"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                                android:id="@+id/llAddCustomerBox"
+                                android:background="@drawable/bg_add_customer"
+                                android:orientation="horizontal"
+                                android:paddingLeft="@dimen/margin_16dp"
+                                android:paddingTop="@dimen/margin_8dp"
+                                android:paddingRight="@dimen/margin_16dp"
+                                android:paddingBottom="@dimen/margin_8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:tint="@color/dark_blue_visiting"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/add_customer"
+                                    android:layout_width="@dimen/margin_24dp"
+                                    android:layout_height="@dimen/margin_24dp"/>
+
+
+                                <TextView
+                                    android:textColor="@color/dark_blue_visiting"
+                                    android:paddingRight="@dimen/padding_8dp"
+                                    android:layout_marginLeft="@dimen/margin_8dp"
+                                    android:gravity="center"
+                                    android:text="Add \nCustomer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:background="@drawable/bg_stroke_black"
+                        android:paddingBottom="@dimen/margin_8dp"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <LinearLayout
+                            android:padding="@dimen/margin_4dp"
+                            android:background="@color/blue_for_box"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_marginLeft="@dimen/margin_16dp"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/white"
+                                android:text="Description"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"/>
+
+
+
+                            <TextView
+
+                                android:layout_marginRight="@dimen/margin_24dp"
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/white"
+                                android:text="Qty."
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+
+
+                            <TextView
+
+                                android:layout_marginRight="@dimen/margin_24dp"
+                                android:layout_alignParentRight="true"
+                                android:textSize="@dimen/text_12sp"
+                                android:textColor="@color/white"
+                                android:text="Amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvInvoiceItems"
+                            android:padding="@dimen/padding_2dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <View
+                            android:background="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+                                <LinearLayout
+                                   android:layout_margin="1dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:id="@+id/llOtherComments"
+                                        android:layout_alignParentLeft="true"
+                                        android:orientation="horizontal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent">
+
+                                        <LinearLayout
+
+                                            android:orientation="vertical"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content">
+
+                                            <TextView
+                                                android:background="@color/blue_for_box"
+                                                android:textSize="@dimen/text_10sp"
+                                                android:padding="@dimen/margin_4dp"
+                                                android:textColor="@color/white"
+                                                android:text="OTHER COMMENTS"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:layout_marginLeft="@dimen/margin_2dp"
+                                                android:orientation="vertical"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+
+                                                    android:textColor="@color/black"
+                                                    android:textSize="8sp"
+                                                    android:text="Please make payment in favour of following \n account :"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:textColor="@color/black"
+                                                    android:textSize="@dimen/text_10sp"
+                                                    android:text="A/C Name : PayKredit Pvt Ltd."
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:textColor="@color/black"
+                                                    android:textSize="@dimen/text_10sp"
+                                                    android:text="A/C Number : 0123456789"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+
+                                                <TextView
+                                                    android:textColor="@color/dark_grey"
+                                                    android:textSize="@dimen/text_10sp"
+                                                    android:text="Bank : Yes Bank"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+
+                                            </LinearLayout>
+
+
+                                        </LinearLayout>
+
+
+
+
+                                    </LinearLayout>
+
+                                    <View
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginLeft="1dp"
+                                        android:layout_marginRight="1dp"
+                                        android:background="@color/black" />
+
+
+                                    <LinearLayout
+                                        android:layout_toRightOf="@+id/llOtherComments"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <LinearLayout
+
+                                                android:orientation="horizontal"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+
+                                                    android:layout_gravity="center"
+                                                    android:textSize="@dimen/text_10sp"
+                                                    android:layout_width="wrap_content"
+                                                    android:text="Sub Total"
+                                                    android:textColor="@color/black"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <LinearLayout
+
+                                                    android:layout_marginRight="@dimen/margin_16dp"
+                                                    android:gravity="right"
+                                                    android:orientation="horizontal"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content">
+
+                                                    <TextView
+                                                        android:textSize="@dimen/text_12sp"
+                                                        android:textColor="@color/black"
+                                                        android:text="Rs."
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"/>
+
+                                                    <TextView
+
+                                                        android:textSize="@dimen/text_12sp"
+                                                        android:layout_width="wrap_content"
+                                                        android:textColor="@color/black"
+                                                        android:text="100.00"
+                                                        android:layout_height="wrap_content"/>
+
+                                                </LinearLayout>
+
+
+
+
+                                            </LinearLayout>
+
+                                            <View
+                                                android:background="@color/black"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="1dp"/>
+
+                                            <LinearLayout
+
+                                                android:orientation="horizontal"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+
+                                                    android:layout_gravity="center"
+                                                    android:textSize="@dimen/text_10sp"
+                                                    android:layout_width="wrap_content"
+                                                    android:text="Total Due"
+                                                    android:textColor="@color/black"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <LinearLayout
+
+                                                    android:layout_marginRight="@dimen/margin_16dp"
+                                                    android:gravity="right"
+                                                    android:orientation="horizontal"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content">
+
+                                                    <TextView
+                                                        android:textColor="@color/black"
+                                                        android:text="Rs."
+                                                        android:textSize="@dimen/text_12sp"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"/>
+
+                                                    <TextView
+                                                        android:textSize="@dimen/text_12sp"
+                                                        android:layout_width="wrap_content"
+                                                        android:textColor="@color/black"
+                                                        android:text="100.00"
+                                                        android:layout_height="wrap_content"/>
+
+                                                </LinearLayout>
+
+
+
+
+                                            </LinearLayout>
+
+                                            <View
+                                                android:background="@color/black"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="1dp"/>
+
+                                            <RelativeLayout
+
+                                                android:orientation="horizontal"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_alignParentLeft="true"
+                                                    android:layout_gravity="center"
+                                                    android:layout_centerVertical="true"
+                                                    android:textSize="@dimen/text_10sp"
+                                                    android:layout_width="wrap_content"
+                                                    android:text="Advance"
+                                                    android:textColor="@color/black"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <LinearLayout
+
+                                                    android:layout_marginRight="@dimen/margin_16dp"
+                                                    android:layout_alignParentRight="true"
+                                                    android:orientation="horizontal"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content">
+
+                                                    <TextView
+                                                        android:textColor="@color/black"
+                                                        android:text="Rs."
+                                                        android:textSize="@dimen/text_12sp"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"/>
+
+                                                    <EditText
+                                                        android:textSize="@dimen/text_12sp"
+                                                        android:paddingBottom="@dimen/margin_4dp"
+                                                        android:paddingTop="4dp"
+                                                        android:background="@null"
+                                                        android:maxLines="1"
+                                                        android:imeOptions="actionNext"
+                                                        android:inputType="number"
+                                                        android:layout_width="wrap_content"
+                                                        android:textColor="@color/black"
+                                                        android:text="10.00"
+                                                        android:layout_height="wrap_content"/>
+
+                                                </LinearLayout>
+
+
+
+
+                                            </RelativeLayout>
+
+                                            <View
+                                                android:background="@color/black"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="1dp"/>
+
+
+
+                                            <LinearLayout
+
+                                                android:orientation="vertical"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+
+                                                    android:textSize="@dimen/text_10sp"
+                                                    android:layout_width="wrap_content"
+                                                    android:text="Discount"
+                                                    android:textColor="@color/dark_grey"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+
+                                                    android:textSize="@dimen/text_10sp"
+                                                    android:layout_width="wrap_content"
+                                                    android:text="Round off"
+                                                    android:textColor="@color/dark_grey"
+                                                    android:layout_height="wrap_content"/>
+
+
+                                            </LinearLayout>
+
+
+                                        </LinearLayout>
+
+
+
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+
+
+
+
+
+
+
+                            </RelativeLayout>
+
+                            <View
+                                android:background="@color/black"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                            <RelativeLayout
+
+                                android:layout_marginRight="@dimen/margin_12dp"
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+
+                                    android:layout_centerVertical="true"
+                                    android:layout_toLeftOf="@+id/llNetPayableAmount"
+                                    android:textSize="@dimen/text_12sp"
+                                    android:layout_width="wrap_content"
+                                    android:text="Net Payable"
+                                    android:textColor="@color/black"
+                                    android:layout_height="wrap_content"/>
+
+                                <LinearLayout
+
+                                    android:id="@+id/llNetPayableAmount"
+                                    android:layout_marginLeft="@dimen/margin_4dp"
+                                    android:layout_alignParentRight="true"
+                                    android:orientation="horizontal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:textColor="@color/black"
+                                        android:text="Rs."
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:textColor="@color/black"
+                                        android:text="100.00"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+
+
+
+                            </RelativeLayout>
+
+                            <View
+                                android:background="@color/black"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+
+                           <LinearLayout
+                               android:layout_marginTop="@dimen/margin_4dp"
+                               android:orientation="vertical"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content">
+
+                               <TextView
+                                   android:textSize="@dimen/text_10sp"
+                                   android:text="Remarks"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"/>
+
+                               <EditText
+
+                                   android:background="@null"
+                                   android:hint="Enter remarks"
+                                   android:paddingTop="@dimen/margin_4dp"
+                                   android:paddingBottom="@dimen/margin_4dp"
+                                   android:maxLines="1"
+                                   android:inputType="text"
+                                   android:imeOptions="actionDone"
+                                   android:textColor="@color/dark_grey"
+                                   android:textSize="@dimen/text_10sp"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"/>
+
+
+                           </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+
+
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:id="@+id/tvThanksForBusiness"
+                            android:layout_toLeftOf="@+id/llStamp"
+                            android:layout_marginRight="@dimen/margin_32_dp"
+                            android:textColor="@color/black"
+                            android:layout_centerVertical="true"
+                            android:text="Thank You For Your Business"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:id="@+id/llStamp"
+                            android:layout_alignParentRight="true"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <ImageView
+
+                                android:src="@drawable/stamp"
+                                android:layout_gravity="center"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"/>
+
+                            <TextView
+                                android:textColor="@color/black"
+                                android:text="For P &amp; Kredit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+
+
+
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

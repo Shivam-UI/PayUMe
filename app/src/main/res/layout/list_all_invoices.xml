@@ -1,0 +1,394 @@
+<androidx.cardview.widget.CardView android:id="@+id/cardPaid"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    app:ignore="NamespaceTypo">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <LinearLayout
+          android:id="@+id/ll_top_lay"
+          android:visibility="gone"
+          android:paddingBottom="@dimen/margin_8dp"
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <LinearLayout
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+                  <RelativeLayout
+                      android:id="@+id/rlAllInvoicesTop"
+                      android:paddingTop="@dimen/margin_8dp"
+                      android:paddingBottom="@dimen/margin_8dp"
+                      android:paddingRight="@dimen/margin_4dp"
+                      android:paddingLeft="@dimen/margin_4dp"
+                      android:background="@color/green"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+
+                      <LinearLayout
+                          android:orientation="horizontal"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+
+                          <TextView
+                              android:id="@+id/tvInvoice"
+                              android:text="Invoice"
+                              android:textColor="@color/white"
+                              android:textSize="@dimen/text_12sp"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"/>
+
+                          <TextView
+
+                              android:id="@+id/tvPaidInvoiceNumber"
+                              android:layout_marginLeft="@dimen/margin_8dp"
+                              android:textSize="@dimen/text_12sp"
+                              android:textColor="@color/white"
+                              android:text="# PAY_123"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"/>
+
+                      </LinearLayout>
+
+                      <LinearLayout
+                          android:layout_alignParentRight="true"
+                          android:orientation="horizontal"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+
+                          <TextView
+
+                              android:textStyle="bold"
+                              android:textSize="@dimen/text_12sp"
+                              android:textColor="@color/white"
+                              android:text="12-Mar-20"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"/>
+
+
+                      </LinearLayout>
+
+
+
+
+                  </RelativeLayout>
+
+                  <RelativeLayout
+
+                      android:paddingLeft="@dimen/margin_8dp"
+                      android:paddingRight="@dimen/margin_8dp"
+                      android:paddingTop="@dimen/padding_6dp"
+                      android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+
+                      <LinearLayout
+                          android:layout_alignParentLeft="true"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+
+                          <de.hdodenhof.circleimageview.CircleImageView
+                              android:src="@drawable/user_icon"
+                              android:layout_width="@dimen/margin_24dp"
+                              android:layout_height="@dimen/margin_24dp"/>
+
+                          <TextView
+
+                              android:textSize="@dimen/text_12sp"
+                              android:layout_marginLeft="@dimen/margin_8dp"
+                              android:textStyle="bold"
+                              android:text="Paykredit"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"/>
+
+                      </LinearLayout>
+
+                      <LinearLayout
+                          android:layout_alignParentRight="true"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content">
+
+                          <ImageView
+                              android:layout_gravity="center"
+                              android:src="@drawable/rupees"
+                              android:layout_width="@dimen/margin_12dp"
+                              android:layout_height="@dimen/margin_12dp"/>
+
+
+                          <TextView
+
+                              android:textStyle="bold"
+                              android:textColor="@color/black"
+                              android:text="100.00"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"/>
+
+                      </LinearLayout>
+
+
+
+
+                  </RelativeLayout>
+
+
+
+
+              </LinearLayout>
+
+
+          </RelativeLayout>
+
+          <LinearLayout
+              android:layout_gravity="right"
+              android:layout_marginTop="@dimen/margin_4dp"
+              android:layout_marginBottom="@dimen/margin_4dp"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+              <LinearLayout
+                  android:id="@+id/llRecordPaymentAll"
+                  android:layout_marginRight="@dimen/margin_8dp"
+                  android:paddingBottom="@dimen/margin_4dp"
+                  android:paddingTop="@dimen/margin_4dp"
+                  android:gravity="center"
+                  android:paddingRight="@dimen/margin_16dp"
+                  android:paddingLeft="@dimen/margin_16dp"
+                  android:background="@drawable/bg_stroke_light_grey"
+                  android:orientation="vertical"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content">
+
+
+                  <ImageView
+                      android:layout_width="@dimen/margin_16dp"
+                      android:layout_height="@dimen/margin_16dp"
+                      android:layout_gravity="center"
+                      android:padding="@dimen/margin_2dp"
+                      android:src="@drawable/add_black" />
+
+                  <TextView
+                      android:textColor="@color/colorPrimary"
+                      android:textSize="@dimen/text_10sp"
+                      android:layout_gravity="center"
+                      android:text="Record Payment"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+
+              </LinearLayout>
+
+
+              <LinearLayout
+                  android:id="@+id/llRemainderAll"
+                  android:layout_marginRight="@dimen/margin_8dp"
+                  android:paddingBottom="@dimen/margin_4dp"
+                  android:paddingTop="@dimen/margin_4dp"
+                  android:paddingRight="@dimen/margin_16dp"
+                  android:paddingLeft="@dimen/margin_16dp"
+                  android:background="@drawable/bg_stroke_light_grey"
+                  android:orientation="vertical"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content">
+
+
+                  <ImageView
+
+                      android:layout_gravity="center"
+                      android:src="@drawable/alarm"
+                      android:padding="@dimen/margin_2dp"
+                      android:layout_width="@dimen/margin_16dp"
+                      android:layout_height="@dimen/margin_16dp"/>
+
+                  <TextView
+                      android:textColor="@color/colorPrimary"
+                      android:textSize="@dimen/text_10sp"
+                      android:text="Reminder"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+
+              </LinearLayout>
+
+              <LinearLayout
+                  android:id="@+id/llCallAll"
+                  android:layout_marginRight="@dimen/margin_8dp"
+                  android:paddingBottom="@dimen/margin_4dp"
+                  android:paddingTop="@dimen/margin_4dp"
+                  android:paddingLeft="@dimen/margin_24dp"
+                  android:paddingRight="@dimen/margin_24dp"
+                  android:background="@drawable/bg_stroke_light_grey"
+                  android:orientation="vertical"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content">
+
+
+                  <ImageView
+                      android:layout_gravity="center"
+                      android:padding="@dimen/margin_2dp"
+                      android:src="@drawable/mobile_icon"
+                      android:layout_width="@dimen/margin_16dp"
+                      android:layout_height="@dimen/margin_16dp"/>
+
+                  <TextView
+                      android:textColor="@color/colorPrimary"
+                      android:textSize="@dimen/text_10sp"
+                      android:text="  Call  "
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+
+              </LinearLayout>
+
+
+          </LinearLayout>
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_below="@+id/ll_top_lay"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/llGetFullDetail"
+          android:orientation="vertical">
+
+          <RelativeLayout
+              android:id="@+id/rlAllInvoices"
+              android:layout_width="match_parent"
+              android:padding="@dimen/margin_8dp"
+              android:layout_height="wrap_content">
+
+              <de.hdodenhof.circleimageview.CircleImageView
+                  android:id="@+id/civUser"
+                  app:civ_border_color="@color/colorAccent"
+                  app:civ_border_width="0.5dp"
+                  android:layout_alignParentLeft="true"
+                  android:src="@drawable/user_icon"
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"/>
+
+
+              <LinearLayout
+
+                  android:layout_marginLeft="@dimen/margin_16dp"
+                  android:layout_marginRight="@dimen/margin_16dp"
+                  android:layout_toLeftOf="@id/llAdvanceOrDue"
+                  android:layout_toRightOf="@id/civUser"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+
+
+                  <TextView
+                      android:id="@+id/tvPaidInvoiceUserName"
+                      android:textStyle="bold"
+                      android:textSize="@dimen/text_14sp"
+                      android:textColor="@color/black"
+                      android:text="Ranjan Kumar Singh"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+
+                  <LinearLayout
+                      android:visibility="gone"
+                      android:layout_marginTop="@dimen/margin_4dp"
+                      android:orientation="horizontal"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+
+                      <TextView
+                          android:textSize="@dimen/text_12sp"
+                          android:text="Advance"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                      <TextView
+                          android:id="@+id/tvPaidInvoiceDate"
+                          android:textSize="@dimen/text_12sp"
+                          android:layout_marginLeft="10dp"
+                          android:text="16-03-2020"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                  </LinearLayout>
+
+              </LinearLayout>
+
+              <LinearLayout
+                  android:id="@+id/llAdvanceOrDue"
+                  android:layout_alignParentRight="true"
+                  android:orientation="vertical"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content">
+
+                  <LinearLayout
+                      android:layout_gravity="right"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+
+                      <ImageView
+
+                          android:id="@+id/ivRupees"
+                          android:layout_gravity="center"
+                          android:tint="@color/green"
+                          android:src="@drawable/rupees"
+                          android:layout_width="@dimen/margin_12dp"
+                          android:layout_height="@dimen/margin_12dp"/>
+
+                      <TextView
+                          android:id="@+id/tvAmountPaid"
+                          android:textSize="@dimen/text_14sp"
+                          android:textStyle="bold"
+                          android:textColor="@color/green"
+                          android:text="10"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"/>
+
+                  </LinearLayout>
+
+                  <TextView
+                      android:id="@+id/tvAmountOrDue"
+                      android:textSize="@dimen/text_12sp"
+                      android:layout_gravity="right"
+                      android:text="Advance"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+
+
+                  <TextView
+                      android:id="@+id/tvDeleteInvoice"
+                      android:layout_marginTop="@dimen/margin_2dp"
+                      android:textColor="@color/light_red"
+                      android:padding="@dimen/padding_4dp"
+                      android:textSize="@dimen/text_10sp"
+                      android:layout_gravity="right"
+                      android:text="( Delete )"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" />
+              </LinearLayout>
+
+          </RelativeLayout>
+
+          <View
+              android:visibility="gone"
+              android:layout_marginTop="@dimen/margin_4dp"
+              android:background="@color/dark_blue"
+              android:layout_width="match_parent"
+              android:layout_height="0.5dp"/>
+
+      </LinearLayout>
+
+  </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

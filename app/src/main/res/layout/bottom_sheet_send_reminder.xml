@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_color_accent"
+    tools:context=".bottomsheets.BottomSheetSendReminder">
+
+
+    <LinearLayout
+        android:paddingBottom="@dimen/margin_32_dp"
+        android:layout_marginRight="@dimen/margin_32_dp"
+        android:layout_marginLeft="@dimen/margin_32_dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:padding="@dimen/margin_16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_send_reminder"
+                android:textSize="@dimen/text_14sp"
+                android:textStyle="bold"
+                android:textColor="@color/dark_grey"
+                android:layout_gravity="center"
+                android:text="Send Reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:background="@color/colorPrimaryDark"
+                android:layout_marginTop="@dimen/margin_4dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvREminderName"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:text="Ranjan Kumar SIngh"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:id="@+id/tvReminderNumber"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:text="0123456789"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:id="@+id/sendReminderWhatsApp"
+                    android:background="@drawable/btn_bg"
+                    android:padding="@dimen/margin_8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:text="Whatsapp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <ImageView
+                        android:tint="@color/white"
+                        android:layout_marginLeft="@dimen/margin_32_dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/send_using_whatsapp"
+                        android:layout_width="@dimen/text_16sp"
+                        android:layout_height="@dimen/text_16sp"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSendReminderUsingMessage"
+                    android:layout_marginTop="@dimen/margin_8dp"
+                    android:background="@drawable/btn_bg"
+                    android:padding="@dimen/margin_8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:text="Message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <ImageView
+                        android:tint="@color/white"
+                        android:layout_marginLeft="@dimen/margin_32_dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/send_message"
+                        android:layout_width="@dimen/text_16sp"
+                        android:layout_height="@dimen/text_16sp"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
