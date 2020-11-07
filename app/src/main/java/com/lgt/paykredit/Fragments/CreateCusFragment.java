@@ -33,6 +33,7 @@ import com.lgt.paykredit.R;
 import com.lgt.paykredit.extras.PayKreditAPI;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -169,6 +170,10 @@ public class CreateCusFragment extends Fragment {
                     String message = jsonObject.getString("message");
                     String status = jsonObject.getString("status");
                     if (status.equalsIgnoreCase("1")) {
+                        JSONObject jsonArray = jsonObject.getJSONObject("data");
+                        String tbl_invoice_customer_id = jsonArray.getString("tbl_invoice_customer_id");
+                        String customer_name = jsonArray.getString("customer_name");
+                        Log.d("Customer_details",tbl_invoice_customer_id+""+customer_name);
                         et_customer_name.setText("");
                         et_mobile_number.setText("");
                         et_company_name.setText("");
@@ -177,12 +182,17 @@ public class CreateCusFragment extends Fragment {
                         et_gstin_number.setText("");
                         et_gstin_address.setText("");
                         et_cin_number.setText("");
+                        isCustomerNewAdded=true;
+                        new_customer_id=tbl_invoice_customer_id;
+                        new_customer_name=customer_name;
                         Toast.makeText(getContext(), "New Customer Added!", Toast.LENGTH_SHORT).show();
+                        getActivity().onBackPressed();
+                        /* not in use
                         Intent intent=new Intent("UPDATE_CUSTOMER");
                         LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
                         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                         pb_addProductProgress.setVisibility(View.GONE);
-                        vp_add_customer_tab.setCurrentItem(2);
+                        vp_add_customer_tab.setCurrentItem(2); */
                     } else {
                         Toast.makeText(getContext(), "Something Went Wrong!", Toast.LENGTH_SHORT).show();
                     }
@@ -205,7 +215,7 @@ public class CreateCusFragment extends Fragment {
                 params.put("billing_address", mCustomerAddress);
                 params.put("customer_email", mEmailAddress);
                 params.put("GSTIN", mGSTINNumber);
-                params.put("GSTINAddress", mGSTINAddress);
+                params.put("state", mGSTINAddress);
                 params.put("CIN", mCINNumber);
                 Log.e("paramsregister", "" + params);
                 return params;

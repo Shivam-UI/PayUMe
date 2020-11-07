@@ -7,7 +7,23 @@ public class ModelAddedProducts {
     private String amount;
     private String discount;
     private String tax;
-    private String quantity;
+    private String quantity,final_discount,final_tax_amount;
+
+    public String getFinal_discount() {
+        return final_discount;
+    }
+
+    public void setFinal_discount(String final_discount) {
+        this.final_discount = final_discount;
+    }
+
+    public String getFinal_tax_amount() {
+        return final_tax_amount;
+    }
+
+    public void setFinal_tax_amount(String final_tax_amount) {
+        this.final_tax_amount = final_tax_amount;
+    }
 
     public String getAdvance() {
         return advance;

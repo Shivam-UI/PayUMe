@@ -29,7 +29,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.AddNewCustomer"
-            android:noHistory="true"></activity>
+            android:noHistory="true"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".Activities.ActivityWebView"
             android:screenOrientation="portrait" />
@@ -46,7 +47,8 @@
 
         <activity
             android:name=".Activities.CreateInvoice"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Activities.ActivityPurchaseOrder"
             android:screenOrientation="portrait" />
@@ -57,7 +59,8 @@
         <activity
             android:name=".Activities.ActivityAddedProducts"
             android:noHistory="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".Activities.InvoiceNewLandingPage"
             android:screenOrientation="portrait" />

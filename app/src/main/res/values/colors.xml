@@ -32,5 +32,5 @@
     <color name="light_grey">#929292</color>
     <color name="daker_grey">#C3C1C1</color>
     <color name="very_light_grey">#CCCCCC</color>
-    <color name="et_hint_color">#5C5B5B</color>
+    <color name="et_hint_color">#D25C5B5B</color>
 </resources>

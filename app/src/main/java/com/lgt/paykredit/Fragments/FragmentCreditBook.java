@@ -281,7 +281,6 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
         rvCreditBookCustomers.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         rvCreditBookCustomers.setAdapter(adapterCreditBookCustomers);
         adapterCreditBookCustomers.notifyDataSetChanged();
-
         Toast.makeText(getActivity(), "Done", Toast.LENGTH_SHORT).show();
     }
 
@@ -289,7 +288,6 @@ public class FragmentCreditBook extends Fragment implements BottomSheetDeleteCus
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(intent, 1);
-
     }
 
     @Override

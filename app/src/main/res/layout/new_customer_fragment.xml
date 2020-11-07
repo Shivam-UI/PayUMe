@@ -78,7 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"
-                android:hint="Address"
+                android:hint="State"
+                android:maxLength="20"
                 android:textSize="14sp" />
 
             <EditText

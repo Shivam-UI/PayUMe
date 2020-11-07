@@ -321,7 +321,6 @@ public class ActivityProfile extends AppCompatActivity {
                 } else {
                     Glide.with(ActivityProfile.this).load(bitmap).apply(new RequestOptions().override(192, 192)).
                             into(ivUserProfile);
-
                     sendImage();
                 }
             } catch (IOException e) {
@@ -348,15 +347,12 @@ public class ActivityProfile extends AppCompatActivity {
 
 
     private void sendImage() {
-
         pbProfile.setVisibility(View.VISIBLE);
-
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, PayKreditAPI.PROFILE_IMAGE,
                 new com.android.volley.Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
                         Log.e("UPLOADDDD", response+ "");
-
                         try {
                             JSONObject jsonObject = new JSONObject(new String(response.data));
                             String status = jsonObject.getString("status");
@@ -375,9 +371,7 @@ public class ActivityProfile extends AppCompatActivity {
                             pbProfile.setVisibility(View.GONE);
                             e.printStackTrace();
                         }
-
                         Log.e("MULTIPART", response + "");
-
                     }
                 }, new com.android.volley.Response.ErrorListener() {
             @Override
@@ -406,7 +400,6 @@ public class ActivityProfile extends AppCompatActivity {
             }
         };
         Volley.newRequestQueue(ActivityProfile.this).add(volleyMultipartRequest);
-
     }
 
     private byte[] getFileDataFromDrawable(Bitmap bitmap) {

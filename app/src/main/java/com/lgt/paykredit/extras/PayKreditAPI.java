@@ -16,7 +16,6 @@ public class PayKreditAPI {
     public static String DELETE_INVOICE_ADDED_CUSTOMER = BASE_URL+"delet_invoice_customer_api.php";
 
     //Products API
-
     public static String ADD_INVOICE_PRODUCTS = BASE_URL+"addinvoice_products_api.php";
     public static String INVOICE_PRODUCT_LIST = BASE_URL+"invoice_products_list_api.php";
     public static String INVOICE_UPDATE_PRODUCT = BASE_URL+"edit_invoice_products_api.php";
@@ -50,5 +49,5 @@ public class PayKreditAPI {
     public static String USER_WISE_INVOICE_API = BASE_URL+"user_wise_invoice_list_api.php";
     public static String DEFAULT_ADD_REMOVED_CUSTOMER = BASE_URL+"add_remove_customer_from_defaulter_api.php";
     public static String DEFAULT_INVOICE_API = BASE_URL+"defaulter_customer_list_api.php";
-
+    public static String TAX_SLAB_API = BASE_URL+"tax_slab_api.php";
 }

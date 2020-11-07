@@ -60,7 +60,7 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
     private ImageView ivBackSingleUserTransaction, iv_defaultIcon;
     private LinearLayout llDateInvoice, ll_SetToDefault, ll_PaymentStatusUpdate, ll_ChangeDueDate;
     private SharedPreferences sharedPreferences;
-    private String mUserID, invoice_date_picker = "", invoiceID = "";
+    private String mUserID, invoice_date_picker = "", invoiceID = "",type;
     private RecyclerView rv_user_single_invoice_details;
     SingleInvoiceAdapter singleInvoiceAdapter;
     ArrayList<ModelInvoiceDetails> list=new ArrayList<>();
@@ -93,6 +93,7 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
         });
         DisplayInvoiceList();
         invoiceID = getIntent().getStringExtra("testID");
+        type = getIntent().getStringExtra("type");
         Log.d("invoiceDetails", invoiceID);
         if (!invoiceID.equalsIgnoreCase("")) {
             invoiceDetails();
@@ -131,6 +132,11 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
 
             }
         });*/
+        if (type.equalsIgnoreCase("")){
+
+        }else if(type.equalsIgnoreCase("")){
+
+        }
     }
 
     private void invoiceDetails() {
@@ -163,6 +169,7 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
                                 String customer_email=invoiceData.getString("customer_email");
                                 String paid=invoiceData.getString("paid");
                                 ModelInvoiceDetails modelInvoiceDetails =new ModelInvoiceDetails(tbl_invoice_id,invoice_no,invoice_date,due_date,"r",sub_total,total_advance,total_balance,paid,customer_name,customer_mobile,customer_email);
+                                modelInvoiceDetails.setType(type);
                                 modelInvoiceDetails.setInvoice_customer_id(invoiceID);
                                 list.add(modelInvoiceDetails);
                             }

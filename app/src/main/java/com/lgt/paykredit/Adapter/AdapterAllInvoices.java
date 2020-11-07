@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.lgt.paykredit.Activities.ActivityInvoiceDescription;
 import com.lgt.paykredit.Models.ModelAllInvoices;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.bottomsheets.BottomSheetCall;
+import com.lgt.paykredit.bottomsheets.BottomSheetDeleteCustomer;
 import com.lgt.paykredit.bottomsheets.BottomSheetDeleteInvoice;
 import com.lgt.paykredit.bottomsheets.BottomSheetDeleteItems;
 import com.lgt.paykredit.bottomsheets.BottomSheetSendReminder;
@@ -83,13 +85,21 @@ public class AdapterAllInvoices extends RecyclerView.Adapter<AdapterAllInvoices.
         holder.tvDeleteInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetDeleteInvoice bottomSheetDeleteInvoice = new BottomSheetDeleteInvoice();
+                Log.d("bund",listPaid.get(position).getPaidInvoiceNumber()+"  |   "+listPaid.get(position).getName());
+                /*BottomSheetDeleteInvoice bottomSheetDeleteInvoice = new BottomSheetDeleteInvoice();
                 Bundle deleteItems = new Bundle();
-                deleteItems.putString("KEY_DELETE_ID", listPaid.get(position).getPaidInvoiceNumber());
+                deleteItems.putString("KEY_DELETE_ID", listPaidFull.get(position).getPaidInvoiceNumber());
                 deleteItems.putString("KEY_DELETE_ITEM", listPaid.get(position).getName());
                 FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
                 bottomSheetDeleteInvoice.setArguments(deleteItems);
-                bottomSheetDeleteInvoice.show(fragmentManager, "BottomSheetDeleteItems");
+                bottomSheetDeleteInvoice.show(fragmentManager, "BottomSheetDeleteItems");*/
+                BottomSheetDeleteCustomer bottomSheetDeleteCustomer = new BottomSheetDeleteCustomer();
+                Bundle deleteItems = new Bundle();
+                deleteItems.putString("KEY_DELETE_ID",listPaidFull.get(position).getPaidInvoiceNumber());
+                deleteItems.putString("KEY_DELETE_ITEM",listPaid.get(position).getName());
+                FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                bottomSheetDeleteCustomer.setArguments(deleteItems);
+                bottomSheetDeleteCustomer.show(fragmentManager,"BottomSheetDeleteItems");
             }
         });
 

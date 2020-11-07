@@ -1,7 +1,9 @@
 package com.lgt.paykredit.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,20 +58,22 @@ public class InvoiceDashboardFragment extends Fragment {
         ll_kyc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "kyc", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
             }
         });
+
         ll_my_defaulter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), ActivityDefaultInvoice.class));
             }
         });
+
         ll_udhar_khata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeScreen,
-                        new FragmentCreditBook()).commit();
+                        new FragmentCreditBook()).addToBackStack("invoice").commit();
                 tv_common_toolbar.setVisibility(View.GONE);
                 tv_creditBook_actionBar.setVisibility(View.VISIBLE);
             }
@@ -77,12 +81,29 @@ public class InvoiceDashboardFragment extends Fragment {
         ll_manage_employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "manage employee", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Coming Soon", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void replaceFragment(Fragment mSelectedFragment, boolean shouldAddToBackStack, String mBackStackName, String tagName) {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameHomeScreen, mSelectedFragment, tagName).addToBackStack(mBackStackName).commit();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d("added","onAttach");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("added","onResume");
     }
 }

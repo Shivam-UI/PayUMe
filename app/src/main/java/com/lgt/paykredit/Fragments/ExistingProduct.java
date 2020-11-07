@@ -137,9 +137,13 @@ public class ExistingProduct extends Fragment {
                                 String advance = object.getString("advance");
                                 String discount = object.getString("discount");
                                 String tax = object.getString("tax");
+                                String final_discount = object.getString("final_discount");
+                                String final_tax_amount = object.getString("final_tax_amount");
                                 String email_id = "";
                                 ModelAddedProducts modelAddedProducts = new ModelAddedProducts(tbl_invoice_products_id, products_name, HSN_code, price, discount, tax, quantity);
                                 modelAddedProducts.setAdvance(advance);
+                                modelAddedProducts.setFinal_discount(final_discount);
+                                modelAddedProducts.setFinal_tax_amount(final_tax_amount);
                                 list.add(modelAddedProducts);
                             }
                             pbAddedProducts.setVisibility(View.GONE);

@@ -9,7 +9,11 @@
         <item name="fontFamily">@font/sans_bold</item>
         <item name="android:dropDownListViewStyle">@style/SpinnerStyle</item>
     </style>
-
+    <style name="DialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

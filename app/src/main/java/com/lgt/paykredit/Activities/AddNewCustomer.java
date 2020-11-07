@@ -41,7 +41,7 @@ public class AddNewCustomer extends AppCompatActivity implements ExistingCusFrag
         tab_layoutInvoiceMainPage = findViewById(R.id.tab_layoutInvoiceMainPage);
         addCustomerAdapter = new AddCustomerAdapter(getSupportFragmentManager());
 
-        addCustomerAdapter.addFragment(new CreateCusFragment(), "Create New");
+        addCustomerAdapter.addFragment(new CreateCusFragment(), "Add Customer");
         addCustomerAdapter.addFragment(new ExistingCusFragment(), "Existing Customer");
         vp_add_customer_tab.setAdapter(addCustomerAdapter);
         tab_layoutAddCustomer.setupWithViewPager(vp_add_customer_tab);

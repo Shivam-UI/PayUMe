@@ -37,7 +37,7 @@ public class ActivityOTPVerification extends AppCompatActivity {
 
     String first, second, third, fourth, enteredOTP = "";
 
-    private String mMobile, mUserStatus, mRealOTP, mUserID, mEmail;
+    private String mMobile, mUserStatus, mRealOTP, mUserID, mEmail,mAcName,mAcNumber,mAcCode;
 
     private ProgressBar pb_otpVerification;
 
@@ -95,6 +95,18 @@ public class ActivityOTPVerification extends AppCompatActivity {
 
             if (getData.hasExtra("KEY_USER_ID")) {
                 mUserID = getData.getStringExtra("KEY_USER_ID");
+            }
+
+            if (getData.hasExtra("KEY_AC_NAME")) {
+                mAcName = getData.getStringExtra("KEY_AC_NAME");
+            }
+
+            if (getData.hasExtra("KEY_AC_NUMBER")) {
+                mAcNumber = getData.getStringExtra("KEY_AC_NUMBER");
+            }
+
+            if (getData.hasExtra("KEY_AC_CODE")) {
+                mAcCode = getData.getStringExtra("KEY_AC_CODE");
             }
 
         }
@@ -173,9 +185,12 @@ public class ActivityOTPVerification extends AppCompatActivity {
             editor.putString("KEY_MOBILE", mMobile);
             editor.putString("KEY_EMAIL", mEmail);
             editor.putString("KEY_USER_ID", mUserID);
+            editor.putString("KEY_AC_NAME", mAcName);
+            editor.putString("KEY_AC_NUMBER", mAcNumber);
+            editor.putString("KEY_AC_CODE", mAcCode);
             editor.commit();
             editor.apply();
-            Log.e("verificationdonwe", "dgsahdasjdgj");
+            Log.e("verificationdonwe", "  dgsahdasjdgj  "+mAcName+mAcNumber+mAcCode);
 
             if (mUserStatus.equalsIgnoreCase("new_user")) {
                 startActivity(new Intent(ActivityOTPVerification.this, ActivityRegister.class));

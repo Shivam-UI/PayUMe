@@ -5,7 +5,23 @@ package com.lgt.paykredit.Models;
  */
 public class ModelAllInvoices {
 
-    private String paidInvoiceNumber,paymentStatus,image,name,amount,paymentDate,PayAdvance;
+    private String paidInvoiceNumber,paymentStatus,image,name,amount,paymentDate,PayAdvance,tbl_invoice_customer_id,customer_name;
+
+    public String getTbl_invoice_customer_id() {
+        return tbl_invoice_customer_id;
+    }
+
+    public void setTbl_invoice_customer_id(String tbl_invoice_customer_id) {
+        this.tbl_invoice_customer_id = tbl_invoice_customer_id;
+    }
+
+    public String getCustomer_name() {
+        return customer_name;
+    }
+
+    public void setCustomer_name(String customer_name) {
+        this.customer_name = customer_name;
+    }
 
     public ModelAllInvoices(String paidInvoiceNumber, String paymentStatus, String image, String name, String amount, String paymentDate) {
         this.paidInvoiceNumber = paidInvoiceNumber;

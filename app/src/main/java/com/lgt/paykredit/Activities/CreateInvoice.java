@@ -1,14 +1,16 @@
 package com.lgt.paykredit.Activities;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -19,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.math.MathUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,15 +30,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lgt.paykredit.Adapter.AdapterAddedProducts;
 import com.lgt.paykredit.Adapter.ProductAddAdapter;
+import com.lgt.paykredit.Fragments.AddNewProduct;
 import com.lgt.paykredit.Models.ProductModel;
+import com.lgt.paykredit.Models.ProductModelNew;
 import com.lgt.paykredit.R;
-import com.lgt.paykredit.bottomsheets.BottomSheetAddItems;
 import com.lgt.paykredit.extras.GenerateCalculation;
 import com.lgt.paykredit.extras.LoadInvoiceData;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
@@ -46,10 +46,13 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -57,7 +60,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
+/*
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductAmt;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.AdvanceAmt;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductDis;
@@ -67,10 +70,31 @@ import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductQua;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ProductTax;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.itemPrice;
 import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ItemDue;
-import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ItemDiscount;
+import static com.lgt.paykredit.Adapter.AdapterAddedProducts.ItemDiscount;*/
 import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.customer_id;
 import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.customer_name;
 import static com.lgt.paykredit.Adapter.ExistingCustomerAdapter.isCustomerAdded;
+import static com.lgt.paykredit.Fragments.AddNewProduct.AdvanceAmt;
+import static com.lgt.paykredit.Fragments.AddNewProduct.FINALPAYTOME;
+import static com.lgt.paykredit.Fragments.AddNewProduct.FINALPRICE;
+import static com.lgt.paykredit.Fragments.AddNewProduct.FINALTAXAFTERDISCOUNT;
+import static com.lgt.paykredit.Fragments.AddNewProduct.ItemDiscount;
+import static com.lgt.paykredit.Fragments.AddNewProduct.ItemDue;
+import static com.lgt.paykredit.Fragments.AddNewProduct.PDISCOUNT;
+import static com.lgt.paykredit.Fragments.AddNewProduct.PID;
+import static com.lgt.paykredit.Fragments.AddNewProduct.PNAME;
+import static com.lgt.paykredit.Fragments.AddNewProduct.PQUANTITY;
+import static com.lgt.paykredit.Fragments.AddNewProduct.PRATE;
+import static com.lgt.paykredit.Fragments.AddNewProduct.PTAX;
+import static com.lgt.paykredit.Fragments.AddNewProduct.ProductAmt;
+import static com.lgt.paykredit.Fragments.AddNewProduct.ProductDis;
+import static com.lgt.paykredit.Fragments.AddNewProduct.ProductId;
+import static com.lgt.paykredit.Fragments.AddNewProduct.ProductName;
+import static com.lgt.paykredit.Fragments.AddNewProduct.ProductQua;
+import static com.lgt.paykredit.Fragments.AddNewProduct.ProductTax;
+import static com.lgt.paykredit.Fragments.AddNewProduct.TOTALAMOUNT;
+import static com.lgt.paykredit.Fragments.AddNewProduct.TOTALDISCOUNTAMOUNT;
+import static com.lgt.paykredit.Fragments.AddNewProduct.itemPrice;
 import static com.lgt.paykredit.Fragments.CreateCusFragment.isCustomerNewAdded;
 import static com.lgt.paykredit.Fragments.CreateCusFragment.new_customer_id;
 import static com.lgt.paykredit.Fragments.CreateCusFragment.new_customer_name;
@@ -80,7 +104,9 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     LinearLayout ll_invoice_date_picker, ll_due_date_picker;
     CircleImageView civ_add_new_customer, civ_add_product_service;
     ImageView iv_back_press, iv_add_bank_details, iv_deleteCustomer;
-    TextView tv_due_date, tv_invoice_date, tv_invoice_id, save_invoice_btn;
+    TextView tv_due_date, tv_invoice_date, tv_invoice_id, save_invoice_btn, tv_noProductFoundNotify;
+    TextView tv_subTotal, tv_duscount_price, tv_gst_amt, tv_totalAmt, tvamount,tv_download_invoice,tv_shareInvoice;
+    EditText et_advanceAmount;
     public static TextView tv_DiscountInPrice, tv_subTotalPrice, tv_AdvancePrice, tv_BalanceDue;
     Set<String> mProductID = new HashSet<>();
     Set<String> mProductPriceSingle = new HashSet<>();
@@ -95,20 +121,28 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     boolean isUp;
     Intent intent = null;
     ArrayList<String> mDueTermList = new ArrayList<>();
-    ArrayList<ProductModel> mList = new ArrayList<>();
+    ArrayList<ProductModelNew> mList = new ArrayList<>();
     ProductAddAdapter productAddAdapter;
     public String termSelect = "", InvoiceUser = "", invoiceID = "", invoiceCustomerId = "", IfcsCode = "", AccountHolderName = "", AccountNumber = "", ExtraNote = "";
     public String FinalDiscount = "", FinalSubTotal = "", FinalAdvance = "", FinalBalance = "", SinglePrice = "";
     private SharedPreferences sharedPreferences;
-    private String mUserID;
+    private String mUserID, mAcName = "", mAcNumber = "", mAcCode = "";
+    private Calendar dueCalender;
+    private Calendar myCalendar;
+    private Context context;
+    private CreateInvoice activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_invoice);
+        context = activity = this;
         sharedPreferences = CreateInvoice.this.getSharedPreferences("USER_DATA", MODE_PRIVATE);
         if (sharedPreferences.contains("KEY_USER_ID")) {
             mUserID = sharedPreferences.getString("KEY_USER_ID", "");
+            mAcName = sharedPreferences.getString("KEY_AC_NAME", "");
+            mAcNumber = sharedPreferences.getString("KEY_AC_NUMBER", "");
+            mAcCode = sharedPreferences.getString("KEY_AC_CODE", "");
         }
         if (mUserID != null) {
             if (!mUserID.equalsIgnoreCase("")) {
@@ -118,6 +152,18 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     }
 
     private void initView() {
+        // new items
+        et_advanceAmount = findViewById(R.id.et_advanceAmount);
+        tv_subTotal = findViewById(R.id.tv_subTotal);
+        tv_duscount_price = findViewById(R.id.tv_duscount_price);
+        tv_gst_amt = findViewById(R.id.tv_gst_amt);
+        tv_totalAmt = findViewById(R.id.tv_totalAmt);
+        tvamount = findViewById(R.id.tvamount);
+        tv_download_invoice = findViewById(R.id.tv_download_invoice);
+        tv_shareInvoice = findViewById(R.id.tv_shareInvoice);
+        tv_noProductFoundNotify = findViewById(R.id.tv_noProductFoundNotify);
+
+
         tv_DiscountInPrice = findViewById(R.id.tv_DiscountInPrice);
         tv_subTotalPrice = findViewById(R.id.tv_subTotalPrice);
         tv_AdvancePrice = findViewById(R.id.tv_AdvancePrice);
@@ -142,15 +188,30 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         et_acHolderNumber = findViewById(R.id.et_acHolderNumber);
         et_acHolderIFCSCode = findViewById(R.id.et_acHolderIFCSCode);
         myView = findViewById(R.id.my_view);
-        myView.setVisibility(View.GONE);
-        isUp = false;
+        myView.setVisibility(View.VISIBLE);
+        et_acHolderName.setText(mAcName);
+        et_acHolderNumber.setText(mAcNumber);
+        et_acHolderIFCSCode.setText(mAcCode);
+        isUp = true;
         clickView();
         loadDueTerms();
+        tv_shareInvoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Share Invoice", Toast.LENGTH_SHORT).show();
+            }
+        });
+        tv_download_invoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Download Invoice", Toast.LENGTH_SHORT).show();
+            }
+        });
         sp_due_terms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 if (position == 0) {
-                    Toast.makeText(CreateInvoice.this, "Select Due Term!", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(CreateInvoice.this, "Select Due Term!", Toast.LENGTH_SHORT).show();
                 } else {
                     termSelect = adapterView.getItemAtPosition(position).toString();
                 }
@@ -165,13 +226,17 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         ll_invoice_date_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar now = Calendar.getInstance();
+
+                /*                Calendar now = Calendar.getInstance();
+                //now.add(Calendar.YEAR,);
                 DatePickerDialog dpd = DatePickerDialog.newInstance(
                         CreateInvoice.this,
                         now.get(Calendar.YEAR), // Initial year selection
                         now.get(Calendar.MONTH + 1), // Initial month selection
                         now.get(Calendar.DAY_OF_MONTH) // Init day selection
+
                 );
+
                 dpd.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
@@ -182,37 +247,17 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                 });
                 dpd.setOkColor(Color.WHITE);
                 dpd.setCancelColor(Color.WHITE);
-                dpd.show(getSupportFragmentManager(), "invoice_date_picker");
+                dpd.show(getSupportFragmentManager(), "invoice_date_picker");*/
+                invoiceDatePicker();
+
             }
         });
 
         ll_due_date_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (invoice_date_picker.equalsIgnoreCase("")) {
-                    Toast.makeText(CreateInvoice.this, "Select Invoice Date", Toast.LENGTH_SHORT).show();
-                } else {
 
-                    Calendar now = Calendar.getInstance();
-                    DatePickerDialog dpd = DatePickerDialog.newInstance(
-                            CreateInvoice.this,
-                            now.get(Calendar.YEAR), // Initial year selection
-                            now.get(Calendar.MONTH), // Initial month selection
-                            now.get(Calendar.DAY_OF_MONTH) // Inital day selection
-                    );
-
-                    dpd.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                            Log.d("due_date_picked", dayOfMonth + "/" + String.valueOf(monthOfYear+1) + "/" + year);
-                            due_date_picker = dayOfMonth + "/" + String.valueOf(monthOfYear+1) + "/" + year;
-                            tv_due_date.setText(due_date_picker);
-                        }
-                    });
-                    dpd.setOkColor(Color.WHITE);
-                    dpd.setCancelColor(Color.WHITE);
-                    dpd.show(getSupportFragmentManager(), "due_date_picker");
-                }
+                dueDatePicker();
             }
         });
         intent = getIntent();
@@ -267,7 +312,104 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                 }
             }
         });
+
+        et_advanceAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (tv_totalAmt.getText().toString().trim().equalsIgnoreCase("")){
+                    Toast.makeText(context, "Please Select Product First", Toast.LENGTH_SHORT).show();
+                }else{
+                    int finalPaidAmt = Integer.parseInt(tv_totalAmt.getText().toString().trim());
+                    if (charSequence.toString().length()>0){
+                        int AdvancePayment = Integer.parseInt(charSequence.toString());
+                        int PaidAmt = (finalPaidAmt-AdvancePayment);
+                        Log.d("PaidAmt",""+PaidAmt);
+                        if (!String.valueOf(PaidAmt).contains("-")){
+                            if (AdvancePayment !=0 && AdvancePayment < finalPaidAmt){
+                                tvamount.setText(""+PaidAmt);
+                            }else if(AdvancePayment == finalPaidAmt){
+                                tvamount.setText("0");
+                            }
+                        }else{
+                            tvamount.setText("0");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        myCalendar = Calendar.getInstance();
+        dueCalender = Calendar.getInstance();
+        // String date = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault()).format(new Date());
+        String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        invoice_date_picker = date;
+        tv_invoice_date.setText(date);
     }
+
+    private void dueDatePicker() {
+        final android.app.DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            // TODO Auto-generated method stub
+            dueCalender.set(Calendar.YEAR, year);
+            dueCalender.set(Calendar.MONTH, monthOfYear);
+            dueCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateDueLabel();
+        };
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            android.app.DatePickerDialog datePickerDialog = new android.app.DatePickerDialog(activity, date
+                    , dueCalender.get(Calendar.YEAR), dueCalender.get(Calendar.MONTH), dueCalender.get(Calendar.DAY_OF_MONTH)
+            );
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            datePickerDialog.show();
+        }
+    }
+
+    private void updateDueLabel() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        due_date_picker = sdf.format(dueCalender.getTime());
+        tv_due_date.setText(sdf.format(dueCalender.getTime()));
+    }
+
+    private void invoiceDatePicker() {
+        // myCalendar.add(Calendar.YEAR, -18);                //Goes 10 Year Back in time ^^
+
+        final android.app.DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            // TODO Auto-generated method stub
+
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        };
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            android.app.DatePickerDialog datePickerDialog = new android.app.DatePickerDialog(activity, date
+                    , myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)
+            );
+            long upperLimit = myCalendar.getTimeInMillis();
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+
+            datePickerDialog.show();
+
+        }
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        invoice_date_picker = sdf.format(myCalendar.getTime());
+        tv_invoice_date.setText(sdf.format(myCalendar.getTime()));
+    }
+
 
     private boolean validateSaveFields() {
         if (isValidIFSCode(IfcsCode)) {
@@ -362,21 +504,67 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (AdapterAddedProducts.IsClickToAdd) {
-            AdapterAddedProducts.IsClickToAdd = false;
+        if (AddNewProduct.IsClickToAdd) {
+            AddNewProduct.IsClickToAdd = false;
+
+            float FinalAmtPay = Float.parseFloat(FINALPRICE) * Integer.parseInt(PQUANTITY);
+            float FinalTaxAmt = Float.parseFloat(FINALTAXAFTERDISCOUNT) * Integer.parseInt(PQUANTITY);
+            float FinalPayBalance = FinalAmtPay+FinalTaxAmt;
+
+            Log.d("received_data", "\nid : " + PID +
+                    "\n name :" + PNAME +
+                    "\n Amt : " + PRATE +
+                    "\n Quantity : " + PQUANTITY +
+                    "\n Discount : " + PDISCOUNT +
+                    "\n TotalAmt : " + TOTALAMOUNT +
+                    "\n TotalAmt : " + FINALPAYTOME +
+                    "\n TOTALDISCOUNT : " + TOTALDISCOUNTAMOUNT +
+                    "\n TAX : " + PTAX +
+                    "\n FINALTAXAFTERDISCOUNT : " + FINALTAXAFTERDISCOUNT +
+                    "\n FINALPRICE : " + FINALPRICE +
+                    "\n PayAmt : "+FinalPayBalance);
+
             if (mList.size() >= 0) {
-                ProductModel productModel = new ProductModel(ProductId, ProductName, ProductAmt, AdvanceAmt, ProductDis, ProductQua, ProductTax);
-                productModel.setTotalAmt(Integer.parseInt(itemPrice));
-                productModel.setBalanceDue(Integer.parseInt(ItemDue));
-                productModel.setTotalDiscount(Integer.parseInt(ItemDiscount));
-                mList.add(productModel);
+                tv_noProductFoundNotify.setVisibility(View.GONE);
+                /*ProductModel productModel = new ProductModel(ProductId, ProductName, ProductAmt, AdvanceAmt, ProductDis, ProductQua, ProductTax);
+                productModel.setTotalAmt(Float.valueOf(itemPrice));
+                productModel.setBalanceDue(Float.valueOf(ItemDue));
+                productModel.setTotalDiscount(Float.valueOf(ItemDiscount));
+                 mList.add(productModel);*/
+                ProductModelNew productModelNew = new ProductModelNew();
+                productModelNew.setId(PID);
+                productModelNew.setName(PNAME);
+                productModelNew.setRate(PRATE);
+                productModelNew.setTax(PTAX);
+                productModelNew.setQuantity(PQUANTITY);
+                productModelNew.setDiscount(PDISCOUNT);
+                productModelNew.setFinalTax(""+FinalTaxAmt);
+                productModelNew.setFinalAmount(TOTALAMOUNT);
+                productModelNew.setFinalDiscont(TOTALDISCOUNTAMOUNT);
+                productModelNew.setFinalPayToMe(FINALPAYTOME);
+                productModelNew.setFinalPayBalance(""+FinalPayBalance);
+                mList.add(productModelNew);
                 setUpAddProductView();
             } else {
-                ProductModel productModel = new ProductModel(ProductId, ProductName, ProductAmt, AdvanceAmt, ProductDis, ProductQua, ProductTax);
-                productModel.setTotalAmt(Integer.parseInt(itemPrice));
-                productModel.setBalanceDue(Integer.parseInt(ItemDue));
-                productModel.setTotalDiscount(Integer.parseInt(ItemDiscount));
-                mList.add(productModel);
+                /*ProductModel productModel = new ProductModel(ProductId, ProductName, ProductAmt, AdvanceAmt, ProductDis, ProductQua, ProductTax);
+                productModel.setTotalAmt(Float.valueOf(itemPrice));
+                productModel.setBalanceDue(Float.valueOf(ItemDue));
+                productModel.setTotalDiscount(Float.valueOf(ItemDiscount));
+                mList.add(productModel);*/
+
+                ProductModelNew productModelNew = new ProductModelNew();
+                productModelNew.setId(PID);
+                productModelNew.setName(PNAME);
+                productModelNew.setRate(PRATE);
+                productModelNew.setTax(PTAX);
+                productModelNew.setQuantity(PQUANTITY);
+                productModelNew.setDiscount(PDISCOUNT);
+                productModelNew.setFinalTax(""+FinalTaxAmt);
+                productModelNew.setFinalAmount(TOTALAMOUNT);
+                productModelNew.setFinalDiscont(TOTALDISCOUNTAMOUNT);
+                productModelNew.setFinalPayToMe(FINALPAYTOME);
+                productModelNew.setFinalPayBalance(""+FinalPayBalance);
+                mList.add(productModelNew);
                 productAddAdapter.notifyDataSetChanged();
             }
         } else if (isCustomerAdded) {
@@ -396,14 +584,21 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     }
 
     private void startCalculation() {
-        int SingleProductPrice = 0, productPrice = 0, productblncDue = 0, ProductDiscount = 0, ProductAdv = 0;
+        int SubTotal = 0, FinalDisc = 0, gstAmt = 0, ProductDiscount = 0, FinalPayMe = 0;
+
         if (mList.size() > 0) {
             for (int i = 0; i < mList.size(); i++) {
-                mProductPriceSingle.add(mList.get(i).getProductAmt());
-                mProductID.add(mList.get(i).getProductId());
-                mProductDiscount.add(mList.get(i).getProductDis());
-                mProductName.add(mList.get(i).getProductName());
-                mProductQuantity.add(mList.get(i).getProductQua());
+
+                mProductPriceSingle.add(mList.get(i).getRate());
+                mProductID.add(mList.get(i).getId());
+                mProductDiscount.add(mList.get(i).getDiscount());
+                mProductName.add(mList.get(i).getName());
+                mProductQuantity.add(mList.get(i).getQuantity());
+
+                /*Float amtdue = mList.get(i).getTotalAmt();
+                Float dsc = mList.get(i).getTotalDiscount();
+                Float blncDue = mList.get(i).getBalanceDue();
+
                 if (!mList.get(i).getProductAdvance().equalsIgnoreCase("")) {
                     int adv = Integer.parseInt(mList.get(i).getProductAdvance());
                     if (adv > 0) {
@@ -411,26 +606,46 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                     }
                 }
 
-                int amtdue = mList.get(i).getTotalAmt();
-                int dsc = mList.get(i).getTotalDiscount();
-                int blncDue = mList.get(i).getBalanceDue();
                 if (amtdue > 0) {
                     productPrice += amtdue;
                 }
+
                 if (dsc > 0) {
                     ProductDiscount += dsc;
                 }
+
                 if (blncDue > 0) {
                     productblncDue += blncDue;
+                }*/
+
+                float finalAmt = Float.valueOf(mList.get(i).getFinalAmount());
+                if (finalAmt !=0){
+                    SubTotal += finalAmt;
+                }
+
+                float FinalDiscount = Float.valueOf(mList.get(i).getFinalDiscont());
+                if (FinalDiscount != 0){
+                    FinalDisc += FinalDiscount;
+                }
+
+                float FinalGST = Float.parseFloat(mList.get(i).getFinalTax());
+                if (FinalGST != 0){
+                    gstAmt += FinalGST;
+                }
+
+                float FinalPaay = Float.parseFloat(mList.get(i).getFinalPayToMe());
+                if (FinalPaay != 0 ){
+                    FinalPayMe += FinalPaay;
                 }
             }
         } else {
-            tv_subTotalPrice.setText("0");
-            tv_DiscountInPrice.setText("0");
-            tv_BalanceDue.setText("0");
-            tv_AdvancePrice.setText("0");
+            tv_subTotal.setText("0");
+            tv_duscount_price.setText("0");
+            tv_gst_amt.setText("0");
+            tv_totalAmt.setText("0");
+            tvamount.setText("0");
         }
-        setCalcDataToView(SingleProductPrice, productPrice, ProductDiscount, productblncDue, ProductAdv);
+        setCalcDataToView(SubTotal, FinalDisc, ProductDiscount, gstAmt, FinalPayMe);
     }
 
     private void setCalcDataToView(int sproprice, int pprice, int pdiscunt, int pqty, int padvnc) {
@@ -439,11 +654,14 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         FinalAdvance = String.valueOf(padvnc);
         FinalBalance = String.valueOf(pdiscunt);
         FinalSubTotal = String.valueOf(pprice);
+
+        int FIANLAMMT = (sproprice-pprice)+pqty;
         //Log.d("listData:", "Final Price = | " + pprice + " | " + pdiscunt + " | " + pqty + " | " + padvnc);
-        tv_subTotalPrice.setText(pprice + ".00");
-        tv_DiscountInPrice.setText(pqty + ".00");
-        tv_BalanceDue.setText(pdiscunt + ".00");
-        tv_AdvancePrice.setText(padvnc + ".00");
+        tv_subTotal.setText(sproprice + "");
+        tv_duscount_price.setText(pprice + "");
+        tv_gst_amt.setText(pqty + "");
+        tv_totalAmt.setText(FIANLAMMT + "");
+        tvamount.setText(FIANLAMMT + "");
     }
 
     private void setUpAddProductView() {
@@ -499,7 +717,8 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         civ_add_new_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (invoice_date_picker.equalsIgnoreCase("")) {
+                startActivity(new Intent(CreateInvoice.this, AddNewCustomer.class));
+                /*if (invoice_date_picker.equalsIgnoreCase("")) {
                     Toast.makeText(CreateInvoice.this, "Select Invoice Date", Toast.LENGTH_SHORT).show();
                 } else {
                     if (due_date_picker.equalsIgnoreCase("")) {
@@ -507,14 +726,15 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                     } else {
                         startActivity(new Intent(CreateInvoice.this, AddNewCustomer.class));
                     }
-                }
+                }*/
             }
         });
 
         civ_add_product_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (InvoiceUser.equalsIgnoreCase("")) {
+                startActivity(new Intent(CreateInvoice.this, ActivityAddedProducts.class));
+                /*if (InvoiceUser.equalsIgnoreCase("")) {
                     Toast.makeText(CreateInvoice.this, "Please Select User", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("listData", termSelect.equalsIgnoreCase("") + " | " + termSelect.equalsIgnoreCase("Select Due Terms"));
@@ -527,7 +747,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                             startActivity(new Intent(CreateInvoice.this, ActivityAddedProducts.class));
                         }
                     }
-                }
+                }*/
             }
         });
 
@@ -547,7 +767,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        Toast.makeText(this, dayOfMonth + "-" + monthOfYear+1 + "-" + year, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, dayOfMonth + "-" + monthOfYear + 1 + "-" + year, Toast.LENGTH_SHORT).show();
     }
 
     @Override

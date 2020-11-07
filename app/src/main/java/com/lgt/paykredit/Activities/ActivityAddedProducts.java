@@ -67,7 +67,7 @@ public class ActivityAddedProducts extends AppCompatActivity {
         tab_layoutAddCustomer = findViewById(R.id.tab_layoutAddCustomer);
         tab_layoutInvoiceMainPage = findViewById(R.id.tab_layoutInvoiceMainPage);
         addCustomerAdapter = new AddCustomerAdapter(getSupportFragmentManager());
-        addCustomerAdapter.addFragment(new AddNewProduct(), "Create New");
+        addCustomerAdapter.addFragment(new AddNewProduct(), "Add Product");
         addCustomerAdapter.addFragment(new ExistingProduct(), "Existing Product");
         vp_add_Product_tab.setAdapter(addCustomerAdapter);
         tab_layoutAddCustomer.setupWithViewPager(vp_add_Product_tab);

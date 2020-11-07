@@ -1,7 +1,7 @@
 package com.lgt.paykredit.Models;
 
 public class ModelInvoiceDetails {
-    String tbl_invoice_id,invoice_no,invoice_date,due_date,total_discount,sub_total,total_advance,total_balance,paid,customer_name,customer_mobile,customer_email,invoice_customer_id;
+    String type,tbl_invoice_id,invoice_no,invoice_date,due_date,total_discount,sub_total,total_advance,total_balance,paid,customer_name,customer_mobile,customer_email,invoice_customer_id;
 
     public String getInvoice_customer_id() {
         return invoice_customer_id;
@@ -9,6 +9,14 @@ public class ModelInvoiceDetails {
 
     public void setInvoice_customer_id(String invoice_customer_id) {
         this.invoice_customer_id = invoice_customer_id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public ModelInvoiceDetails(String tbl_invoice_id, String invoice_no, String invoice_date, String due_date, String total_discount, String sub_total, String total_advance, String total_balance, String paid, String customer_name, String customer_mobile, String customer_email) {

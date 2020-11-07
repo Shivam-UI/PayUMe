@@ -24,6 +24,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.lgt.paykredit.Activities.ActivityInvoiceDescription;
 import com.lgt.paykredit.Adapter.AdapterAllInvoices;
 import com.lgt.paykredit.Adapter.AdapterUnpaid;
 import com.lgt.paykredit.Models.ModelAllInvoices;
@@ -168,6 +169,9 @@ public class FragmentUnpaid extends Fragment  implements OpenDetailsInvoice {
 
     @Override
     public void ShowInvoiceDetails(String invoiceID) {
-
+        Intent detailsIntent = new Intent(getContext(), ActivityInvoiceDescription.class);
+        detailsIntent.putExtra("testID",invoiceID);
+        detailsIntent.putExtra("type","unpaid");
+        startActivity(detailsIntent);
     }
 }

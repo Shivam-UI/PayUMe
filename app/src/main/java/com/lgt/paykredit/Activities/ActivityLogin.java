@@ -178,9 +178,12 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
                         String user_id = object.getString("user_id");
                         String email = object.getString("email");
                         String mobile = object.getString("mobile");
+                        String account_holder_name = object.getString("account_holder_name");
+                        String account_number = object.getString("account_number");
+                        String ifsc_code = object.getString("ifsc_code");
                         String otp = object.getString("otp");
 
-                        openOTPVerification(user_id, email, user_status, mobile, otp);
+                        openOTPVerification(user_id, email, user_status, mobile, otp,account_holder_name,account_number,ifsc_code);
 
                     }
 
@@ -208,12 +211,15 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
         requestQueue.add(stringRequest);
     }
 
-    private void openOTPVerification(String user_id, String email, String user_status, String mobile, String otp) {
+    private void openOTPVerification(String user_id, String email, String user_status, String mobile, String otp,String acName,String acNumber,String acCode) {
         Intent intentOTPVerification = new Intent(ActivityLogin.this, ActivityOTPVerification.class);
 
         intentOTPVerification.putExtra("KEY_USER_ID", user_id);
         intentOTPVerification.putExtra("KEY_EMAIL", email);
         intentOTPVerification.putExtra("KEY_MOBILE", mobile);
+        intentOTPVerification.putExtra("KEY_AC_NAME", acName);
+        intentOTPVerification.putExtra("KEY_AC_NUMBER", acNumber);
+        intentOTPVerification.putExtra("KEY_AC_CODE", acCode);
         intentOTPVerification.putExtra("KEY_OTP", otp);
         intentOTPVerification.putExtra("KEY_USER_STATUS", user_status);
 

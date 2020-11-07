@@ -22,5 +22,12 @@
 
     <!-- hindi text data -->
 
+    <string name="subtotal">Sub Total</string>
+    <string name="total_discount">Total Discount</string>
+    <string name="gst">GST%</string>
+    <string name="total">Total</string>
+    <string name="advance">Advance Payment</string>
+    <string name="balance">Balance Amount</string>
+
 
 </resources>

@@ -3,37 +3,37 @@ package com.lgt.paykredit.Models;
 public class ProductModel {
 
     String ProductId,ProductName,ProductAmt,ProductDis,ProductQua,ProductTax,ProductAdvance;
-    int TotalAmt,TotalDiscount,TotalAdvance,BalanceDue;
+    Float TotalAmt,TotalDiscount,TotalAdvance,BalanceDue;
 
-    public int getTotalAmt() {
+    public Float getTotalAmt() {
         return TotalAmt;
     }
 
-    public void setTotalAmt(int totalAmt) {
+    public void setTotalAmt(Float totalAmt) {
         TotalAmt = totalAmt;
     }
 
-    public int getTotalDiscount() {
+    public Float getTotalDiscount() {
         return TotalDiscount;
     }
 
-    public void setTotalDiscount(int totalDiscount) {
+    public void setTotalDiscount(Float totalDiscount) {
         TotalDiscount = totalDiscount;
     }
 
-    public int getTotalAdvance() {
+    public Float getTotalAdvance() {
         return TotalAdvance;
     }
 
-    public void setTotalAdvance(int totalAdvance) {
+    public void setTotalAdvance(Float totalAdvance) {
         TotalAdvance = totalAdvance;
     }
 
-    public int getBalanceDue() {
+    public Float getBalanceDue() {
         return BalanceDue;
     }
 
-    public void setBalanceDue(int balanceDue) {
+    public void setBalanceDue(Float balanceDue) {
         BalanceDue = balanceDue;
     }
 

@@ -123,7 +123,7 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    Log.d("invoiceList",jsonObject.toString());
+                    Log.d("invoiceListttttt",jsonObject.toString());
                     String message=jsonObject.getString("message");
                     String status=jsonObject.getString("status");
                     String total_due=jsonObject.getString("total_due");
@@ -136,6 +136,8 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
                             JSONObject data = jsonArray.getJSONObject(i);
                             ModelAllInvoices modelAllInvoices = new ModelAllInvoices(data.getString("tbl_invoice_customer_id"), "0", "", data.getString("customer_name"), data.getString("total_balance"), data.getString("total_advance"));
                             modelAllInvoices.setPayAdvance(data.getString("sub_total"));
+                            modelAllInvoices.setTbl_invoice_customer_id(data.getString("tbl_invoice_customer_id"));
+                            modelAllInvoices.setCustomer_name(data.getString("customer_name"));
                             listAllInvoices.add(modelAllInvoices);
                         }
                         adapterAllInvoices = new AdapterAllInvoices(listAllInvoices, getActivity(),FragmentAllInvoices.this);
@@ -179,6 +181,7 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
     public void ShowInvoiceDetails(String invoiceID) {
         Intent detailsIntent = new Intent(getContext(), ActivityInvoiceDescription.class);
         detailsIntent.putExtra("testID",invoiceID);
+        detailsIntent.putExtra("type","paid");
         startActivity(detailsIntent);
     }
 }

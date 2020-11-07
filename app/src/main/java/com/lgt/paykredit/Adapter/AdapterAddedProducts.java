@@ -30,8 +30,8 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
     private List<ModelAddedProducts> list;
     private Context context;
     public LoadInvoiceData mLoadInvoiceData;
-    public static boolean IsClickToAdd = false;
-    public static String ProductId,ProductName,ProductAmt,ProductDis,ProductQua,ProductTax,AdvanceAmt,itemPrice,ItemDue,ItemDiscount;
+    //public static boolean IsClickToAdd = false;
+    //public static String ProductId,ProductName,ProductAmt,ProductDis,ProductQua,ProductTax,AdvanceAmt,itemPrice,ItemDue,ItemDiscount;
     public AdapterAddedProducts(List<ModelAddedProducts> list, Context context) {
         this.list = list;
         this.context = context;
@@ -66,6 +66,9 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
                 bundleAddedProducts.putString("KEY_ADVANCE_PER_UNIT",list.get(position).getAdvance());
                 bundleAddedProducts.putString("KEY_DISCOUNT_PERCENTAGE",list.get(position).getDiscount());
                 bundleAddedProducts.putString("KEY_TAX_PERCENTAGE",list.get(position).getTax());
+                bundleAddedProducts.putString("KEY_TAX_FIANL_DISCOUNT",list.get(position).getFinal_discount());
+                bundleAddedProducts.putString("KEY_TAX_FINAL_TAX_AMOUNT",list.get(position).getFinal_tax_amount());
+                Log.d("send_data",""+bottomSheetAddItems);
                 bottomSheetAddItems.setArguments(bundleAddedProducts);
                 bottomSheetAddItems.show(fragmentManager,"BottomSheetAddItems"); //13300295533
             }
@@ -88,7 +91,22 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("listData",""+list.get(position).getQuantity());
+               /* BottomSheetAddItems bottomSheetAddItems = new BottomSheetAddItems();
+                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                Bundle bundleAddedProducts = new Bundle();
+                bundleAddedProducts.putString("KEY_EDIT_ADDED_PRODUCTS","EDIT_PRODUCT");
+                bundleAddedProducts.putString("KEY_PRODUCT_ID",list.get(position).getTbl_invoice_products_id());
+                bundleAddedProducts.putString("KEY_PRODUCT_NAME",list.get(position).getName());
+                bundleAddedProducts.putString("KEY_HSN_CODE",list.get(position).getHsnCode());
+                bundleAddedProducts.putString("KEY_RATE_PER_UNIT",list.get(position).getAmount());
+                bundleAddedProducts.putString("KEY_QUANTITY_PER_UNIT",list.get(position).getQuantity());
+                bundleAddedProducts.putString("KEY_ADVANCE_PER_UNIT",list.get(position).getAdvance());
+                bundleAddedProducts.putString("KEY_DISCOUNT_PERCENTAGE",list.get(position).getDiscount());
+                bundleAddedProducts.putString("KEY_TAX_PERCENTAGE",list.get(position).getTax());
+                bottomSheetAddItems.setArguments(bundleAddedProducts);
+                bottomSheetAddItems.show(fragmentManager,"BottomSheetAddItems");*/
+                // not in use
+                /*Log.d("listData",""+list.get(position).getQuantity());
                 IsClickToAdd=true;
                 int subTotalPrice = 0, DiscountInPrice = 0, BalanceDue = 0,pprice=0,pqty=0,pdiscunt=0,padvnc=0;
                 pprice=Integer.parseInt(list.get(position).getAmount());
@@ -108,12 +126,12 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
                         list.get(position).getDiscount(),
                         list.get(position).getQuantity(),
                         list.get(position).getTax());
-                ((Activity)context).onBackPressed();
+                ((Activity)context).onBackPressed();*/
             }
         });
     }
-
-    private void setDataToProduct(int stp,int dip,int bd,String tbl_invoice_products_id, String name, String amount,String AdvAmt ,String discount, String quantity, String tax) {
+    // not in use
+    /*private void setDataToProduct(int stp,int dip,int bd,String tbl_invoice_products_id, String name, String amount,String AdvAmt ,String discount, String quantity, String tax) {
         itemPrice=String.valueOf(stp);
         ItemDue=String.valueOf(dip);
         ItemDiscount=String.valueOf(bd);
@@ -124,7 +142,7 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
         ProductQua=quantity;
         ProductTax=tax;
         AdvanceAmt=AdvAmt;
-    }
+    }*/
 
     @Override
     public int getItemCount() {

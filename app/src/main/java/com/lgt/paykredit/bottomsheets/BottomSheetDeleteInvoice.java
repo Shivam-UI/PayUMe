@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.lgt.paykredit.Activities.ActivityAddedProducts;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.extras.PayKreditAPI;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
@@ -86,7 +87,7 @@ public class BottomSheetDeleteInvoice extends BottomSheetDialogFragment {
         llDeleteItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // deleteItemAPI();
+                deleteItemAPI();
                 hideBottomSheet();
             }
         });
@@ -114,14 +115,14 @@ public class BottomSheetDeleteInvoice extends BottomSheetDialogFragment {
                     hideBottomSheet();
 
                     if(status.equalsIgnoreCase("1")){
-                        Toast.makeText(getActivity(), ""+message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), ""+message, Toast.LENGTH_SHORT).show();
 
-                        /*ActivityAddedProducts activityAddedProducts = ActivityAddedProducts.getInstance();
+                        /* ActivityAddedProducts activityAddedProducts = ActivityAddedProducts.getInstance();
                         activityAddedProducts.loadAddedProducts();*/
 
                     }
                     else {
-                        Toast.makeText(getActivity(), ""+message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), ""+message, Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {

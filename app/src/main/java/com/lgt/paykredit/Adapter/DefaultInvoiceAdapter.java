@@ -1,6 +1,7 @@
 package com.lgt.paykredit.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lgt.paykredit.Activities.ActivityInvoiceDescription;
 import com.lgt.paykredit.Models.DefaultModel;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.bottomsheets.BottomDeleteDefaulter;
@@ -50,6 +52,16 @@ public class DefaultInvoiceAdapter extends RecyclerView.Adapter<DefaultInvoiceAd
                 FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
                 DefaulterDeleteInvoice.setArguments(deleteItems);
                 DefaulterDeleteInvoice.show(fragmentManager, "BottomSheetDeleteItems");
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent detailsIntent = new Intent(mContext, ActivityInvoiceDescription.class);
+                detailsIntent.putExtra("testID",mList.get(position).getTbl_invoice_customer_id());
+                detailsIntent.putExtra("type","unpaid");
+                mContext.startActivity(detailsIntent);
             }
         });
     }

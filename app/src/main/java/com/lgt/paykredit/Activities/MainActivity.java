@@ -7,50 +7,61 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.lgt.paykredit.Fragments.FragmentCreditBook;
 import com.lgt.paykredit.Fragments.InvoiceDashboardFragment;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.extras.Common;
 import com.lgt.paykredit.extras.PayKreditAPI;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
-
+import com.lgt.paykredit.extras.VolleyMultipartRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ImageView ivHamburger, ivNotification;
     private TextView tvToolbar, tvHeaderEmail, tvHeaderName, tv_user_profile_name;
     private String urlToOpen, urlType;
+    FrameLayout  iv_uploadProfilePicture;
     public static BottomNavigationView btmNavigation;
     private Fragment mSelectedFragment = null;
     private FragmentManager mFragmentManager;
@@ -74,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Toolbar tv_common_toolbar, tv_creditBook_actionBar;
     public static ImageView ivHamburgerS;
     public static MainActivity mainActivity;
+    private Uri filePath;
+    private Bitmap bitmap, converetdImage;
+    int bitmapSize;
 
     CircleImageView ivHeader, civ_user_profile_logo;
 
@@ -91,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         btmNavigation = findViewById(R.id.btmNavHomeScreen);
         btmNavigation.setOnNavigationItemSelectedListener(btmListener);
         mFragmentManager = getSupportFragmentManager();
+        iv_uploadProfilePicture = findViewById(R.id.iv_uploadProfilePicture);
         navigationView = findViewById(R.id.nav_view);
         ivNotification = findViewById(R.id.ivNotification);
         ivHamburgerS = findViewById(R.id.ivHamburgerS);
@@ -147,9 +163,92 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             tv_creditBook_actionBar.setVisibility(View.GONE);
         }
 
+        iv_uploadProfilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                askForPermission();
+            }
+        });
+
         getProfile();
+    }
 
+    private void askForPermission() {
+        Log.e("klskdlsakdsal", "askForPermission: ");
+        Dexter.withActivity(MainActivity.this).withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).
+                withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
 
+                        if (report.areAllPermissionsGranted()) {
+                            selectImage();
+                        } else if (report.isAnyPermissionPermanentlyDenied()) {
+                            Toast.makeText(MainActivity.this, "Please allow all permissions from setting", Toast.LENGTH_SHORT).show();
+                            showSettingsDialog();
+                        } else {
+                            Toast.makeText(MainActivity.this, "All permissions are required", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+
+                    }
+                }).onSameThread().check();
+    }
+
+    private void selectImage() {
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Add Photo!");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Take Photo")) {
+
+                    Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, 1);
+
+                } else if (options[item].equals("Choose from Gallery")) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, 2);
+
+                } else if (options[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+
+    }
+
+    private void showSettingsDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Need Permissions");
+        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
+        builder.setPositiveButton("GOTO SETTINGS", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                openSettings();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", (getPackageName()), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
     }
 
 
@@ -240,7 +339,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         Glide.with(MainActivity.this).load(user_image).apply(new RequestOptions().placeholder(R.drawable.user_icon).error(
                                 R.drawable.user_icon)).diskCacheStrategy(DiskCacheStrategy.ALL).into(civ_user_profile_logo);
-
 
                         tv_user_profile_name.setText("Hi " + business_name);
 
@@ -421,6 +519,141 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(webViewIntent);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e("CLICKEDINBYTES", "Data_Found");
+        if (resultCode == RESULT_OK) {
+            Log.e("CLICKEDINBYTES", "RESULT_CODE_FOUND");
+            if (requestCode == 1) {
+                Log.e("CLICKEDINBYTES", "RECIVED_IMAGE_FOUND");
+                bitmap = (Bitmap) data.getExtras().get("data");
+                // civ_user_profile_logo.setImageBitmap(bitmap);
+                Glide.with(MainActivity.this).load(bitmap).apply(new RequestOptions()
+                        .override(192, 192)).into(civ_user_profile_logo);
+                converetdImage = getResizedBitmap(bitmap, 400);
+                Log.e("CLICKEDINBYTES", bitmap.getAllocationByteCount() + "");
+                Log.e("CLICKEDINKILLOBYTE", (bitmap.getAllocationByteCount() / 1024) + "");
+                sendImage();
+            }
+
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK && data != null) {
+
+            Log.e("gjhghhhhhhk", "called");
+
+            filePath = data.getData();
+
+            Log.e("filepaththh", filePath + "");
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(MainActivity.this.getContentResolver(), filePath);
+                bitmapSize = bitmap.getAllocationByteCount();
+
+                converetdImage = getResizedBitmap(bitmap, 400);
+
+                Log.e("oldbitmap", bitmap.getAllocationByteCount() + "");
+                Log.e("pickfromgallery", bitmap.getAllocationByteCount() + "");
+                Log.e("pickfromgallerydasdas", (bitmap.getAllocationByteCount() / 1024) + "");
+
+                Log.e("dasdasddrerer", converetdImage.getAllocationByteCount() + "");
+                Log.e("ytytyyuyutyuytuty", (converetdImage.getAllocationByteCount() / 1024) + "");
+
+                if (converetdImage.getAllocationByteCount() > 512000) {
+                    //common.showSnackBar(etEmailProfile, );
+                    Toast.makeText(context, "Max. upload size is 1 MB", Toast.LENGTH_SHORT).show();
+                } else {
+                    Glide.with(MainActivity.this).load(bitmap).apply(new RequestOptions().override(192, 192)).
+                            into(civ_user_profile_logo);
+                    sendImage();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    private Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+    private void sendImage() {
+
+        // pbProfile.setVisibility(View.VISIBLE);
+
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, PayKreditAPI.PROFILE_IMAGE,
+                new com.android.volley.Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        Log.e("UPLOADDDD", response+ "");
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(new String(response.data));
+                            String status = jsonObject.getString("status");
+                            String message = jsonObject.getString("message");
+                            // pbProfile.setVisibility(View.GONE);
+                            Log.e("UPLOADDDD", status+ " | " +message);
+                            if (status.equals("1")) {
+                                Toast.makeText(MainActivity.this, "" + message, Toast.LENGTH_SHORT).show();
+                                MainActivity mainActivity = MainActivity.getInstance();
+                                mainActivity.getProfile();
+                                getProfile();
+                            } else {
+                                Toast.makeText(MainActivity.this, "" + message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            // pbProfile.setVisibility(View.GONE);
+                            e.printStackTrace();
+                        }
+
+                        Log.e("MULTIPART", response + "");
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // pbProfile.setVisibility(View.GONE);
+                Log.e("MULTIPART", error + "");
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", mUserID);
+                Log.e("PPPPPPP", params + "");
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() throws AuthFailureError {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+
+                params.put("image", new DataPart(imagename + ".png", getFileDataFromDrawable(converetdImage)));
+
+                Log.e("PARAMS", params + "");
+                return params;
+            }
+        };
+        Volley.newRequestQueue(MainActivity.this).add(volleyMultipartRequest);
+    }
+
+    private byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
 
     private void logOutUser() {
         new AlertDialog.Builder(MainActivity.this)
