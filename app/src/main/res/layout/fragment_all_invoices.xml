@@ -54,5 +54,10 @@
 
 
     </LinearLayout>
-
+    <ProgressBar
+        android:id="@+id/pb_progressBarListAll"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

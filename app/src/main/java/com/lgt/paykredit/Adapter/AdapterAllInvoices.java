@@ -96,7 +96,8 @@ public class AdapterAllInvoices extends RecyclerView.Adapter<AdapterAllInvoices.
                 BottomSheetDeleteCustomer bottomSheetDeleteCustomer = new BottomSheetDeleteCustomer();
                 Bundle deleteItems = new Bundle();
                 deleteItems.putString("KEY_DELETE_ID",listPaidFull.get(position).getPaidInvoiceNumber());
-                deleteItems.putString("KEY_DELETE_ITEM",listPaid.get(position).getName());
+                deleteItems.putString("KEY_DELETE_CUSTOMER_NAME",listPaid.get(position).getName());
+                deleteItems.putString("KEY_MY_BILLS","MYBILLS");
                 FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
                 bottomSheetDeleteCustomer.setArguments(deleteItems);
                 bottomSheetDeleteCustomer.show(fragmentManager,"BottomSheetDeleteItems");

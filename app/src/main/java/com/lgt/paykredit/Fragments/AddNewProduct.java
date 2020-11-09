@@ -189,29 +189,39 @@ public class AddNewProduct extends Fragment {
     }
 
     private void startTaxCalculation(String value) {
-        if (Discount_after != 0) {
-            float Tax = Float.parseFloat(value);
-            float FinalTaxAmt = ((Discount_after * Tax) / 100);
-            mFinalTaxAmt = String.valueOf(FinalTaxAmt);
-            tv_taxFinalAmt.setText("" + FinalTaxAmt);
-            Log.d("DiscountPercentage", "" + FinalTaxAmt);
-        } else {
-            Toast.makeText(getActivity(), "Please Enter Amt", Toast.LENGTH_SHORT).show();
+        if (etQuantityItems.getText().toString().trim().length()>0){
+            if (Discount_after != 0) {
+                float Tax = Float.parseFloat(value);
+                float FinalTaxAmt = ((Discount_after * Tax) / 100);
+                mFinalTaxAmt = String.valueOf(FinalTaxAmt);
+                double afterQuantityTaxCalc = FinalTaxAmt*Integer.parseInt(etQuantityItems.getText().toString().trim());
+                tv_taxFinalAmt.setText("" + afterQuantityTaxCalc);
+                Log.d("DiscountPercentage", "" + FinalTaxAmt + "        :----- "+ afterQuantityTaxCalc);
+            } else {
+                Toast.makeText(getActivity(), "Please Enter Amt", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getActivity(), "Please Select Quantity!", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     private void startCalculation(String value) {
-        Log.d("discount","discount_value:"+value);
-        if (etRatePerUnit.getText().toString().trim().length()>0) {
-            double Discount = Integer.parseInt(value);
-            double Amt = Double.parseDouble(etRatePerUnit.getText().toString().trim());
-            double TexAmt = (Amt * Discount) / 100;
-            Discount_after = Float.valueOf(String.valueOf(Amt))-Float.valueOf(String.valueOf(TexAmt));
-            Log.d("discount","After Discount: "+Discount_after+"  final_value:"+TexAmt);
-            tv_taxAmt.setText(""+String.valueOf(TexAmt));
-        } else {
-            Toast.makeText(getActivity(), "Enter Rate First", Toast.LENGTH_SHORT).show();
+        if (etQuantityItems.getText().toString().trim().length()>0){
+            Log.d("discount","discount_value:"+value);
+            if (etRatePerUnit.getText().toString().trim().length()>0) {
+                double Discount = Integer.parseInt(value);
+                double Amt = Double.parseDouble(etRatePerUnit.getText().toString().trim());
+                double TexAmt = (Amt * Discount) / 100;
+                Discount_after = Float.valueOf(String.valueOf(Amt))-Float.valueOf(String.valueOf(TexAmt));
+                double afterQuantityCalc = TexAmt*Integer.parseInt(etQuantityItems.getText().toString().trim());
+                Log.d("discount","After Discount: "+Discount_after+"  final_value:"+TexAmt+"  :--- "+afterQuantityCalc);
+                tv_taxAmt.setText(""+String.valueOf(afterQuantityCalc));
+            } else {
+                Toast.makeText(getActivity(), "Enter Rate First", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getActivity(), "Please Select Quantity!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -268,11 +278,11 @@ public class AddNewProduct extends Fragment {
                         PQUANTITY = quantity;
                         PDISCOUNT = discount;
                         TOTALAMOUNT = String.valueOf(Float.valueOf(price)*Integer.parseInt(quantity));
-                        TOTALDISCOUNTAMOUNT = String.valueOf(Float.valueOf(final_discount)*Integer.parseInt(quantity));
+                        TOTALDISCOUNTAMOUNT = String.valueOf(Float.valueOf(final_discount));
                         PTAX = tax;
                         FINALTAXAFTERDISCOUNT =final_tax_amount;
                         FINALPRICE =final_discount;
-                        float finalPayToMe = Float.parseFloat(final_tax_amount)*Integer.parseInt(quantity);
+                        float finalPayToMe = Float.parseFloat(final_tax_amount);
                         float ToMe = Float.parseFloat(TOTALDISCOUNTAMOUNT) + finalPayToMe;
                         FINALPAYTOME = String.valueOf(ToMe);
                         etItemName.setText("");

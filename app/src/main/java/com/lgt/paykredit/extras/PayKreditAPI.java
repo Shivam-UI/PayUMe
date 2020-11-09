@@ -50,4 +50,7 @@ public class PayKreditAPI {
     public static String DEFAULT_ADD_REMOVED_CUSTOMER = BASE_URL+"add_remove_customer_from_defaulter_api.php";
     public static String DEFAULT_INVOICE_API = BASE_URL+"defaulter_customer_list_api.php";
     public static String TAX_SLAB_API = BASE_URL+"tax_slab_api.php";
+    public static String BANK_DETAILS = BASE_URL+"user_bank_details_api.php";
+    public static String DEFAULT_LIST_INVOICE_API = BASE_URL+"default_invoice_list_api.php";
+    public static String INVOICE_NUMBER = "http://paykredit.in/api/invoice_final.php?number=";
 }

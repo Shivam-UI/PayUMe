@@ -126,7 +126,7 @@ public class SingleInvoiceAdapter extends RecyclerView.Adapter<SingleInvoiceAdap
         holder.ll_preview_invoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mInvoiceDetailsClick.showPreview(mList.get(position).getTbl_invoice_id());
+                mInvoiceDetailsClick.showPreview(mList.get(position).getInvoice_no());
             }
         });
 
@@ -134,6 +134,13 @@ public class SingleInvoiceAdapter extends RecyclerView.Adapter<SingleInvoiceAdap
             @Override
             public void onClick(View view) {
                 mInvoiceDetailsClick.setDetauld(mList.get(position).getInvoice_customer_id());
+            }
+        });
+
+        holder.tv_ShareNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mInvoiceDetailsClick.startShareData(mList.get(position).getInvoice_no());
             }
         });
     }
@@ -149,7 +156,7 @@ public class SingleInvoiceAdapter extends RecyclerView.Adapter<SingleInvoiceAdap
     }
 
     public class SingleInvoiceholder extends RecyclerView.ViewHolder {
-        TextView tv_InvoiceIdDue, tv_invoiceDueAmt, iv_InvoiceDueDate, tv_ReminderNotification, tv_callNotification;
+        TextView tv_InvoiceIdDue, tv_invoiceDueAmt, iv_InvoiceDueDate, tv_ReminderNotification, tv_callNotification,tv_ShareNotification;
         LinearLayout ll_ChangeDueDate, ll_preview_invoice, ll_PaymentStatusUpdate, ll_SetToDefault;
 
         public SingleInvoiceholder(@NonNull View itemView) {
@@ -163,6 +170,7 @@ public class SingleInvoiceAdapter extends RecyclerView.Adapter<SingleInvoiceAdap
             tv_ReminderNotification = itemView.findViewById(R.id.tv_ReminderNotification);
             tv_callNotification = itemView.findViewById(R.id.tv_callNotification);
             ll_SetToDefault = itemView.findViewById(R.id.ll_SetToDefault);
+            tv_ShareNotification = itemView.findViewById(R.id.tv_ShareNotification);
         }
     }
 }

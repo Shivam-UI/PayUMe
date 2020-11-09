@@ -112,11 +112,11 @@ public class FragmentPaid extends Fragment  implements OpenDetailsInvoice {
                     Log.d("PaidList",jsonObject.toString());
                     String message=jsonObject.getString("message");
                     String status=jsonObject.getString("status");
-                    String total_due=jsonObject.getString("total_sale");
-                    String total_sale=jsonObject.getString("total_sale");
-                    tvTotalSale.setText(total_sale);
-                    tvTotalDueAmt.setText(total_due);
                     if (status.equalsIgnoreCase("1")){
+                        String total_due=jsonObject.getString("total_sale");
+                        String total_sale=jsonObject.getString("total_sale");
+                        tvTotalSale.setText(total_sale);
+                        tvTotalDueAmt.setText(total_due);
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i=0;i<jsonArray.length();i++){
                             JSONObject data = jsonArray.getJSONObject(i);
@@ -130,7 +130,7 @@ public class FragmentPaid extends Fragment  implements OpenDetailsInvoice {
                         rvPaid.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
                         rvPaid.setAdapter(adapterAllInvoices);
                     }else {
-                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

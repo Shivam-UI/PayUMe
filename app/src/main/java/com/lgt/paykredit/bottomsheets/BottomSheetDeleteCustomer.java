@@ -45,7 +45,7 @@ public class BottomSheetDeleteCustomer extends BottomSheetDialogFragment {
     private LinearLayout llCancel, llDelete;
     private SharedPreferences sharedPreferences;
     String mUserID;
-    private String mId, mName;
+    private String mId, mName, MY_BILLS="";
     private ProgressBar pbDeletCustomer;
 
     private boolean deleteAddedCustomer = false;
@@ -82,6 +82,10 @@ public class BottomSheetDeleteCustomer extends BottomSheetDialogFragment {
 
             if (getDeleteData.containsKey("KEY_DELETE_ID")) {
                 mId = getDeleteData.getString("KEY_DELETE_ID");
+            }
+
+            if (getDeleteData.containsKey("KEY_MY_BILLS")) {
+                MY_BILLS = getDeleteData.getString("KEY_MY_BILLS");
             }
 
             if (getDeleteData.containsKey("KEY_DELETE_TYPE")) {
@@ -147,7 +151,6 @@ public class BottomSheetDeleteCustomer extends BottomSheetDialogFragment {
                         LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
                         cancelDialog();
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -164,6 +167,9 @@ public class BottomSheetDeleteCustomer extends BottomSheetDialogFragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("tbl_invoice_customer_id", mId);
                 params.put("user_id", mUserID);
+                if (!MY_BILLS.equalsIgnoreCase("")) {
+                    params.put("type", MY_BILLS);
+                }
                 Log.e("gjhgjhgjhgj", mId + "  |  " + mUserID);
                 return params;
             }

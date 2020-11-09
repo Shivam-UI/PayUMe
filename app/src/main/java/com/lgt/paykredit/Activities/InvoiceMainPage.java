@@ -109,12 +109,10 @@ public class InvoiceMainPage extends AppCompatActivity {
                 if (s.length() > 0) {
                     llTabLayoutParent.setVisibility(View.GONE);
                     rlAddInvoiceMainPage.setVisibility(View.GONE);
-
                 } else {
                     llTabLayoutParent.setVisibility(View.VISIBLE);
                     rlAddInvoiceMainPage.setVisibility(View.VISIBLE);
                 }
-
             }
 
             @Override

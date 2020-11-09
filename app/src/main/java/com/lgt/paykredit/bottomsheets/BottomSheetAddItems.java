@@ -54,9 +54,9 @@ import static com.lgt.paykredit.extras.PayKreditAPI.TAX_SLAB_API;
 public class BottomSheetAddItems extends BottomSheetDialogFragment {
 
     private EditText etItemName, etHSNCode, etRatePerUnit, etDiscountPercentage, etRemarksProduct, etBtmQuantityItems, etBtmAdavancePrice;
-    private TextView tvSaveItem, tvTitleAddItems,tv_edtTaxAmt,tv_edttaxFinalAmt;
+    private TextView tvSaveItem, tvTitleAddItems, tv_edtTaxAmt, tv_edttaxFinalAmt;
     private Spinner etTaxPercentage;
-    private String mFinalTaxAmt,mTAX_FIANL_DISCOUNT, mFINAL_TAX_AMOUNT, mItemName, mItemHSNCode, mRatePerUnit, mDiscountPercentage, mTaxPercentage, mItemRemarks, mUserID, mProductID, mQuantity, mAdvanceAmt;
+    private String mFinalTaxAmt, mTAX_FIANL_DISCOUNT, mFINAL_TAX_AMOUNT, mItemName, mItemHSNCode, mRatePerUnit, mDiscountPercentage, mTaxPercentage, mItemRemarks, mUserID, mProductID, mQuantity, mAdvanceAmt;
 
     private ProgressBar pbAddItems;
     private SharedPreferences sharedPreferences;
@@ -67,6 +67,7 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
     private boolean shouldEdit = false;
     String value;
+
     public BottomSheetAddItems() {
     }
 
@@ -153,9 +154,9 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
 
                     if (getEditData.containsKey("KEY_TAX_FIANL_DISCOUNT")) {
                         mTAX_FIANL_DISCOUNT = getEditData.getString("KEY_TAX_FIANL_DISCOUNT");
-                        double discountAmt=Double.valueOf(mRatePerUnit)-Double.valueOf(mTAX_FIANL_DISCOUNT);
-                        Discount_after=discountAmt;
-                        Log.d("discountAmt",""+discountAmt);
+                        double discountAmt = Double.valueOf(mRatePerUnit) - Double.valueOf(mTAX_FIANL_DISCOUNT);
+                        Discount_after = discountAmt;
+                        Log.d("discountAmt", "" + discountAmt);
                         tv_edtTaxAmt.setText(mTAX_FIANL_DISCOUNT);
                     }
 
@@ -183,7 +184,8 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
         tvSaveItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fieldValidation();
+                callEditItemsAPI();
+                // fieldValidation();
                 // Toast.makeText(getActivity(), "Coming soon", Toast.LENGTH_SHORT).show();
             }
         });
@@ -205,7 +207,7 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d("DiscountPercentage", "" + charSequence);
-                if (charSequence.toString().length()> 0) {
+                if (charSequence.toString().length() > 0) {
                     startCalculation(charSequence.toString());
                 } else {
                     tv_edtTaxAmt.setText("00.00");
@@ -220,29 +222,29 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
     }
 
     private void startCalculation(String value) {
-        Log.d("discount","discount_value:"+value);
-        if (etRatePerUnit.getText().toString().trim().length()>0) {
+        Log.d("discount", "discount_value:" + value);
+        if (etRatePerUnit.getText().toString().trim().length() > 0) {
             double Discount = Integer.parseInt(value);
             double Amt = Double.parseDouble(etRatePerUnit.getText().toString().trim());
             double TexAmt = (Amt * Discount) / 100;
-            Discount_after = Float.valueOf(String.valueOf(Amt))-Float.valueOf(String.valueOf(TexAmt));
-            Log.d("discount","After Discount: "+Discount_after+"  final_value:"+TexAmt);
-            tv_edtTaxAmt.setText(""+String.valueOf(TexAmt));
+            Discount_after = Float.valueOf(String.valueOf(Amt)) - Float.valueOf(String.valueOf(TexAmt));
+            Log.d("discount", "After Discount: " + Discount_after + "  final_value:" + TexAmt);
+            tv_edtTaxAmt.setText("" + String.valueOf(TexAmt));
         } else {
             Toast.makeText(getActivity(), "Enter Rate First", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void checkPosition(String mTaxPercentage) {
-        int position = getIndex(etTaxPercentage,mTaxPercentage);
-        Log.d("position",position+"  |  "+mTaxPercentage +""+getText.containsKey(mTaxPercentage));
+        int position = getIndex(etTaxPercentage, mTaxPercentage);
+        Log.d("position", position + "  |  " + mTaxPercentage + "" + getText.containsKey(mTaxPercentage));
         etTaxPercentage.setPrompt(mTaxPercentage);
     }
 
-    private int getIndex(Spinner spinner, String myString){
+    private int getIndex(Spinner spinner, String myString) {
         int index = 0;
-        for (int i=0;i<spinner.getCount();i++){
-            if (spinner.getItemAtPosition(i).equals(myString)){
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).equals(myString)) {
                 index = i;
             }
         }
@@ -255,7 +257,7 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
         mQuantity = etBtmQuantityItems.getText().toString().trim();
         mItemHSNCode = etHSNCode.getText().toString().trim();
         mRatePerUnit = etRatePerUnit.getText().toString().trim();
-        mAdvanceAmt = etBtmAdavancePrice.getText().toString().trim();
+        // mAdvanceAmt = etBtmAdavancePrice.getText().toString().trim();
         mDiscountPercentage = etDiscountPercentage.getText().toString().trim();
         // mTaxPercentage = etTaxPercentage.getText().toString().trim();
         mItemRemarks = etRemarksProduct.getText().toString().trim();
@@ -305,8 +307,8 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
     private void callEditItemsAPI() {
 
         pbAddItems.setVisibility(View.VISIBLE);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, PayKreditAPI.INVOICE_UPDATE_PRODUCT, new Response.Listener<String>() {
+        //  PayKreditAPI.INVOICE_UPDATE_PRODUCT
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, PayKreditAPI.ADD_INVOICE_PRODUCT_API, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -320,37 +322,35 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
                     String message = jsonObject.getString("message");
                     String status = jsonObject.getString("status");
                     if (status.equalsIgnoreCase("1")) {
+                        AddNewProduct.IsClickToAdd = true;
                         JSONObject Data = jsonObject.getJSONObject("data");
-                        String tbl_invoice_products_id= Data.getString("");
-                        String products_name= Data.getString("");
-                        String price= Data.getString("");
-                        String quantity= Data.getString("");
-                        String discount= Data.getString("");
-                        String tax= Data.getString("");
-                        String final_tax_amount= Data.getString("");
-                        String final_discount= Data.getString("");
-
+                        String tbl_invoice_products_id = Data.getString("tbl_invoice_products_id");
+                        String products_name = Data.getString("products_name");
+                        String price = Data.getString("price");
+                        String quantity = Data.getString("quantity");
+                        String discount = Data.getString("discount");
+                        String tax = Data.getString("tax");
+                        String final_tax_amount = Data.getString("final_tax_amount");
+                        String final_discount = Data.getString("final_discount");
                         AddNewProduct.PID = tbl_invoice_products_id;
                         AddNewProduct.PNAME = products_name;
                         AddNewProduct.PRATE = price;
                         AddNewProduct.PQUANTITY = quantity;
                         AddNewProduct.PDISCOUNT = discount;
-                        AddNewProduct.TOTALAMOUNT = String.valueOf(Float.valueOf(price)*Integer.parseInt(quantity));
-                        AddNewProduct.TOTALDISCOUNTAMOUNT = String.valueOf(Float.valueOf(final_discount)*Integer.parseInt(quantity));
+                        AddNewProduct.TOTALAMOUNT = String.valueOf(Float.valueOf(price) * Integer.parseInt(quantity));
+                        AddNewProduct.TOTALDISCOUNTAMOUNT = String.valueOf(Float.valueOf(final_discount) * Integer.parseInt(quantity));
                         AddNewProduct.PTAX = tax;
-                        AddNewProduct.FINALTAXAFTERDISCOUNT =final_tax_amount;
-                        AddNewProduct.FINALPRICE =final_discount;
-                        float finalPayToMe = Float.parseFloat(final_tax_amount)*Integer.parseInt(quantity);
+                        AddNewProduct.FINALTAXAFTERDISCOUNT = final_tax_amount;
+                        AddNewProduct.FINALPRICE = final_discount;
+                        float finalPayToMe = Float.parseFloat(final_tax_amount) * Integer.parseInt(quantity);
                         float ToMe = Float.parseFloat(AddNewProduct.TOTALDISCOUNTAMOUNT) + finalPayToMe;
                         AddNewProduct.FINALPAYTOME = String.valueOf(ToMe);
                         Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();
                         /*ActivityAddedProducts activityAddedProducts = ActivityAddedProducts.getInstance();
                         activityAddedProducts.loadAddedProducts();*/
-
+                        getActivity().onBackPressed();
                         hideBottomSheet();
-                    }
-
-
+                    }else {Toast.makeText(getActivity(), "" + message, Toast.LENGTH_SHORT).show();}
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -364,18 +364,17 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-
                 Map<String, String> params = new HashMap<>();
-
-                params.put("products_name", mItemName);
-                params.put("HSN_code", mItemHSNCode);
-                params.put("quantity", mQuantity);
-                params.put("tbl_invoice_products_id", mProductID);
-                params.put("price", mRatePerUnit);
-                params.put("advance", mAdvanceAmt);
-                params.put("discount", mDiscountPercentage);
-                params.put("tax", mTaxPercentage);
-                params.put("email_id", mItemRemarks);
+                params.put("user_id", mUserID);
+                params.put("products_name", etItemName.getText().toString());
+                params.put("HSN_code", etHSNCode.getText().toString());
+                params.put("quantity", etBtmQuantityItems.getText().toString());
+                params.put("price", etRatePerUnit.getText().toString());
+                params.put("discount", etDiscountPercentage.getText().toString());
+                params.put("rate", etRatePerUnit.getText().toString());
+                params.put("tax", value);
+                params.put("final_discount", tv_edtTaxAmt.getText().toString());
+                params.put("final_tax_amount", tv_edttaxFinalAmt.getText().toString());
                 Log.e("paprpaprparp", params + "");
                 return params;
             }

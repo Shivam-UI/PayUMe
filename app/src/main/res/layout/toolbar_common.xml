@@ -35,6 +35,18 @@
             android:layout_height="wrap_content"/>
 
 
+        <ImageView
+
+            android:id="@+id/iv_shareInvoice"
+            android:padding="@dimen/margin_4dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_share"
+            android:tint="@color/colorPrimary"
+            android:layout_width="@dimen/margin_32_dp"
+            android:layout_height="@dimen/margin_32_dp"/>
+
+
     </RelativeLayout>
 
 

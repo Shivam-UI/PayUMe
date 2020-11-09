@@ -12,11 +12,13 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,10 +29,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.lgt.paykredit.Activities.ActivityCreateInvoice;
 import com.lgt.paykredit.Activities.ActivityInvoiceDescription;
+import com.lgt.paykredit.Activities.ActivityWebView;
+import com.lgt.paykredit.Activities.CreateInvoice;
 import com.lgt.paykredit.Adapter.AdapterAllInvoices;
+import com.lgt.paykredit.Adapter.ExistingCustomerAdapter;
+import com.lgt.paykredit.Models.ExistingCustomerModel;
 import com.lgt.paykredit.Models.ModelAllInvoices;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.extras.OpenDetailsInvoice;
+import com.lgt.paykredit.extras.PayKreditAPI;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
 
 import org.json.JSONArray;
@@ -51,11 +58,12 @@ import static com.lgt.paykredit.extras.PayKreditAPI.INVOICE_LIST_API;
 public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice {
 
     private static final String TAG = "FragmentAllInvoices";
+    private ProgressBar pb_progressBarListAll;
     private RecyclerView rvAllInvoices;
     private List<ModelAllInvoices> listAllInvoices;
     private AdapterAllInvoices adapterAllInvoices;
     private SharedPreferences sharedPreferences;
-    private String mUserID;
+    private String mUserID,urlToOpen,urlType;
     private LinearLayout llAddInvoice_Paid;
   //  SharedData sharedData;
     private CharSequence aaa;
@@ -69,7 +77,11 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
             CharSequence message = intent.getCharSequenceExtra("INPUT_DATA");
             if (message != null) {
                 if (adapterAllInvoices != null) {
-                    // adapterAllInvoices.getFilter().filter(message.toString());
+                    if (message.toString().length() > 0) {
+                        startSearch(message.toString());
+                    }else {
+                        setNotifyAdapter();
+                    }
                 }
             }
             Log.e("DASdsadsad", message + "");
@@ -92,7 +104,6 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_invoices, container, false);
-
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
                 new IntentFilter("FILTER_EVENT"));
 
@@ -100,8 +111,12 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
         if (sharedPreferences.contains("KEY_USER_ID")) {
             mUserID = sharedPreferences.getString("KEY_USER_ID", "");
         }
-     //   sharedData = (SharedData) getActivity().getApplicationContext();
+     //   sharedData = (SharedData) getActivity().getApplicationContext();+
 
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
+                UPDATEDATA,new IntentFilter("UPDATE_CUSTOMER"));
+
+        pb_progressBarListAll = view.findViewById(R.id.pb_progressBarListAll);
         rvAllInvoices = view.findViewById(R.id.rvPaidInvoice);
         llAddInvoice_Paid = view.findViewById(R.id.llAddInvoice_Paid);
 
@@ -115,12 +130,44 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
         return view;
     }
 
+    public BroadcastReceiver UPDATEDATA=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction()!=null){
+                Log.d("runBroadcast","true");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Do something
+                        pb_progressBarListAll.setVisibility(View.VISIBLE);
+                        loadPaidRecyclerView();
+                    }
+                }, 1500);
+            }
+        }
+    };
+
+
+
+    private void startSearch(String key) {
+        ArrayList<ModelAllInvoices> tempLits = new ArrayList<>();
+        for (ModelAllInvoices temp : listAllInvoices) {
+            if (temp.getCustomer_name().toLowerCase().contains(key.toLowerCase())) {
+                tempLits.add(temp);
+            }
+        }
+        adapterAllInvoices = new AdapterAllInvoices(tempLits, getActivity(),FragmentAllInvoices.this);
+        rvAllInvoices.setAdapter(adapterAllInvoices);
+        adapterAllInvoices.notifyDataSetChanged();
+    }
+
 
     private void loadPaidRecyclerView() {
         listAllInvoices.clear();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, INVOICE_LIST_API, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                pb_progressBarListAll.setVisibility(View.GONE);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     Log.d("invoiceListttttt",jsonObject.toString());
@@ -140,22 +187,20 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
                             modelAllInvoices.setCustomer_name(data.getString("customer_name"));
                             listAllInvoices.add(modelAllInvoices);
                         }
-                        adapterAllInvoices = new AdapterAllInvoices(listAllInvoices, getActivity(),FragmentAllInvoices.this);
-                        rvAllInvoices.hasFixedSize();
-                        rvAllInvoices.setNestedScrollingEnabled(false);
-                        rvAllInvoices.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-                        rvAllInvoices.setAdapter(adapterAllInvoices);
+                        setNotifyAdapter();
                     }else {
                         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    pb_progressBarListAll.setVisibility(View.GONE);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("invoiceList",error.toString());
+                pb_progressBarListAll.setVisibility(View.GONE);
             }
         }){
             @Override
@@ -171,9 +216,18 @@ public class FragmentAllInvoices extends Fragment implements OpenDetailsInvoice 
         requestQueue.add(stringRequest);
     }
 
+    private void setNotifyAdapter() {
+        adapterAllInvoices = new AdapterAllInvoices(listAllInvoices, getActivity(),FragmentAllInvoices.this);
+        rvAllInvoices.hasFixedSize();
+        rvAllInvoices.setNestedScrollingEnabled(false);
+        rvAllInvoices.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        rvAllInvoices.setAdapter(adapterAllInvoices);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+        pb_progressBarListAll.setVisibility(View.VISIBLE);
         loadPaidRecyclerView();
     }
 

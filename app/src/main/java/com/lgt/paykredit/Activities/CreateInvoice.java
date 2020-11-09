@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,20 +35,34 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.downloader.Error;
+import com.downloader.OnCancelListener;
+import com.downloader.OnDownloadListener;
+import com.downloader.OnPauseListener;
+import com.downloader.OnProgressListener;
+import com.downloader.OnStartOrResumeListener;
+import com.downloader.PRDownloader;
+import com.downloader.PRDownloaderConfig;
+import com.downloader.Progress;
 import com.lgt.paykredit.Adapter.AdapterAddedProducts;
 import com.lgt.paykredit.Adapter.ProductAddAdapter;
 import com.lgt.paykredit.Fragments.AddNewProduct;
 import com.lgt.paykredit.Models.ProductModel;
 import com.lgt.paykredit.Models.ProductModelNew;
 import com.lgt.paykredit.R;
+import com.lgt.paykredit.bottomsheets.BottomSheetShareInvoice;
+import com.lgt.paykredit.bottomsheets.BottomSheetShareStatement;
 import com.lgt.paykredit.extras.GenerateCalculation;
 import com.lgt.paykredit.extras.LoadInvoiceData;
+import com.lgt.paykredit.extras.PayKreditAPI;
 import com.lgt.paykredit.extras.SingletonRequestQueue;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -98,6 +115,7 @@ import static com.lgt.paykredit.Fragments.AddNewProduct.itemPrice;
 import static com.lgt.paykredit.Fragments.CreateCusFragment.isCustomerNewAdded;
 import static com.lgt.paykredit.Fragments.CreateCusFragment.new_customer_id;
 import static com.lgt.paykredit.Fragments.CreateCusFragment.new_customer_name;
+import static com.lgt.paykredit.extras.PayKreditAPI.BANK_DETAILS;
 import static com.lgt.paykredit.extras.PayKreditAPI.CREATE_INVOICE_API;
 
 public class CreateInvoice extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, LoadInvoiceData, GenerateCalculation {
@@ -131,7 +149,8 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     private Calendar myCalendar;
     private Context context;
     private CreateInvoice activity;
-
+    private String urlToOpen, urlType,PRESS_TYPE;
+    private boolean isInvoiceCreated =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +171,13 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     }
 
     private void initView() {
-        // new items
+        // downloader init
+        PRDownloader.initialize(this);
+        PRDownloaderConfig config = PRDownloaderConfig.newBuilder()
+                .setDatabaseEnabled(true)
+                .build();
+        PRDownloader.initialize(getApplicationContext(), config);
+        // id's
         et_advanceAmount = findViewById(R.id.et_advanceAmount);
         tv_subTotal = findViewById(R.id.tv_subTotal);
         tv_duscount_price = findViewById(R.id.tv_duscount_price);
@@ -162,8 +187,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         tv_download_invoice = findViewById(R.id.tv_download_invoice);
         tv_shareInvoice = findViewById(R.id.tv_shareInvoice);
         tv_noProductFoundNotify = findViewById(R.id.tv_noProductFoundNotify);
-
-
+        getBankDetails();
         tv_DiscountInPrice = findViewById(R.id.tv_DiscountInPrice);
         tv_subTotalPrice = findViewById(R.id.tv_subTotalPrice);
         tv_AdvancePrice = findViewById(R.id.tv_AdvancePrice);
@@ -189,22 +213,48 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         et_acHolderIFCSCode = findViewById(R.id.et_acHolderIFCSCode);
         myView = findViewById(R.id.my_view);
         myView.setVisibility(View.VISIBLE);
-        et_acHolderName.setText(mAcName);
-        et_acHolderNumber.setText(mAcNumber);
-        et_acHolderIFCSCode.setText(mAcCode);
         isUp = true;
+        urlToOpen = PayKreditAPI.INVOICE_NUMBER;
+        urlType = "INVOICE";
         clickView();
         loadDueTerms();
+
         tv_shareInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Share Invoice", Toast.LENGTH_SHORT).show();
+                if (mList.size() != 0){
+                    ExtraNote = et_extra_note.getText().toString().trim();
+                    IfcsCode = et_acHolderIFCSCode.getText().toString().trim();
+                    AccountNumber = et_acHolderNumber.getText().toString().trim();
+                    AccountHolderName = et_acHolderName.getText().toString().trim();
+                    if (validateSaveFields()) {
+                        PRESS_TYPE="share";
+                        saveInvoice();
+                    } else {
+                        Toast.makeText(CreateInvoice.this, "Required All Field!", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(CreateInvoice.this, "Please Add Products", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         tv_download_invoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Download Invoice", Toast.LENGTH_SHORT).show();
+                if (mList.size() != 0){
+                    ExtraNote = et_extra_note.getText().toString().trim();
+                    IfcsCode = et_acHolderIFCSCode.getText().toString().trim();
+                    AccountNumber = et_acHolderNumber.getText().toString().trim();
+                    AccountHolderName = et_acHolderName.getText().toString().trim();
+                    if (validateSaveFields()) {
+                        PRESS_TYPE="Download";
+                        saveInvoice();
+                    } else {
+                        Toast.makeText(CreateInvoice.this, "Required All Field!", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(CreateInvoice.this, "Please Add Products", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         sp_due_terms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -226,7 +276,6 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         ll_invoice_date_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 /*                Calendar now = Calendar.getInstance();
                 //now.add(Calendar.YEAR,);
                 DatePickerDialog dpd = DatePickerDialog.newInstance(
@@ -301,14 +350,19 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         save_invoice_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ExtraNote = et_extra_note.getText().toString().trim();
-                IfcsCode = et_acHolderIFCSCode.getText().toString().trim();
-                AccountNumber = et_acHolderNumber.getText().toString().trim();
-                AccountHolderName = et_acHolderName.getText().toString().trim();
-                if (validateSaveFields()) {
-                    saveInvoice();
-                } else {
-                    Toast.makeText(CreateInvoice.this, "Required All Field!", Toast.LENGTH_SHORT).show();
+                if (mList.size() != 0){
+                    ExtraNote = et_extra_note.getText().toString().trim();
+                    IfcsCode = et_acHolderIFCSCode.getText().toString().trim();
+                    AccountNumber = et_acHolderNumber.getText().toString().trim();
+                    AccountHolderName = et_acHolderName.getText().toString().trim();
+                    if (validateSaveFields()) {
+                        PRESS_TYPE="save";
+                        saveInvoice();
+                    } else {
+                        Toast.makeText(CreateInvoice.this, "Required All Field!", Toast.LENGTH_SHORT).show();
+                    }
+                } else{
+                    Toast.makeText(CreateInvoice.this, "Please Add Products", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -328,6 +382,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                     if (charSequence.toString().length()>0){
                         int AdvancePayment = Integer.parseInt(charSequence.toString());
                         int PaidAmt = (finalPaidAmt-AdvancePayment);
+                        FinalAdvance = String.valueOf(AdvancePayment);
                         Log.d("PaidAmt",""+PaidAmt);
                         if (!String.valueOf(PaidAmt).contains("-")){
                             if (AdvancePayment !=0 && AdvancePayment < finalPaidAmt){
@@ -354,6 +409,47 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         String date = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         invoice_date_picker = date;
         tv_invoice_date.setText(date);
+    }
+
+    private void getBankDetails() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BANK_DETAILS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("response",""+response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String message = jsonObject.getString("message");
+                    String status = jsonObject.getString("status");
+                    if (status.equalsIgnoreCase("1")){
+                        JSONObject data = jsonObject.getJSONObject("data");
+                        String account_holder_name = data.getString("account_holder_name");
+                        String account_number = data.getString("account_number");
+                        String ifsc_code = data.getString("ifsc_code");
+                        et_acHolderName.setText(account_holder_name);
+                        et_acHolderNumber.setText(account_number);
+                        et_acHolderIFCSCode.setText(ifsc_code);
+                    }else{
+                        Toast.makeText(context, "No Bank Details Found!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error",""+error);
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> param = new HashMap<>();
+                param.put("user_id",mUserID);
+                return param;
+            }
+        };
+        RequestQueue requestQueue = SingletonRequestQueue.getInstance(CreateInvoice.this).getRequestQueue();
+        requestQueue.add(stringRequest);
     }
 
     private void dueDatePicker() {
@@ -437,10 +533,25 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                     JSONObject jsonObject = new JSONObject(response);
                     String message = jsonObject.getString("message");
                     String status = jsonObject.getString("status");
+                    String invoice_no = jsonObject.getString("invoice_no");
                     if (status.equalsIgnoreCase("1")) {
-                        Toast.makeText(CreateInvoice.this, message, Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(CreateInvoice.this, InvoiceMainPage.class));
-                        finish();
+                        if (PRESS_TYPE.equalsIgnoreCase("Save")){
+                            Toast.makeText(CreateInvoice.this, message, Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(CreateInvoice.this, InvoiceMainPage.class));
+                            finish();
+                        }
+                        else if (PRESS_TYPE.equalsIgnoreCase("share")){
+                            Intent webViewIntent = new Intent(CreateInvoice.this, ActivityWebView.class);
+                            webViewIntent.putExtra("KEY_WEB_URL", urlToOpen);
+                            webViewIntent.putExtra("KEY_URL_TYPE", urlType);
+                            webViewIntent.putExtra("KEY_INVOICE_NUMBER", invoice_no);
+                            startActivity(webViewIntent);
+                            finish();
+                        }
+                        else if (PRESS_TYPE.equalsIgnoreCase("Download")){
+                            Log.d("save_invoice",""+PRESS_TYPE);
+                            startDownLoadInvoice(urlToOpen+invoice_no,invoice_no);
+                        }
                     } else {
                         Toast.makeText(CreateInvoice.this, message, Toast.LENGTH_SHORT).show();
                     }
@@ -482,6 +593,70 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         };
         RequestQueue requestQueue = SingletonRequestQueue.getInstance(CreateInvoice.this).getRequestQueue();
         requestQueue.add(stringRequest);
+    }
+
+    private void startDownLoadInvoice(String KEY_URL,String KEY_INVOICE_NUMBER) {
+        //String KEY_URL_DUMMY = "http://paykredit.in/api/invoice_final.php?number=INSTA118709";
+        String fileName = KEY_INVOICE_NUMBER+".pdf";
+        //String fileName = "INSTA118709"+".pdf";
+        String video_Path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getString(R.string.app_name) + "/" + "downloadInvoice";
+        Log.d("dirPath",""+video_Path);
+        // Toast.makeText(context, "KEY_URL"+KEY_URL, Toast.LENGTH_SHORT).show();
+        int downloadId = PRDownloader.download(KEY_URL, video_Path, fileName)
+                .build()
+                .setOnStartOrResumeListener(new OnStartOrResumeListener() {
+                    @Override
+                    public void onStartOrResume() {
+                        Log.d("dirPath","StartOrResume download started:");
+                    }
+                })
+                .setOnPauseListener(new OnPauseListener() {
+                    @Override
+                    public void onPause() {
+                        Log.d("dirPath","onPause download started:");
+                    }
+                })
+                .setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel() {
+                        Log.d("dirPath","onCancel download started:");
+                    }
+                })
+                .setOnProgressListener(new OnProgressListener() {
+                    @Override
+                    public void onProgress(Progress progress) {
+                        Log.d("dirPath","progress : ="+progress);
+                    }
+                })
+                .start(new OnDownloadListener() {
+                    @Override
+                    public void onDownloadComplete() {
+                        shareDownloadInvoice(fileName);
+                    }
+
+                    @Override
+                    public void onError(Error error) {
+                        Toast.makeText(context, "Download Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void shareDownloadInvoice(String id_invoice) {
+        File file = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.app_name) + "/" + "downloadInvoice/"+id_invoice);
+        if (file.exists()) {
+            Log.e("file_directory_exists", "exists");
+            Uri videoURI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                    ? FileProvider.getUriForFile(context, getPackageName() + ".provider", file)
+                    : Uri.fromFile(file);
+            Intent intentShareFile = new Intent(Intent.ACTION_SEND);
+            String share_content = "PayKredit Invoice :" +id_invoice;
+            Log.d("shareee", share_content + "");
+            intentShareFile.putExtra(Intent.EXTRA_TEXT, share_content);
+            intentShareFile.setType(URLConnection.guessContentTypeFromName(file.getName()));
+            intentShareFile.putExtra(Intent.EXTRA_STREAM, videoURI);
+            startActivity(Intent.createChooser(intentShareFile, "Share File"));
+            finish();
+        }
     }
 
     private String getProductId(String id) {
@@ -538,7 +713,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                 productModelNew.setTax(PTAX);
                 productModelNew.setQuantity(PQUANTITY);
                 productModelNew.setDiscount(PDISCOUNT);
-                productModelNew.setFinalTax(""+FinalTaxAmt);
+                productModelNew.setFinalTax(FINALTAXAFTERDISCOUNT);
                 productModelNew.setFinalAmount(TOTALAMOUNT);
                 productModelNew.setFinalDiscont(TOTALDISCOUNTAMOUNT);
                 productModelNew.setFinalPayToMe(FINALPAYTOME);
@@ -551,7 +726,6 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                 productModel.setBalanceDue(Float.valueOf(ItemDue));
                 productModel.setTotalDiscount(Float.valueOf(ItemDiscount));
                 mList.add(productModel);*/
-
                 ProductModelNew productModelNew = new ProductModelNew();
                 productModelNew.setId(PID);
                 productModelNew.setName(PNAME);
@@ -649,19 +823,23 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     }
 
     private void setCalcDataToView(int sproprice, int pprice, int pdiscunt, int pqty, int padvnc) {
-        SinglePrice = String.valueOf(sproprice);
-        FinalDiscount = String.valueOf(pqty);
-        FinalAdvance = String.valueOf(padvnc);
-        FinalBalance = String.valueOf(pdiscunt);
-        FinalSubTotal = String.valueOf(pprice);
 
         int FIANLAMMT = (sproprice-pprice)+pqty;
-        //Log.d("listData:", "Final Price = | " + pprice + " | " + pdiscunt + " | " + pqty + " | " + padvnc);
         tv_subTotal.setText(sproprice + "");
         tv_duscount_price.setText(pprice + "");
         tv_gst_amt.setText(pqty + "");
         tv_totalAmt.setText(FIANLAMMT + "");
         tvamount.setText(FIANLAMMT + "");
+
+        Log.d("we_have",sproprice+" | "+pprice+" | "+pdiscunt+" | "+pqty+" | "+padvnc);
+
+        SinglePrice = String.valueOf(sproprice);
+
+        FinalDiscount = String.valueOf(pprice);
+
+        FinalBalance = String.valueOf(FIANLAMMT);
+
+        FinalSubTotal = String.valueOf(sproprice);
     }
 
     private void setUpAddProductView() {

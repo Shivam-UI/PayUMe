@@ -56,7 +56,7 @@
                         android:textSize="@dimen/text_12sp" />
 
                     <EditText
-                        android:enabled="false"
+                        android:enabled="true"
                         android:id="@+id/etItemName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                                 android:padding="@dimen/margin_2dp">
 
                                 <EditText
-                                    android:enabled="false"
+                                    android:enabled="true"
                                     android:id="@+id/etHSNCode"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -169,6 +169,7 @@
                                     android:background="@null"
                                     android:maxLines="1"
                                     android:padding="@dimen/padding_4dp"
+                                    android:inputType="number"
                                     android:text="1"
                                     android:textColor="@color/black"
                                     android:textColorHint="@color/black"

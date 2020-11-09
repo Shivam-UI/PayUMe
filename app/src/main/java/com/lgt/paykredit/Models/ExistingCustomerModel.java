@@ -2,7 +2,15 @@ package com.lgt.paykredit.Models;
 
 public class ExistingCustomerModel {
 
-    String tbl_invoice_customer_id,customer_name,customer_mobile,customer_email,company_name,GSTIN,GSTINAddress,CIN,billing_address;
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    String tbl_invoice_customer_id,customer_name,customer_mobile,customer_email,company_name,GSTIN,GSTINAddress,CIN,billing_address,state;
 
     public ExistingCustomerModel(String tbl_invoice_customer_id, String customer_name, String customer_mobile, String customer_email, String company_name, String GSTIN, String GSTINAddress, String CIN, String billing_address) {
         this.tbl_invoice_customer_id = tbl_invoice_customer_id;

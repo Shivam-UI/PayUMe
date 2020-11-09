@@ -9,4 +9,6 @@ public interface InvoiceDetailsClick {
     void payPayment(String uid,String invoiceno);
 
     void setDetauld(String uid);
+
+    void startShareData(String InvoiceID);
 }

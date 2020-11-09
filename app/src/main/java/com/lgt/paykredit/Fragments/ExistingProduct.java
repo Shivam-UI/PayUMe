@@ -104,7 +104,7 @@ public class ExistingProduct extends Fragment {
                         //Do something
                         loadAddedProducts();
                     }
-                }, 1500);
+                }, 1000);
 
             }
         }
@@ -146,7 +146,6 @@ public class ExistingProduct extends Fragment {
                                 modelAddedProducts.setFinal_tax_amount(final_tax_amount);
                                 list.add(modelAddedProducts);
                             }
-                            pbAddedProducts.setVisibility(View.GONE);
                             adapterAddedProducts = new AdapterAddedProducts(list, getContext());
                             rvAddedProducts.hasFixedSize();
                             rvAddedProducts.setNestedScrollingEnabled(false);
@@ -161,6 +160,7 @@ public class ExistingProduct extends Fragment {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    pbAddedProducts.setVisibility(View.GONE);
                 }
 
             }
@@ -192,6 +192,6 @@ public class ExistingProduct extends Fragment {
                 //Do something
                 loadAddedProducts();
             }
-        }, 1500);
+        }, 1000);
     }
 }

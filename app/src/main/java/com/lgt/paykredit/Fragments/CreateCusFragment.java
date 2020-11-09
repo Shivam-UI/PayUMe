@@ -172,8 +172,9 @@ public class CreateCusFragment extends Fragment {
                     if (status.equalsIgnoreCase("1")) {
                         JSONObject jsonArray = jsonObject.getJSONObject("data");
                         String tbl_invoice_customer_id = jsonArray.getString("tbl_invoice_customer_id");
-                        String customer_name = jsonArray.getString("customer_name");
-                        Log.d("Customer_details",tbl_invoice_customer_id+""+customer_name);
+                        // String customer_name = jsonArray.getString("customer_name");
+                        String company_name = jsonArray.getString("company_name");
+                        Log.d("Customer_details",tbl_invoice_customer_id+""+company_name);
                         et_customer_name.setText("");
                         et_mobile_number.setText("");
                         et_company_name.setText("");
@@ -184,7 +185,7 @@ public class CreateCusFragment extends Fragment {
                         et_cin_number.setText("");
                         isCustomerNewAdded=true;
                         new_customer_id=tbl_invoice_customer_id;
-                        new_customer_name=customer_name;
+                        new_customer_name=company_name;
                         Toast.makeText(getContext(), "New Customer Added!", Toast.LENGTH_SHORT).show();
                         getActivity().onBackPressed();
                         /* not in use

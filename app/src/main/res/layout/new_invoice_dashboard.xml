@@ -93,7 +93,7 @@
                             android:textAlignment="center"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_4dp"
-                            android:text="Create Bill"
+                            android:text="Create Invoice"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 
@@ -136,7 +136,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_4dp"
                             android:textAlignment="center"
-                            android:text=" My Bills "
+                            android:text=" My Invoice"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 

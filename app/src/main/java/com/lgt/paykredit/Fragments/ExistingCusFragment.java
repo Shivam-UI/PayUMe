@@ -7,10 +7,13 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -63,6 +67,7 @@ public class ExistingCusFragment extends Fragment implements CustomerClick {
     public static boolean isEditing = false;
     public static String Invoice_Customer_ID = "";
     TextView tv_not_customer_found;
+    EditText et_search_customer;
     RecyclerView rv_existing_customer;
     ProgressBar pb_progressLoader;
     ExistingCustomerAdapter existingCustomerAdapter;
@@ -99,13 +104,14 @@ public class ExistingCusFragment extends Fragment implements CustomerClick {
         }
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(
-                UPDATEDATA,new IntentFilter("UPDATE_CUSTOMER"));
+                UPDATEDATA, new IntentFilter("UPDATE_CUSTOMER"));
 
         return mView;
     }
 
     private void initView(View mView) {
         tv_not_customer_found = mView.findViewById(R.id.tv_not_customer_found);
+        et_search_customer = mView.findViewById(R.id.et_search_customer);
         pb_progressLoader = mView.findViewById(R.id.pb_progressLoader);
         rv_existing_customer = mView.findViewById(R.id.rv_existing_customer);
         rv_existing_customer.setVisibility(View.VISIBLE);
@@ -114,13 +120,45 @@ public class ExistingCusFragment extends Fragment implements CustomerClick {
         rv_existing_customer.setLayoutManager(linearLayoutManager);
         rv_existing_customer.hasFixedSize();
         pb_progressLoader.setVisibility(View.VISIBLE);
+        et_search_customer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().length() > 0) {
+                    startSearch(charSequence.toString());
+                }else {
+                    setAdapterNotify();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
-    public BroadcastReceiver UPDATEDATA=new BroadcastReceiver() {
+    private void startSearch(String key) {
+        ArrayList<ExistingCustomerModel> tempLits = new ArrayList<>();
+        for (ExistingCustomerModel temp : mList) {
+            if (temp.getCustomer_name().toLowerCase().contains(key.toLowerCase())) {
+                tempLits.add(temp);
+            }
+        }
+        existingCustomerAdapter = new ExistingCustomerAdapter(getContext(), tempLits, ExistingCusFragment.this);
+        rv_existing_customer.setAdapter(existingCustomerAdapter);
+        existingCustomerAdapter.notifyDataSetChanged();
+    }
+
+    public BroadcastReceiver UPDATEDATA = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction()!=null){
-                Log.d("runBroadcast","true");
+            if (intent.getAction() != null) {
+                Log.d("runBroadcast", "true");
                 pb_progressLoader.setVisibility(View.VISIBLE);
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -155,8 +193,9 @@ public class ExistingCusFragment extends Fragment implements CustomerClick {
                             String gstin_no = mData.getString("GSTIN");
                             String gistin_add = mData.getString("GSTINAddress");
                             String cin_no = mData.getString("CIN");
+                            String state = mData.getString("state");
                             String bill_add = mData.getString("billing_address");
-                            mList.add(new ExistingCustomerModel("" + invoice_id
+                            ExistingCustomerModel existingCustomerModel = new ExistingCustomerModel("" + invoice_id
                                     , "" + cus_name
                                     , "" + cus_mobile
                                     , "" + cus_email
@@ -164,13 +203,17 @@ public class ExistingCusFragment extends Fragment implements CustomerClick {
                                     , "" + gstin_no
                                     , "" + gistin_add
                                     , "" + cin_no
-                                    , "" + bill_add));
+                                    , "" + bill_add);
+                            existingCustomerModel.setState(state);
+                            mList.add(existingCustomerModel);
                         }
                         setAdapterNotify();
                     } else {
+                        pb_progressLoader.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "" + message, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
+                    pb_progressLoader.setVisibility(View.GONE);
                     e.printStackTrace();
                 }
             }
@@ -215,8 +258,9 @@ public class ExistingCusFragment extends Fragment implements CustomerClick {
         et_customer_address.setText(mList.get(pos).getBilling_address());
         et_email_address.setText(mList.get(pos).getCustomer_email());
         et_gstin_number.setText(mList.get(pos).getGSTIN());
-        et_gstin_address.setText(mList.get(pos).getGSTINAddress());
+        et_gstin_address.setText(mList.get(pos).getState());
         et_cin_number.setText(mList.get(pos).getCIN());
+        vp_add_customer_tab.setCurrentItem(0);
     }
 
     @Override

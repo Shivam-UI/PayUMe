@@ -60,7 +60,7 @@ public class ExistingCustomerAdapter extends RecyclerView.Adapter<ExistingCustom
                 mContext.startActivity(mIntent);*/
                 isCustomerAdded=true;
                 customer_id=mList.get(position).getTbl_invoice_customer_id();
-                customer_name=mList.get(position).getCustomer_name();
+                customer_name=mList.get(position).getCompany_name();
                 ((Activity)mContext).onBackPressed();
             }
         });

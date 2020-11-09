@@ -91,6 +91,23 @@ public class AdapterAddedProducts extends RecyclerView.Adapter<AdapterAddedProdu
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                BottomSheetAddItems bottomSheetAddItems = new BottomSheetAddItems();
+                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                Bundle bundleAddedProducts = new Bundle();
+                bundleAddedProducts.putString("KEY_EDIT_ADDED_PRODUCTS","EDIT_PRODUCT");
+                bundleAddedProducts.putString("KEY_PRODUCT_ID",list.get(position).getTbl_invoice_products_id());
+                bundleAddedProducts.putString("KEY_PRODUCT_NAME",list.get(position).getName());
+                bundleAddedProducts.putString("KEY_HSN_CODE",list.get(position).getHsnCode());
+                bundleAddedProducts.putString("KEY_RATE_PER_UNIT",list.get(position).getAmount());
+                bundleAddedProducts.putString("KEY_QUANTITY_PER_UNIT",list.get(position).getQuantity());
+                bundleAddedProducts.putString("KEY_ADVANCE_PER_UNIT",list.get(position).getAdvance());
+                bundleAddedProducts.putString("KEY_DISCOUNT_PERCENTAGE",list.get(position).getDiscount());
+                bundleAddedProducts.putString("KEY_TAX_PERCENTAGE",list.get(position).getTax());
+                bundleAddedProducts.putString("KEY_TAX_FIANL_DISCOUNT",list.get(position).getFinal_discount());
+                bundleAddedProducts.putString("KEY_TAX_FINAL_TAX_AMOUNT",list.get(position).getFinal_tax_amount());
+                Log.d("send_data",""+bottomSheetAddItems);
+                bottomSheetAddItems.setArguments(bundleAddedProducts);
+                bottomSheetAddItems.show(fragmentManager,"BottomSheetAddItems");
                /* BottomSheetAddItems bottomSheetAddItems = new BottomSheetAddItems();
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 Bundle bundleAddedProducts = new Bundle();

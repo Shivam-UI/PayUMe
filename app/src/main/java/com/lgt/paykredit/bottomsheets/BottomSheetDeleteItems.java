@@ -1,15 +1,19 @@
 package com.lgt.paykredit.bottomsheets;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -117,10 +121,10 @@ public class BottomSheetDeleteItems extends BottomSheetDialogFragment {
 
                     if(status.equalsIgnoreCase("1")){
                         Toast.makeText(getActivity(), ""+message, Toast.LENGTH_SHORT).show();
-
-                        /*ActivityAddedProducts activityAddedProducts = ActivityAddedProducts.getInstance();
-                        activityAddedProducts.loadAddedProducts();*/
-
+                        // set broadcast
+                        Intent intent = new Intent("ProductUpdate");
+                        LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+                        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                     }
                     else {
                         Toast.makeText(getActivity(), ""+message, Toast.LENGTH_SHORT).show();
