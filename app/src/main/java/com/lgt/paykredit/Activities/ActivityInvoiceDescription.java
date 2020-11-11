@@ -65,7 +65,9 @@ import static com.lgt.paykredit.Adapter.SingleInvoiceAdapter.SelectedDate;
 import static com.lgt.paykredit.extras.Common.INVOICE_ID;
 import static com.lgt.paykredit.extras.PayKreditAPI.DEFAULT_ADD_REMOVED_CUSTOMER;
 import static com.lgt.paykredit.extras.PayKreditAPI.DEFAULT_LIST_INVOICE_API;
+import static com.lgt.paykredit.extras.PayKreditAPI.DOWNLOAD_NUMBER;
 import static com.lgt.paykredit.extras.PayKreditAPI.EDIT_INVOICE_BY_TYPE_API;
+import static com.lgt.paykredit.extras.PayKreditAPI.INVOICE_PRODUCT_LIST_API;
 import static com.lgt.paykredit.extras.PayKreditAPI.PREVIEW_INVOICE_API;
 import static com.lgt.paykredit.extras.PayKreditAPI.USER_WISE_INVOICE_API;
 
@@ -73,7 +75,7 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
 
     private TextView tvToolbarTitle, tv_UserNameInvoice, tv_BalanceAmtDue, tv_InvoiceIdDue, iv_InvoiceDueDate;
     private LinearLayout llCallInvoiceDescription;
-    private ImageView ivBackSingleUserTransaction, iv_defaultIcon;
+    private ImageView ivBackSingleUserTransaction, iv_defaultIcon,iv_shareInvoice;
     private LinearLayout llDateInvoice, ll_SetToDefault, ll_PaymentStatusUpdate, ll_ChangeDueDate;
     private SharedPreferences sharedPreferences;
     private String mUserID, invoice_date_picker = "", invoiceID = "",type,urlToOpen,urlType;
@@ -91,6 +93,7 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
         urlToOpen = PayKreditAPI.INVOICE_NUMBER;
         urlType = "PREVIEW";
         tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
+        iv_shareInvoice = findViewById(R.id.iv_shareInvoice);
         iv_defaultIcon = findViewById(R.id.iv_defaultIcon);
         rv_user_single_invoice_details = findViewById(R.id.rv_user_single_invoice_details);
         llCallInvoiceDescription = findViewById(R.id.llCallInvoiceDescription);
@@ -103,6 +106,7 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
         ll_SetToDefault = findViewById(R.id.ll_SetToDefault);
         ll_PaymentStatusUpdate = findViewById(R.id.ll_PaymentStatusUpdate);
         ll_ChangeDueDate = findViewById(R.id.ll_ChangeDueDate);
+        iv_shareInvoice.setVisibility(View.GONE);
         ivBackSingleUserTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,9 +161,9 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
         }
     }
 
-    private void invoiceDetails() {
+    private void invoiceDetails()    {
         if (!invoiceID.equalsIgnoreCase("")) {
-            StringRequest invoiceDetails = new StringRequest(Request.Method.POST, DEFAULT_LIST_INVOICE_API, new Response.Listener<String>() {
+            StringRequest invoiceDetails = new StringRequest(Request.Method.POST, USER_WISE_INVOICE_API, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.d("invoiceDetails", response);
@@ -320,13 +324,15 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
     }
 
     private void startDownLoadInvoice(String KEY_URL,String KEY_INVOICE_NUMBER) {
+        Toast.makeText(this, "Downloading....", Toast.LENGTH_SHORT).show();
         //String KEY_URL_DUMMY = "http://paykredit.in/api/invoice_final.php?number=INSTA118709";
         String fileName = KEY_INVOICE_NUMBER+".pdf";
         //String fileName = "INSTA118709"+".pdf";
-        String video_Path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getString(R.string.app_name) + "/" + "downloadInvoice";
-        Log.d("dirPath",""+video_Path);
+        String video_Path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "PayKredit" + "/" + "download/Invoice/";
+        String dirPath = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"PayKredit/downloads";
+        Log.d("dirPath",dirPath+"     |     "+video_Path);
         // Toast.makeText(ActivityInvoiceDescription.this, "KEY_URL"+KEY_URL, Toast.LENGTH_SHORT).show();
-        int downloadId = PRDownloader.download(KEY_URL, video_Path, fileName)
+        int downloadId = PRDownloader.download(DOWNLOAD_NUMBER, video_Path, fileName)
                 .build()
                 .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                     @Override
@@ -366,18 +372,17 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
     }
 
     private void shareDownloadInvoice(String id_invoice) {
-        File file = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.app_name) + "/" + "downloadInvoice/"+id_invoice);
+        File file = new File(Environment.getExternalStorageDirectory() + "/" + "PayKredit" + "/" + "download/Invoice/"+id_invoice);
         if (file.exists()) {
-            Log.e("file_directory_exists", "exists");
-            Uri videoURI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+            Uri Pdf_URI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
                     ? FileProvider.getUriForFile(ActivityInvoiceDescription.this, getPackageName() + ".provider", file)
                     : Uri.fromFile(file);
+            Log.e("file_directory_exists", "exists" + Pdf_URI.toString());
             Intent intentShareFile = new Intent(Intent.ACTION_SEND);
             String share_content = "PayKredit Invoice :" +id_invoice;
-            Log.d("shareee", share_content + "");
             intentShareFile.putExtra(Intent.EXTRA_TEXT, share_content);
-            intentShareFile.setType(URLConnection.guessContentTypeFromName(file.getName()));
-            intentShareFile.putExtra(Intent.EXTRA_STREAM, videoURI);
+            intentShareFile.setType("application/pdf");
+            intentShareFile.putExtra(Intent.EXTRA_STREAM, Pdf_URI);
             startActivity(Intent.createChooser(intentShareFile, "Share File"));
             finish();
         }

@@ -123,7 +123,7 @@ public class CreateCusFragment extends Fragment {
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(mEmailAddress).matches()) {
+        /*if (!Patterns.EMAIL_ADDRESS.matcher(mEmailAddress).matches()) {
             et_email_address.setError("Enter a valid email");
             et_email_address.requestFocus();
             return;
@@ -147,7 +147,7 @@ public class CreateCusFragment extends Fragment {
             et_gstin_number.setError("Enter Valid CIN Number");
             et_gstin_number.requestFocus();
             return;
-        }
+        } */
 
         if (isEditing) {
             if (!Invoice_Customer_ID.equalsIgnoreCase("")) {

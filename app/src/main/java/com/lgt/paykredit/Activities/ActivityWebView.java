@@ -38,6 +38,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLConnection;
 
+import static com.lgt.paykredit.extras.PayKreditAPI.DOWNLOAD_NUMBER;
+
 public class ActivityWebView extends AppCompatActivity {
     private FloatingActionButton fab_downloadStatement;
     private WebView webViewPayKredit;
@@ -131,7 +133,7 @@ public class ActivityWebView extends AppCompatActivity {
         iv_shareInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startDownLoadInvoice(urlToOpen+mKeyInvoiceUrl,mKeyInvoiceUrl);
+                startDownLoadInvoice(DOWNLOAD_NUMBER+mKeyInvoiceUrl,mKeyInvoiceUrl);
             }
         });
     }

@@ -53,4 +53,5 @@ public class PayKreditAPI {
     public static String BANK_DETAILS = BASE_URL+"user_bank_details_api.php";
     public static String DEFAULT_LIST_INVOICE_API = BASE_URL+"default_invoice_list_api.php";
     public static String INVOICE_NUMBER = "http://paykredit.in/api/invoice_final.php?number=";
+    public static String DOWNLOAD_NUMBER = "http://paykredit.in/api/downloadpdf.php?number=";
 }

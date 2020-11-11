@@ -90,9 +90,9 @@ public class ActivityAccount extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String url = PayKreditAPI.WEB_URL + "pdf/index.php?user_id=" + mUserID;
-//                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse(url));
-//                startActivity(i);
+                // Intent i = new Intent(Intent.ACTION_VIEW); //
+                // i.setData(Uri.parse(url));
+                // startActivity(i);
                 String ac_stmt = "Account Statement";
                 openWebView(url,ac_stmt);
               /*  Intent intent = new Intent(Intent.ACTION_VIEW);
