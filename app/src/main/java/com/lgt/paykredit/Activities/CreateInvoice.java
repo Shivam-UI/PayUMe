@@ -117,6 +117,7 @@ import static com.lgt.paykredit.Fragments.CreateCusFragment.new_customer_id;
 import static com.lgt.paykredit.Fragments.CreateCusFragment.new_customer_name;
 import static com.lgt.paykredit.extras.PayKreditAPI.BANK_DETAILS;
 import static com.lgt.paykredit.extras.PayKreditAPI.CREATE_INVOICE_API;
+import static com.lgt.paykredit.extras.PayKreditAPI.DOWNLOAD_NUMBER;
 
 public class CreateInvoice extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, LoadInvoiceData, GenerateCalculation {
     LinearLayout ll_invoice_date_picker, ll_due_date_picker;
@@ -602,7 +603,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         String video_Path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getString(R.string.app_name) + "/" + "downloadInvoice";
         Log.d("dirPath",""+video_Path);
         // Toast.makeText(context, "KEY_URL"+KEY_URL, Toast.LENGTH_SHORT).show();
-        int downloadId = PRDownloader.download(KEY_URL, video_Path, fileName)
+        /*int downloadId = PRDownloader.download(KEY_URL, video_Path, fileName)
                 .build()
                 .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                     @Override
@@ -638,7 +639,12 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
                     public void onError(Error error) {
                         Toast.makeText(context, "Download Error", Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(DOWNLOAD_NUMBER+KEY_INVOICE_NUMBER));
+        Log.d("download_path",""+DOWNLOAD_NUMBER+KEY_INVOICE_NUMBER);
+        startActivity(i);
     }
 
     private void shareDownloadInvoice(String id_invoice) {

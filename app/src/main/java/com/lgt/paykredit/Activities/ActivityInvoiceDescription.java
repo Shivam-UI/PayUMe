@@ -290,11 +290,15 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
         intentPreview.putExtra("tbl_invoice_id",uid);
         startActivity(intentPreview);*/
 
-        Intent webViewIntent = new Intent(this, ActivityWebView.class);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(DOWNLOAD_NUMBER+uid));
+        Log.d("download_path",""+DOWNLOAD_NUMBER+uid);
+        startActivity(i);
+        /*Intent webViewIntent = new Intent(this, ActivityWebView.class);
         webViewIntent.putExtra("KEY_WEB_URL", urlToOpen);
         webViewIntent.putExtra("KEY_URL_TYPE", urlType);
         webViewIntent.putExtra("KEY_INVOICE_NUMBER", uid);
-        startActivity(webViewIntent);
+        startActivity(webViewIntent);*/
     }
 
     @Override
@@ -320,18 +324,21 @@ public class ActivityInvoiceDescription extends AppCompatActivity implements Dat
 
     @Override
     public void startShareData(String InvoiceID) {
-        startDownLoadInvoice(urlToOpen+InvoiceID,InvoiceID);
+        // startDownLoadInvoice(urlToOpen+InvoiceID,InvoiceID);
     }
+
+
 
     private void startDownLoadInvoice(String KEY_URL,String KEY_INVOICE_NUMBER) {
         Toast.makeText(this, "Downloading....", Toast.LENGTH_SHORT).show();
         //String KEY_URL_DUMMY = "http://paykredit.in/api/invoice_final.php?number=INSTA118709";
+        // String KEY_URL_DUMMY = "http://www.africau.edu/images/default/sample.pdf";  +".pdf"
         String fileName = KEY_INVOICE_NUMBER+".pdf";
-        //String fileName = "INSTA118709"+".pdf";
+        // String fileName = "sample.pdf";
         String video_Path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "PayKredit" + "/" + "download/Invoice/";
         String dirPath = android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"PayKredit/downloads";
         Log.d("dirPath",dirPath+"     |     "+video_Path);
-        // Toast.makeText(ActivityInvoiceDescription.this, "KEY_URL"+KEY_URL, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(ActivityInvoiceDescription.this, "KEY_URL"+KEY_URL, Toast.LENGTH_SHORT).show(); DOWNLOAD_NUMBER
         int downloadId = PRDownloader.download(DOWNLOAD_NUMBER, video_Path, fileName)
                 .build()
                 .setOnStartOrResumeListener(new OnStartOrResumeListener() {

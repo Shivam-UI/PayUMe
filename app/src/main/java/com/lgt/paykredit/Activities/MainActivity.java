@@ -461,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         if (id == R.id.nav_invoice) {
-            //HIding this 6 June 2020
+            //Hiding this 6 June 2020
             // startActivity(new Intent(MainActivity.this, ActivityInvoice.class));
             //startActivity(new Intent(MainActivity.this, ActivityCreateInvoice.class));
         }

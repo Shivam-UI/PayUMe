@@ -3,6 +3,7 @@ package com.lgt.paykredit.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -74,8 +75,9 @@ public class ActivityWebView extends AppCompatActivity {
                 mTypeOfURL = getURL.getStringExtra("KEY_URL_TYPE");
                 mKeyInvoiceUrl = getURL.getStringExtra("KEY_INVOICE_NUMBER");
 
-                mURL="http://paykredit.in/api/invoice_final.php?number="+mKeyInvoiceUrl;
-                Log.e("hjkhkjhkjhkj",  "http://paykredit.in/api/invoice_final.php?number="+mKeyInvoiceUrl);
+                // mURL="http://paykredit.in/api/invoice_final.php?number="+mKeyInvoiceUrl;
+                mURL=mURL+mKeyInvoiceUrl;
+                Log.e("hjkhkjhkjhkj",  mURL);
                 tvToolbarTitle.setText(mTypeOfURL);
 
                 if (mURL != null) {
@@ -142,7 +144,7 @@ public class ActivityWebView extends AppCompatActivity {
         //String KEY_URL_DUMMY = "http://paykredit.in/api/invoice_final.php?number=INSTA118709";
         String fileName = KEY_INVOICE_NUMBER+".pdf";
         //String fileName = "INSTA118709"+".pdf";
-        String video_Path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + getString(R.string.app_name) + "/" + "downloadInvoice";
+        String video_Path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "PayKredit" + "/" + "download/Invoice/";
         Log.d("dirPath",""+video_Path);
         // Toast.makeText(ActivityWebView.this, "KEY_URL"+KEY_URL, Toast.LENGTH_SHORT).show();
         int downloadId = PRDownloader.download(KEY_URL, video_Path, fileName)
@@ -185,7 +187,7 @@ public class ActivityWebView extends AppCompatActivity {
     }
 
     private void shareDownloadInvoice(String id_invoice) {
-        File file = new File(Environment.getExternalStorageDirectory() + "/" + getString(R.string.app_name) + "/" + "downloadInvoice/"+id_invoice);
+        File file = new File(Environment.getExternalStorageDirectory() + "/" + "PayKredit" + "/" + "download/Invoice/"+id_invoice);
         if (file.exists()) {
             Log.e("file_directory_exists", "exists");
             Uri videoURI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
