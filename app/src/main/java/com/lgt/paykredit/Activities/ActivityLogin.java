@@ -195,7 +195,7 @@ public class ActivityLogin extends AppCompatActivity implements GoogleApiClient.
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Error","login : "+error.getMessage());
+                Log.d("Error",error.getLocalizedMessage()+" login : "+error.getMessage());
             }
         }) {
             @Override

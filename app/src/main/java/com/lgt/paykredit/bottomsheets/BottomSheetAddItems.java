@@ -222,16 +222,21 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
     }
 
     private void startCalculation(String value) {
-        Log.d("discount", "discount_value:" + value);
-        if (etRatePerUnit.getText().toString().trim().length() > 0) {
-            double Discount = Integer.parseInt(value);
-            double Amt = Double.parseDouble(etRatePerUnit.getText().toString().trim());
-            double TexAmt = (Amt * Discount) / 100;
-            Discount_after = Float.valueOf(String.valueOf(Amt)) - Float.valueOf(String.valueOf(TexAmt));
-            Log.d("discount", "After Discount: " + Discount_after + "  final_value:" + TexAmt);
-            tv_edtTaxAmt.setText("" + String.valueOf(TexAmt));
-        } else {
-            Toast.makeText(getActivity(), "Enter Rate First", Toast.LENGTH_SHORT).show();
+        if (etBtmQuantityItems.getText().toString().trim().length()>0){
+            Log.d("discount", "discount_value:" + value);
+            if (etRatePerUnit.getText().toString().trim().length() > 0) {
+                double Discount = Integer.parseInt(value);
+                double Amt = Double.parseDouble(etRatePerUnit.getText().toString().trim());
+                double TexAmt = (Amt * Discount) / 100;
+                Discount_after = Float.valueOf(String.valueOf(Amt)) - Float.valueOf(String.valueOf(TexAmt));
+                double afterQuantityCalc = TexAmt*Integer.parseInt(etBtmQuantityItems.getText().toString().trim());
+                Log.d("discount", "After Discount: " + Discount_after + "  final_value:" + TexAmt + " "+afterQuantityCalc);
+                tv_edtTaxAmt.setText("" + String.valueOf(afterQuantityCalc));
+            } else {
+                Toast.makeText(getActivity(), "Enter Rate First", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getActivity(), "Please Select Quantity!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -338,7 +343,8 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
                         AddNewProduct.PQUANTITY = quantity;
                         AddNewProduct.PDISCOUNT = discount;
                         AddNewProduct.TOTALAMOUNT = String.valueOf(Float.valueOf(price) * Integer.parseInt(quantity));
-                        AddNewProduct.TOTALDISCOUNTAMOUNT = String.valueOf(Float.valueOf(final_discount) * Integer.parseInt(quantity));
+                        //AddNewProduct.TOTALDISCOUNTAMOUNT = String.valueOf(Float.valueOf(final_discount) * Integer.parseInt(quantity));
+                        AddNewProduct.TOTALDISCOUNTAMOUNT = final_discount;
                         AddNewProduct.PTAX = tax;
                         AddNewProduct.FINALTAXAFTERDISCOUNT = final_tax_amount;
                         AddNewProduct.FINALPRICE = final_discount;
@@ -359,7 +365,7 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                hideBottomSheet();
             }
         }) {
             @Override
@@ -512,14 +518,19 @@ public class BottomSheetAddItems extends BottomSheetDialogFragment {
     }
 
     private void startTaxCalculation(String value) {
-        if (Discount_after != 0) {
-            float Tax = Float.parseFloat(value);
-            double FinalTaxAmt = ((Discount_after * Tax) / 100);
-            mFinalTaxAmt = String.valueOf(FinalTaxAmt);
-            tv_edttaxFinalAmt.setText("" + FinalTaxAmt);
-            Log.d("DiscountPercentage", "" + FinalTaxAmt);
-        } else {
-            Toast.makeText(getActivity(), "Please Enter Amt", Toast.LENGTH_SHORT).show();
+        if (etBtmQuantityItems.getText().toString().trim().length()>0){
+            if (Discount_after != 0) {
+                float Tax = Float.parseFloat(value);
+                double FinalTaxAmt = ((Discount_after * Tax) / 100);
+                mFinalTaxAmt = String.valueOf(FinalTaxAmt);
+                double afterQuantityTaxCalc = FinalTaxAmt*Integer.parseInt(etBtmQuantityItems.getText().toString().trim());
+                tv_edttaxFinalAmt.setText("" + afterQuantityTaxCalc);
+                Log.d("DiscountPercentage", "" + FinalTaxAmt + "   -------   "+ afterQuantityTaxCalc);
+            } else {
+                Toast.makeText(getActivity(), "Please Enter Amt", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(getActivity(), "Please Select Quantity!", Toast.LENGTH_SHORT).show();
         }
     }
 

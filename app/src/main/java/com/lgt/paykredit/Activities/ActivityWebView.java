@@ -22,6 +22,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.Volley;
 import com.downloader.Error;
 import com.downloader.OnCancelListener;
 import com.downloader.OnDownloadListener;
@@ -33,13 +39,19 @@ import com.downloader.Progress;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lgt.paykredit.R;
 import com.lgt.paykredit.extras.FileDownloader;
+import com.lgt.paykredit.extras.InputStreamReader;
 import com.lgt.paykredit.extras.PayKreditAPI;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Random;
 
 import static com.lgt.paykredit.extras.PayKreditAPI.DOWNLOAD_NUMBER;
+import static com.lgt.paykredit.extras.PayKreditAPI.INVOICE_NUMBER;
 
 public class ActivityWebView extends AppCompatActivity {
     private FloatingActionButton fab_downloadStatement;
@@ -51,7 +63,13 @@ public class ActivityWebView extends AppCompatActivity {
     private String mURL = "",urlToOpen="";
     private String mTypeOfURL = "";
     private String mKeyInvoiceUrl = "";
-
+    // download invoice
+    String apiKey = "17486551-d4c3-4151-aa84-f94b9c1e76c8";
+    String apiURL = "http://api.html2pdfrocket.com/pdf";
+    HashMap<String, String> params = new HashMap<String, String>();
+    String fileName;
+    File root;
+    File gpxfile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +81,8 @@ public class ActivityWebView extends AppCompatActivity {
         fab_downloadStatement = findViewById(R.id.fab_downloadStatement);
         webViewPayKredit = findViewById(R.id.webViewPayKredit);
         ivBackSingleUserTransaction = findViewById(R.id.ivBackSingleUserTransaction);
-
         pbWebView = findViewById(R.id.pbWebView);
         Log.d("Account","");
-
 
         Intent getURL = getIntent();
         if (getURL != null) {
@@ -141,66 +157,81 @@ public class ActivityWebView extends AppCompatActivity {
     }
 
     private void startDownLoadInvoice(String KEY_URL,String KEY_INVOICE_NUMBER) {
-        //String KEY_URL_DUMMY = "http://paykredit.in/api/invoice_final.php?number=INSTA118709";
-        String fileName = KEY_INVOICE_NUMBER+".pdf";
-        //String fileName = "INSTA118709"+".pdf";
-        String video_Path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "PayKredit" + "/" + "download/Invoice/";
-        Log.d("dirPath",""+video_Path);
-        // Toast.makeText(ActivityWebView.this, "KEY_URL"+KEY_URL, Toast.LENGTH_SHORT).show();
-        int downloadId = PRDownloader.download(KEY_URL, video_Path, fileName)
-                .build()
-                .setOnStartOrResumeListener(new OnStartOrResumeListener() {
-                    @Override
-                    public void onStartOrResume() {
-                        Log.d("dirPath","StartOrResume download started:");
-                    }
-                })
-                .setOnPauseListener(new OnPauseListener() {
-                    @Override
-                    public void onPause() {
-                        Log.d("dirPath","onPause download started:");
-                    }
-                })
-                .setOnCancelListener(new OnCancelListener() {
-                    @Override
-                    public void onCancel() {
-                        Log.d("dirPath","onCancel download started:");
-                    }
-                })
-                .setOnProgressListener(new OnProgressListener() {
-                    @Override
-                    public void onProgress(Progress progress) {
-                        Log.d("dirPath","progress : ="+progress);
-                    }
-                })
-                .start(new OnDownloadListener() {
-                    @Override
-                    public void onDownloadComplete() {
-                        shareDownloadInvoice(fileName);
-                    }
+        pbWebView.setVisibility(View.VISIBLE);
+        String value = INVOICE_NUMBER + KEY_INVOICE_NUMBER;
+        params.put("apiKey", apiKey);
+        params.put("value", value);
+        Log.d("send_param", "" + params);
+        InputStreamReader inputStreamReader = new InputStreamReader(Request.Method.POST, apiURL, new Response.Listener<byte[]>() {
+            @Override
+            public void onResponse(byte[] response) {
+                try {
+                    if (response != null) {
+                        Random r = new Random();
+                        int i1 = r.nextInt(80 - 65) + 65;
+                        fileName = "PayKreditInvoice" + KEY_INVOICE_NUMBER + ".pdf";
+                        root = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "PayKredit" + "/" + "download/Invoice/", "WebPageToPdf");
+                        if (!root.exists()) {
+                            root.mkdirs();
+                        }
+                        if (root.exists()) {
 
-                    @Override
-                    public void onError(Error error) {
-                        Toast.makeText(ActivityWebView.this, "Download Error", Toast.LENGTH_SHORT).show();
+                            if (gpxfile == null || !gpxfile.exists()) {
+                                gpxfile = new File(root, fileName);
+                                OutputStream op = new FileOutputStream(gpxfile);
+                                gpxfile.setWritable(true);
+                                op.write(response);
+                                op.flush();
+                                op.close();
+                            } else {
+
+                                if (gpxfile.exists()) {
+                                    OutputStream op = new FileOutputStream(gpxfile, true);
+                                    op.write(response);
+                                    op.flush();
+                                    op.close();
+                                }
+                            }
+                        }
+                        pbWebView.setVisibility(View.GONE);
+                        shareDownloadInvoice(fileName);
+                        System.out.print("Response ----------------------" + response.toString());
                     }
-                });
+                } catch (Exception e) {
+                    pbWebView.setVisibility(View.GONE);
+                    Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                    e.printStackTrace();
+                    Toast.makeText(getBaseContext(), ""+e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pbWebView.setVisibility(View.GONE);
+                error.printStackTrace();
+                Toast.makeText(getBaseContext(), ""+error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }, params);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext(), new HurlStack());
+        mRequestQueue.add(inputStreamReader);
     }
 
     private void shareDownloadInvoice(String id_invoice) {
-        File file = new File(Environment.getExternalStorageDirectory() + "/" + "PayKredit" + "/" + "download/Invoice/"+id_invoice);
+        File file = new File(Environment.getExternalStorageDirectory() + "/PayKredit/download/Invoice/WebPageToPdf/" + id_invoice);
         if (file.exists()) {
-            Log.e("file_directory_exists", "exists");
-            Uri videoURI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+            Uri Pdf_URI = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
                     ? FileProvider.getUriForFile(ActivityWebView.this, getPackageName() + ".provider", file)
                     : Uri.fromFile(file);
+            Log.e("file_directory_exists", file + "   exists   " + Pdf_URI.toString());
             Intent intentShareFile = new Intent(Intent.ACTION_SEND);
-            String share_content = "PayKredit Invoice :" +id_invoice;
-            Log.d("shareee", share_content + "");
+            String share_content = "PayKredit Invoice :" + id_invoice;
             intentShareFile.putExtra(Intent.EXTRA_TEXT, share_content);
-            intentShareFile.setType(URLConnection.guessContentTypeFromName(file.getName()));
-            intentShareFile.putExtra(Intent.EXTRA_STREAM, videoURI);
+            intentShareFile.setType("application/pdf");
+            intentShareFile.putExtra(Intent.EXTRA_STREAM, Pdf_URI);
             startActivity(Intent.createChooser(intentShareFile, "Share File"));
             finish();
+        } else {
+            Log.e("file_directory_exists", file + " not  exists   " + id_invoice);
         }
     }
 

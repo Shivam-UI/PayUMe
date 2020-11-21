@@ -48,6 +48,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation fileTree(dir: 'C:\\Users\\hp\\.gradle\\caches\\modules-2\\files-2.1\\net.java.dev.jna\\jna\\4.5.2\\35d000afbaa4ed425d91873b40f4df9b8236875b', include: ['*.aar', '*.jar'], exclude: [])
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

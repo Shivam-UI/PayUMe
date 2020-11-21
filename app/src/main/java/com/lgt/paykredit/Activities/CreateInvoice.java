@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,6 +64,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -126,6 +128,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     TextView tv_due_date, tv_invoice_date, tv_invoice_id, save_invoice_btn, tv_noProductFoundNotify;
     TextView tv_subTotal, tv_duscount_price, tv_gst_amt, tv_totalAmt, tvamount,tv_download_invoice,tv_shareInvoice;
     EditText et_advanceAmount;
+    CheckBox cb_collect_payment_all;
     public static TextView tv_DiscountInPrice, tv_subTotalPrice, tv_AdvancePrice, tv_BalanceDue;
     Set<String> mProductID = new HashSet<>();
     Set<String> mProductPriceSingle = new HashSet<>();
@@ -152,6 +155,9 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     private CreateInvoice activity;
     private String urlToOpen, urlType,PRESS_TYPE;
     private boolean isInvoiceCreated =false;
+    // convert int to decimal
+    DecimalFormat df = new DecimalFormat("#,###,##0.00");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,6 +186,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         PRDownloader.initialize(getApplicationContext(), config);
         // id's
         et_advanceAmount = findViewById(R.id.et_advanceAmount);
+        cb_collect_payment_all = findViewById(R.id.cb_collect_payment_all);
         tv_subTotal = findViewById(R.id.tv_subTotal);
         tv_duscount_price = findViewById(R.id.tv_duscount_price);
         tv_gst_amt = findViewById(R.id.tv_gst_amt);
@@ -376,13 +383,13 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (tv_totalAmt.getText().toString().trim().equalsIgnoreCase("")){
+                if (tv_totalAmt.getText().toString().trim().equalsIgnoreCase("0.00")){
                     Toast.makeText(context, "Please Select Product First", Toast.LENGTH_SHORT).show();
                 }else{
-                    int finalPaidAmt = Integer.parseInt(tv_totalAmt.getText().toString().trim());
+                    double finalPaidAmt = Double.parseDouble(tv_totalAmt.getText().toString().trim());
                     if (charSequence.toString().length()>0){
-                        int AdvancePayment = Integer.parseInt(charSequence.toString());
-                        int PaidAmt = (finalPaidAmt-AdvancePayment);
+                        double AdvancePayment = Double.parseDouble(charSequence.toString());
+                        double PaidAmt = (finalPaidAmt-AdvancePayment);
                         FinalAdvance = String.valueOf(AdvancePayment);
                         Log.d("PaidAmt",""+PaidAmt);
                         if (!String.valueOf(PaidAmt).contains("-")){
@@ -404,6 +411,23 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
             }
         });
 
+        cb_collect_payment_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (cb_collect_payment_all.isChecked()){
+                    if (!tv_totalAmt.getText().toString().trim().equalsIgnoreCase("0.00")){
+                        et_advanceAmount.setText(tv_totalAmt.getText().toString().trim());
+                    }else{
+                        Toast.makeText(context, "Please Select Product", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    et_advanceAmount.setText("");
+                    cb_collect_payment_all.setChecked(false);
+                    tvamount.setText(tv_totalAmt.getText().toString().trim());
+                }
+            }
+        });
+
         myCalendar = Calendar.getInstance();
         dueCalender = Calendar.getInstance();
         // String date = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault()).format(new Date());
@@ -411,6 +435,7 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
         invoice_date_picker = date;
         tv_invoice_date.setText(date);
     }
+
 
     private void getBankDetails() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BANK_DETAILS, new Response.Listener<String>() {
@@ -831,11 +856,11 @@ public class CreateInvoice extends AppCompatActivity implements DatePickerDialog
     private void setCalcDataToView(int sproprice, int pprice, int pdiscunt, int pqty, int padvnc) {
 
         int FIANLAMMT = (sproprice-pprice)+pqty;
-        tv_subTotal.setText(sproprice + "");
-        tv_duscount_price.setText(pprice + "");
-        tv_gst_amt.setText(pqty + "");
-        tv_totalAmt.setText(FIANLAMMT + "");
-        tvamount.setText(FIANLAMMT + "");
+        tv_subTotal.setText(sproprice + ".00");
+        tv_duscount_price.setText(pprice + ".00");
+        tv_gst_amt.setText(pqty + ".00");
+        tv_totalAmt.setText(FIANLAMMT + ".00");
+        tvamount.setText(FIANLAMMT + ".00");
 
         Log.d("we_have",sproprice+" | "+pprice+" | "+pdiscunt+" | "+pqty+" | "+padvnc);
 

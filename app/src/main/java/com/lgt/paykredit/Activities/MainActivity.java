@@ -639,9 +639,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             protected Map<String, DataPart> getByteData() throws AuthFailureError {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-
                 params.put("image", new DataPart(imagename + ".png", getFileDataFromDrawable(converetdImage)));
-
                 Log.e("PARAMS", params + "");
                 return params;
             }

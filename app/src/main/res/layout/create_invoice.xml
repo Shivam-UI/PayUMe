@@ -264,10 +264,21 @@
                     android:padding="10dp"
                     android:weightSum="3">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_weight="1" >
+
+
+                        <CheckBox
+                            android:id="@+id/cb_collect_payment_all"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_marginBottom="13dp"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -422,7 +433,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentEnd="true"
-                                    android:text="0"
+                                    android:text="0.00"
                                     android:textAlignment="textEnd" />
 
 
@@ -445,7 +456,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentEnd="true"
-                                    android:text="0"
+                                    android:text="0.00"
                                     android:textAlignment="textEnd" />
 
 
@@ -474,7 +485,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentEnd="true"
-                                    android:text="0"
+                                    android:text="0.00"
                                     android:textAlignment="textEnd" />
 
 
@@ -505,7 +516,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentEnd="true"
-                                    android:text="0"
+                                    android:text="0.00"
                                     android:textAlignment="textEnd"
                                     android:textColor="@color/black" />
 
@@ -517,6 +528,7 @@
                                 android:orientation="horizontal">
 
                                 <TextView
+                                    android:id="@+id/tv_recieved_text"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="15dp"
@@ -529,7 +541,7 @@
                                     android:layout_width="80dp"
                                     android:layout_height="25dp"
                                     android:layout_alignParentEnd="true"
-                                    android:hint="0"
+                                    android:hint="0.00"
                                     android:inputType="number"
                                     android:maxLength="8"
                                     android:background="@null"
@@ -565,7 +577,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentEnd="true"
-                                    android:text="0"
+                                    android:text="0.00"
                                     android:textAlignment="textEnd"
                                     android:textColor="@color/black" />
 

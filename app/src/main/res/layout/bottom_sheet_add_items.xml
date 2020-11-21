@@ -112,6 +112,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="@null"
                                     android:hint="HSN Code"
+                                    android:maxLength="10"
                                     android:padding="@dimen/padding_4dp"
                                     android:text="1"
                                     android:textColor="@color/black"
